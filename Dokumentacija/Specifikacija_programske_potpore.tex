@@ -128,47 +128,244 @@
 
 				
 			\subsection{Obrasci uporabe}
-				
-				\textbf{\textit{dio 1. revizije}}
-				
+%				
+%				\textbf{\textit{dio 1. revizije}}
+%				
 				\subsubsection{Opis obrazaca uporabe}
-					\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
-					
-
-					\noindent \underbar{\textbf{UC$<$broj obrasca$>$ -$<$ime obrasca$>$}}
+					\noindent \underbar{\textbf{UC1 - Pregled novih kuharica}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
-						\item  \textbf{Opis osnovnog tijeka:}
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik
+						\item  \textbf{Cilj:} Pregledavanje kuharica
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
 						
 						\item[] \begin{packed_enum}
 	
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Nove kuharice su prikazane prilikom učitavanja aplikacije
+							\item Korisnik odabire jednu od navedenih kuharica
+							\item Prikazuje se lista recepata unutar navedene kuharice
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 	
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Nema kuharica u bazi podataka
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Sustav ispisuje poruku da nema kuharica u bazi podataka
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+
 							
 						\end{packed_item}
 					\end{packed_item}
+
+
+
+					\noindent \underbar{\textbf{UC2 - Registracija klijenta}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik
+						\item  \textbf{Cilj:} Stvaranje korisničkog računa s statusom klijenta
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+							\item pritiskom na gumb "Sign up" otvara se sučelje za registraciju
+							\item Korisnik unosi podatke o korisničkom imenu, lozinki, imenu i prezimenu
+							\item Korisnik prima obavijest o uspješnoj registraciji
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Odabir već zauzetog korisničkog imena, unos korisničkog podatka u nedozvoljenom formatu
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neuspjeloj registraciji i vraća ga u sučelje za registraciju
+								\item Korisnik mijenja potrebne podatke i završava registraciju ili odustaje od registracije
+								
+							\end{packed_enum}
+
+							
+						\end{packed_item}
+					\end{packed_item}
+
+
+
+					\noindent \underbar{\textbf{UC3 - Registracija kulinarskog entuzijasta ili nutricionista}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik
+						\item  \textbf{Cilj:} Stvaranje korisničkog računa s statusom kulinarskog entuzijasta ili nutricionista
+						\item  \textbf{Sudionici:} Baza podataka, Administrator
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+							\item pritiskom na gumb "Sign up" otvara se sučelje za registraciju
+							\item Korisnik unosi podatke o korisničkom imenu, lozinki, imenu i prezimenu, e-adresom, kratkom biografijom i slikom
+							\item Korisnik prima obavijest o uspješnoj registraciji nakon odobrenja administratora
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Odabir već zauzetog korisničkog imena i/ili e-maila, unos korisničkog podatka u nedozvoljenom formatu
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neuspjeloj registraciji i vraća ga u sučelje za registraciju
+								\item Korisnik mijenja potrebne podatke i završava registraciju ili odustaje od registracije
+								
+							\end{packed_enum}
+							\item[2.b] Administrator ne odobrava registraciju
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neuspjeloj registraciji i vraća ga u sučelje za registraciju
+								\item Korisnik mijenja potrebne podatke i završava registraciju ili odustaje od registracije
+								
+							\end{packed_enum}
+							
+						\end{packed_item}
+					\end{packed_item}
+
+
+
+					\noindent \underbar{\textbf{UC4 - Pretraživanje profila kulinarskih entuzijasta}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik
+						\item  \textbf{Cilj:} Pregled profila kulinarskih entuzijasta
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+							\item korisnik pritišće ime kulinarskog entuzijasta unutar kuharice
+							\item Otvara se sučelje s podatcima o kulinarskom entuzijastu
+						\end{packed_enum}
+						
+
+					\end{packed_item}
+
+
+
+					\noindent \underbar{\textbf{UC5 - Pretraživanje profila kulinarskih entuzijasta i kuharica}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik, Klijent, Kulinarski entuzijast, Nutricionist
+						\item  \textbf{Cilj:} Pregled profila i kuharica koje sadrže ključnu riječ
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+							\item korisnik u tražilicu upisuje jednu ili više ključnih riječi 
+							\item Korisnik pritišće gumb za pretraživanje
+							\item Otvara se sučelje s listom profila i kuharica koje sadrže ključne riječi
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Niti jedan profil ili kuharica ne sadrži ključnu riječ
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neuspjelom pretraživanju 
+								\item Klijent se vrati u sučelje gdje je bio prije pretraživanja
+								
+							\end{packed_enum}
+
+							\item[2.b] Nije upisana ključna riječ prije pretraživanja
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neuspjelom pretraživanju 
+								\item Klijent se vrati u sučelje gdje je bio prije pretraživanja
+								
+							\end{packed_enum}							
+						\end{packed_item}
+					\end{packed_item}
+
+
+
+					\noindent \underbar{\textbf{UC6 - Anonimno komentiranje kuharica}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik
+						\item  \textbf{Cilj:} Komentiranje kuharica
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+							\item korisnik unutar kuharice pritišće gumb "Komentiraj"
+							\item Otvara se sučelje gdje korisnik upisuje tekst
+							\item Pritiskom na gumb "Spremi", komentar se sprema u bazu podataka i vidljiv je unutar kuharice
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Pokušaj spremanja praznog komentara
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neuspjelom pokušaju spremanja komentara 
+								\item Klijent ispuni polje za komentar ili odustane
+								
+							\end{packed_enum}
+
+						\end{packed_item}
+					\end{packed_item}
+%					\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
+%					
+%
+%					\noindent \underbar{\textbf{UC$<$broj obrasca$>$ -$<$ime obrasca$>$}}
+%					\begin{packed_item}
+%	
+%						\item \textbf{Glavni sudionik: }$<$sudionik$>$
+%						\item  \textbf{Cilj:} $<$cilj$>$
+%						\item  \textbf{Sudionici:} $<$sudionici$>$
+%						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+%						\item  \textbf{Opis osnovnog tijeka:}
+%						
+%						\item[] \begin{packed_enum}
+%	
+%							\item $<$opis korak jedan$>$
+%							\item $<$opis korak dva$>$
+%							\item $<$opis korak tri$>$
+%							\item $<$opis korak četiri$>$
+%							\item $<$opis korak pet$>$
+%						\end{packed_enum}
+%						
+%						\item  \textbf{Opis mogućih odstupanja:}
+%						
+%						\item[] \begin{packed_item}
+%	
+%							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+%							\item[] \begin{packed_enum}
+%								
+%								\item $<$opis rješenja mogućeg scenarija korak 1$>$
+%								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+%								
+%							\end{packed_enum}
+%							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+%							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+%							
+%						\end{packed_item}
+%					\end{packed_item}
 				
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
