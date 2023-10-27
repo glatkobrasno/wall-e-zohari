@@ -2,56 +2,130 @@
 		
 	\section{Funkcionalni zahtjevi}
 			
-			\textbf{\textit{dio 1. revizije}}\\
+			%\textbf{\textit{dio 1. revizije}}\\
 			
-			\textit{Navesti \textbf{dionike} koji imaju \textbf{interes u ovom sustavu} ili  \textbf{su nositelji odgovornosti}. To su prije svega korisnici, ali i administratori sustava, naručitelji, razvojni tim.}\\
+			%\textit{Navesti \textbf{dionike} koji imaju \textbf{interes u ovom sustavu} ili  \textbf{su nositelji odgovornosti}. To su prije svega korisnici, ali i administratori sustava, naručitelji, razvojni tim.}\\
 				
-			\textit{Navesti \textbf{aktore} koji izravno \textbf{koriste} ili \textbf{komuniciraju sa sustavom}. Oni mogu imati inicijatorsku ulogu, tj. započinju određene procese u sustavu ili samo sudioničku ulogu, tj. obavljaju određeni posao. Za svakog aktora navesti funkcionalne zahtjeve koji se na njega odnose.}\\
+			%\textit{Navesti \textbf{aktore} koji izravno \textbf{koriste} ili \textbf{komuniciraju sa sustavom}. Oni mogu imati inicijatorsku ulogu, tj. započinju određene procese u sustavu ili samo sudioničku ulogu, tj. obavljaju određeni posao. Za svakog aktora navesti funkcionalne zahtjeve koji se na njega odnose.}\\
 			
 			
 			\noindent \textbf{Dionici:}
 			
 			\begin{packed_enum}
 				
-				\item Dionik 1
-				\item Dionik 2				
-				\item ...
+				\item Korisnici
+				\item[]\begin{packed_enum}
+					\item Neregistrirani korisnici
+					\item Klijenti
+					\item Kulinarski entuzijasti
+					\item Nutricionisti
+				\end{packed_enum}
+				\item Administratori
 				
 			\end{packed_enum}
 			
 			\noindent \textbf{Aktori i njihovi funkcionalni zahtjevi:}
 			
-			
 			\begin{packed_enum}
-				\item  \underbar{Aktor 1 (inicijator) može:}
+				\item  \underbar{Neregistrirani korisnik (inicijator) može:}
 				
 				\begin{packed_enum}
 					
-					\item funkcionalnost 1
-					\item funkcionalnost 2
+					\item Pregledavati kuharice sortirane po novosti na prednjoj stranici
+					\item Poslati zahtjev za registraciju:
 					\begin{packed_enum}
 						
-						\item  podfunkcionalnost 1 
-						\item  podfunkcionalnost 2
+						\item  Za klijenta s korisničkim imenom, lozinkom te imenom i prezimenom 
+						\item  Za kulinarskog entuzijasta ili nutricionista sa dodatnom slikom, e-adresom i kratkom biografijom
 				
 					\end{packed_enum}
-					\item  funkcionalnost 3
+					\item  Pretraživati profile kulinarskih entuzijasta
+					\item Pretraživati i anonimno komentirati kuharice
 					
 				\end{packed_enum}
-			
-				\item  \underbar{Aktor 2 (sudionik) može:}
+
+				\item  \underbar{Klijent (inicijator) može:}
 				
 				\begin{packed_enum}
 					
-					\item funkcionalnost 1
-					\item funkcionalnost 2
+					\item Sve što i neregistrirani korisnik
+					\item Odabrati dijetu koju prate
+					\item Pretraživati recepte skeniranjem QR koda proizvoda
+					\item Označiti konzumirane recepte
+					
+				\end{packed_enum}
+				
+				\item  \underbar{Kulinarski entuzijast (inicijator) može:}
+				
+				\begin{packed_enum}
+					
+					\item Sve što i klijent
+					\item Kreirati kuharice, to jest tematski povezane skupove recepata
+					
+				\end{packed_enum}
+
+				\item  \underbar{Nutricionist (inicijator) može:}
+				
+				\begin{packed_enum}
+					
+					\item Sve što i klijent
+					\item Unositi informacije o proizvodima
+					\item Kategorizirati proizvode
+					\item Kreirati dijete
+					
+				\end{packed_enum}
+
+				\item  \underbar{Administrator (inicijator) može:}
+				
+				\begin{packed_enum}
+					
+					\item Sve što i klijent, nutricionist i kulinarski entuzijast
+					\item Odobriti prijave nutricionista i kulinarskih entuzijasta
+					\item Pisati u i čitati iz baze podataka
+					
+				\end{packed_enum}
+
+				\item  \underbar{Baza podataka (sudionik) može:}
+	
+				\begin{packed_enum}
+					
+					\item Brinuti se da je zadovoljen model podataka
+					\item čuvati trenutno stanje korisnika, kuharica, dijeti i recepata
 					
 				\end{packed_enum}
 			\end{packed_enum}
 			
 			\eject 
-			
-			
+
+%			\begin{packed_enum}
+%				\item  \underbar{Aktor 1 (inicijator) može:}
+%				
+%				\begin{packed_enum}
+%					
+%					\item funkcionalnost 1
+%					\item funkcionalnost 2
+%					\begin{packed_enum}
+%						
+%						\item  podfunkcionalnost 1 
+%						\item  podfunkcionalnost 2
+%				
+%					\end{packed_enum}
+%					\item  funkcionalnost 3
+%					
+%				\end{packed_enum}
+%			
+%				\item  \underbar{Aktor 2 (sudionik) može:}
+%				
+%				\begin{packed_enum}
+%					
+%					\item funkcionalnost 1
+%					\item funkcionalnost 2
+%					
+%				\end{packed_enum}
+%			\end{packed_enum}
+%			
+%			\eject 
+
 				
 			\subsection{Obrasci uporabe}
 				
