@@ -576,6 +576,326 @@
 
 						\end{packed_item}
 					\end{packed_item}
+
+                    \noindent \underbar{\textbf{UC14 - Unošenje proizvoda}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Unošenje novog proizvoda zajedno sa relevantnim atributima
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Nema navedenog proizvoda u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Dodaj proizvod"
+                            \item Prikazuje se sučelje u koje korisnik upisuje potrebne podatke
+                            \item Korisnik pritisne gumb "Spremi" kojim sprema proizvod zajedno sa vezanim informacijama u bazu podataka
+                        \end{packed_enum}
+                        
+                        \item  \textbf{Opis mogućih odstupanja:}
+                        
+                        \item[] \begin{packed_item}
+    
+                            \item[2.a] Proizvod tog imena već postoji u bazi podataka
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku da je proizvod istog imena već u bazi podataka
+                                \item Korisnik mijenja naziv proizvoda ili odustane
+                                
+                            \end{packed_enum}
+
+                            \item[2.b] Unos informacija u nedozvoljenom formatu
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku s dojavom greške
+                                \item Korisnik mijenja informacije ili odustane
+                                
+                            \end{packed_enum}
+
+                        \end{packed_item}
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC15 - Promjena informacija o proizvodima}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Promjena atributa postojećeg proizvoda
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Postoji navedeni proizvod u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Promijeni proizvod"
+                            \item Prikazuje se sučelje u koje korisnik mijenja podatke proizvoda
+                            \item Korisnik pritisne gumb "Spremi" kojim sprema proizvod zajedno sa promjenjenim informacijama u bazu podataka
+                        \end{packed_enum}
+                        
+                        \item  \textbf{Opis mogućih odstupanja:}
+                        
+                        \item[] \begin{packed_item}
+    
+                            \item[2.a] Unos informacija u nedozvoljenom formatu
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku s dojavom greške
+                                \item Korisnik mijenja informacije ili odustane
+                                
+                            \end{packed_enum}
+
+                            
+                        \end{packed_item}
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC16 - Brisanje proizvoda}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Brisanje postojećeg proizvoda
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Postoji navedeni proizvod u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Briši proizvod"
+                            \item Prikazuje se sučelje u kojemu se daje korisniku opcija "Briši" ili "Odustani"
+                            \item Korisnik pritisne gumb "Briši" čime se briše proizvod iz baze podataka ili pritisne gumb "Odustani" čime se zaustavi brisanje proizvoda
+                        \end{packed_enum}
+                        
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC17 - Kategorizirati proizvode}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Dodavanje kategorije postojećem proizvodu
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Postoji navedeni proizvod u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Kategoriziraj proizvod"
+                            \item Prikazuje se sučelje u koje korisnik dodaje ili mijenja kategoriju proizvoda
+                            \item Korisnik pritisne gumb "Spremi" kojim sprema kategoriju proizvoda u bazu podataka
+                        \end{packed_enum}
+                        
+                        \item  \textbf{Opis mogućih odstupanja:}
+                        
+                        \item[] \begin{packed_item}
+    
+                            \item[2.a] Unos informacija u nedozvoljenom formatu
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku s dojavom greške
+                                \item Korisnik mijenja informacije ili odustane
+                                
+                            \end{packed_enum}
+
+                            
+                        \end{packed_item}
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC18 - Dodavanje kategorija}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Dodavanje nove kategorije
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Nema navedene kategorije u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Dodaj kategoriju"
+                            \item Prikazuje se sučelje u koje korisnik dodaje kategoriju
+                            \item Korisnik pritisne gumb "Spremi" kojim sprema kategoriju proizvoda u bazu podataka
+                        \end{packed_enum}
+                        
+                        \item  \textbf{Opis mogućih odstupanja:}
+                        
+                        \item[] \begin{packed_item}
+    
+                            \item[2.a] Kategorija tog imena već postoji u bazi podataka
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku da je kategorija istog imena već u bazi podataka
+                                \item Korisnik mijenja naziv kategorije ili odustane
+                                
+                            \end{packed_enum}
+
+                            \item[2.b] Unos informacija u nedozvoljenom formatu
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku s dojavom greške
+                                \item Korisnik mijenja informacije ili odustane
+                                
+                            \end{packed_enum}
+
+                            
+                        \end{packed_item}
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC19 - Promjena kategorije}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Promjena atributa kategorije
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Postoji navedena kategorija u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Promijeni kategoriju"
+                            \item Prikazuje se sučelje gdje korisnik mijenja atribute kategorije
+                            \item Korisnik pritisne gumb "Spremi" kojim sprema promjene u bazu podataka
+                        \end{packed_enum}
+                        
+                        \item  \textbf{Opis mogućih odstupanja:}
+                        
+                        \item[] \begin{packed_item}
+
+                            \item[2.a] Unos informacija u nedozvoljenom formatu
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku s dojavom greške
+                                \item Korisnik mijenja informacije ili odustane
+                                
+                            \end{packed_enum}
+
+                            
+                        \end{packed_item}
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC20 - Brisanje kategorija}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Brisanje postojeće kategorije
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Postoji navedena kategorije u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Briši kategoriju"
+                            \item Prikazuje se sučelje u kojemu se daje korisniku opcija "Briši" ili "Odustani"
+                            \item Korisnik pritisne gumb "Briši" čime se briše kategorija iz baze podataka ili pritisne gumb "Odustani" čime se zaustavi brisanje kategorije
+                        \end{packed_enum}
+                        
+                    \end{packed_item}
+
+
+                    \noindent \underbar{\textbf{UC21 - Dodavanje dijeta}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Dodavanje nove dijete
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Nema navedene dijete u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Dodaj dijetu"
+                            \item Prikazuje se sučelje u koje korisnik dodaje dijetu
+                            \item Korisnik pritisne gumb "Spremi" kojim sprema dijetu u bazu podataka
+                        \end{packed_enum}
+                        
+                        \item  \textbf{Opis mogućih odstupanja:}
+                        
+                        \item[] \begin{packed_item}
+    
+                            \item[2.a] Dijeta tog imena već postoji u bazi podataka
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku da je dijeta istog imena već u bazi podataka
+                                \item Korisnik mijenja naziv dijete ili odustane
+                                
+                            \end{packed_enum}
+
+                            \item[2.b] Unos informacija u nedozvoljenom formatu
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku s dojavom greške
+                                \item Korisnik mijenja informacije ili odustane
+                                
+                            \end{packed_enum}
+
+                            
+                        \end{packed_item}
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC22 - Promjena dijeta}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Promjena atributa i stavki dijete
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Postoji navedena kategorija u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Promijeni dijetu"
+                            \item Prikazuje se sučelje gdje korisnik mijenja atribute i stavke dijete
+                            \item Korisnik pritisne gumb "Spremi" kojim sprema promjene u bazu podataka
+                        \end{packed_enum}
+                        
+                        \item  \textbf{Opis mogućih odstupanja:}
+                        
+                        \item[] \begin{packed_item}
+
+                            \item[2.a] Unos informacija u nedozvoljenom formatu
+                            \item[] \begin{packed_enum}
+                                
+                                \item Sustav ispisuje poruku s dojavom greške
+                                \item Korisnik mijenja informacije ili odustane
+                                
+                            \end{packed_enum}
+
+                            
+                        \end{packed_item}
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC23 - Brisanje dijeta}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Nutricionist, Administrator
+                        \item  \textbf{Cilj:} Brisanje postojeće dijete
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Postoji navedena dijeta u bazi podataka
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Briši dijetu"
+                            \item Prikazuje se sučelje u kojemu se daje korisniku opcija "Briši" ili "Odustani"
+                            \item Korisnik pritisne gumb "Briši" čime se briše dijeta iz baze podataka ili pritisne gumb "Odustani" čime se zaustavi brisanje dijete
+                        \end{packed_enum}
+                        
+                    \end{packed_item}
+
+                    \noindent \underbar{\textbf{UC24 - Prihvaćanje ili odbijanje prijave nutricionista i kulinarskih entuzijasta}}
+                    \begin{packed_item}
+    
+                        \item \textbf{Glavni sudionik: }Administrator
+                        \item  \textbf{Cilj:} Odobriti ili poništiti zahtjev za ulogu nutricionista ili kulinarskog entuzijasta korisniku
+                        \item  \textbf{Sudionici:} Baza podataka
+                        \item  \textbf{Preduvjet:} Postoji prijava za ulogu nutricionista ili kulinarskog entuzijasta
+                        \item  \textbf{Opis osnovnog tijeka:} 
+                        
+                        \item[] \begin{packed_enum}
+    
+                            \item Korisnik pritisne gumb "Provjeri prijavu"
+                            \item Prikazuje se sučelje u kojemu se daje korisniku opcija "Prihvati" ili "Odbij"
+                            \item Korisnik pritisne gumb "Prihvati" čime se prihvaća prijava korisnika za ulogu u bazi podataka ili pritisne gumb "Odbij" čime se odbija prijava korisnika za traženu ulogu
+                        \end{packed_enum}
+                        
+                    \end{packed_item}  
 %%
 %                   \noindent \underbar{\textbf{UC9 - Pretraživanje unosom QR koda}}
 %                    \begin{packed_item}
