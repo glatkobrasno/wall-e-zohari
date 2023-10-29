@@ -135,7 +135,7 @@
 					\noindent \underbar{\textbf{UC1 - Pregled novih kuharica}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik: }Neregistrirani korisnik
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik, Klijent, Kulinarski entuzijast, Administrator
 						\item  \textbf{Cilj:} Pregledavanje kuharica
 						\item  \textbf{Sudionici:} Baza podataka
 						\item  \textbf{Preduvjet:} -
@@ -239,10 +239,10 @@
 
 
 
-					\noindent \underbar{\textbf{UC4 - Pretraživanje profila kulinarskih entuzijasta}}
+					\noindent \underbar{\textbf{UC4 - Pregled profila kulinarskih entuzijasta}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik: }Neregistrirani korisnik
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik, Klijent, Kulinarski entuzijast, Nutricionist, Administrator
 						\item  \textbf{Cilj:} Pregled profila kulinarskih entuzijasta
 						\item  \textbf{Sudionici:} Baza podataka
 						\item  \textbf{Preduvjet:} -
@@ -262,7 +262,7 @@
 					\noindent \underbar{\textbf{UC5 - Pretraživanje profila kulinarskih entuzijasta i kuharica}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik: }Neregistrirani korisnik, Klijent, Kulinarski entuzijast, Nutricionist
+						\item \textbf{Glavni sudionik: }Neregistrirani korisnik, Klijent, Kulinarski entuzijast, Nutricionist, Administrator
 						\item  \textbf{Cilj:} Pregled profila i kuharica koje sadrže ključnu riječ
 						\item  \textbf{Sudionici:} Baza podataka
 						\item  \textbf{Preduvjet:} -
@@ -329,6 +329,290 @@
 
 						\end{packed_item}
 					\end{packed_item}
+
+
+
+					\noindent \underbar{\textbf{UC7 - Prijava u sustav}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: } Klijent, Kulinarski entuzijast, Nutricionist, Administrator
+						\item  \textbf{Cilj:} Prijava u sustav kao registrirani korisnik
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Registracija profila
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+							\item Korisnik odabire opciju "Prijavi se"
+							\item Korisnik ispunjava potrebne podatke
+							\item Korisnik je prijavljen i vraća se na početnu stranicu
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Neispravni unos podataka
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neispravnim podatcima i traži ponovni unos podataka
+								
+							\end{packed_enum}
+
+						\end{packed_item}
+					\end{packed_item}
+
+
+					\noindent \underbar{\textbf{UC8 - Odabir dijete koje će korisnik pratiti}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }Klijent, Kulinarski entuzijast, Nutricionist, Administrator 
+						\item  \textbf{Cilj:} Odabir dijete
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+							\item korisnik odabire gumb "Odabir dijete"
+							\item Otvara se sučelje gdje korisnik odabire jednu od navedenih dijeta
+							\item Pritiskom na gumb "Spremi", odabrana dijeta se sprema i vidljiva je u receptima koje korisnik pregledava ili filtrira recepte koji zadovoljavaju dijetu - potrebno je odlućuti kaj će dijeta radit
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Pokušaj spremanja bez odabira dijete
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neuspjelom pokušaju spremanja dijete
+								\item Klijent ispuni polje za dijetu ili odustane
+								
+							\end{packed_enum}							
+							\item[2.b] Nema dijeta u sustavu
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o nedostatku dijeta
+								
+							\end{packed_enum}
+
+						\end{packed_item}
+					\end{packed_item}
+
+
+
+
+
+					\noindent \underbar{\textbf{UC9 - Pretraživanje unosom QR koda}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }Klijent, Kulinarski entuzijast, Nutricionist, Administrator 
+						\item  \textbf{Cilj:} Na temelju koda na proizvodu vidjeti recepte u kojima se on nalazi
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+						\item Korisnik bira opciju "Skeniraj kod proizvoda"
+						\item Korisnik je poslan na stranicu s opcijom postavljanja slike na poslužitelj
+						\item Korisnik postavlja sliku i čeka njenu obradu
+						\item Korisnik dobiva popis recepata koji sadrže skenirani proizvod
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Slika nije u podržanom formatu
+							\item[] \begin{packed_enum}
+								
+								\item Sustav ispisuje poruku da slika nije u podržanom formatu i traži se ponovni unos slike
+								
+							\end{packed_enum}							
+							\item[2.b] Kod u slici nije pronađen
+							\item[] \begin{packed_enum}
+								
+								\item Sustav ispisuje poruku da kod na slici nije prepoznat i traži se ponovni unos slike
+								
+							\end{packed_enum}
+
+						\end{packed_item}
+					\end{packed_item}
+
+
+
+					\noindent \underbar{\textbf{UC10 - Kreiranje kuharice}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: } Kulinarski entuzijast, Administrator 
+						\item  \textbf{Cilj:} Kreirati kuharicu koja sadrži različite recepte
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+						\item Korisnik bira opciju "Kreiraj kuharicu" nakon čega se otvara sučelje za kreiranje kuharice
+						\item Korisnik odabire gumb "Dodaj recept" i odabire recept koji će dodati u kuharicu				
+						\item Korisnik odabire gumb "Obriši recept" i odabire recept koji će se maknuti iz kuharice
+						\item Korisnik odabire gumb "Spremi kuharicu" čime se kuharica sprema u bazu podataka
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Spremanje prazne kuharice
+							\item[] \begin{packed_enum}
+								
+								\item Sustav ispisuje poruku da nema recepata u kuharici
+								\item Korisnik dodaje recepte kuharicu ili odustaje
+								
+							\end{packed_enum}							
+
+
+						\end{packed_item}
+					\end{packed_item}
+
+
+					\noindent \underbar{\textbf{UC11 - Uređivanje kuharice}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: } Kulinarski entuzijast, Administrator 
+						\item  \textbf{Cilj:} Uređivanje jedne od vlastitih kuharica
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+						\item Korisnik bira opciju "Uredi kuharicu" nakon čega se otvara sučelje za uređivanje kuharice
+						\item Korisnik odabire gumb "Dodaj recept" i odabire recept koji će dodati u kuharicu				
+						\item Korisnik odabire gumb "Obriši recept" i odabire recept koji će se maknuti iz kuharice
+						\item Korisnik odabire gumb "Spremi kuharicu" čime se kuharica sprema u bazu podataka
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Spremanje prazne kuharice
+							\item[] \begin{packed_enum}
+								
+								\item Sustav ispisuje poruku da nema recepata u kuharici
+								\item Korisnik dodaje recepte kuharicu ili odustaje
+								
+							\end{packed_enum}							
+
+
+						\end{packed_item}
+					\end{packed_item}
+
+
+
+					\noindent \underbar{\textbf{UC12 - Kreiranje recepata}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: } Kulinarski entuzijast, Administrator 
+						\item  \textbf{Cilj:} Kreirati kuharicu koja sadrži različite recepte
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+						\item Korisnik bira opciju "Kreiraj recept" nakon čega se otvara sučelje za kreiranje recepata
+						\item Korisnik odabire sastojke koji ulaze u recept i upisuje način pripreme jela
+						\item Korisnik odabire gumb "Spremi recept" čime se recept sprema u bazu podataka
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Spremanje praznog recepta
+							\item[] \begin{packed_enum}
+								
+								\item Sustav ispisuje poruku da nema sastojaka ili opisa pripreme
+								\item Korisnik dodaje potrebne informacije ili odustaje
+								
+							\end{packed_enum}							
+
+
+						\end{packed_item}
+					\end{packed_item}
+
+
+					\noindent \underbar{\textbf{UC13 - Uređivanje recepata}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: } Kulinarski entuzijast, Administrator 
+						\item  \textbf{Cilj:} Uređivanje jednog od vlastitih recepata
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+						\item Korisnik bira opciju "Uredi recept" nakon čega se otvara sučelje za uređivanje recepata
+						\item Korisnik mijenja sastojke koji ulaze u recept i mijenja opis pripreme
+						\item Korisnik odabire gumb "Spremi recept" čime se recept sprema u bazu podataka
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Spremanje praznog recepta
+							\item[] \begin{packed_enum}
+								
+								\item Sustav ispisuje poruku da nema sastojaka ili opisa pripreme
+								\item Korisnik dodaje potrebne informacije ili odustaje
+								
+							\end{packed_enum}						
+
+
+						\end{packed_item}
+					\end{packed_item}
+%%
+%                   \noindent \underbar{\textbf{UC9 - Pretraživanje unosom QR koda}}
+%                    \begin{packed_item}
+%
+%                        \item \textbf{Glavni sudionik: }Klijent
+%                        \item  \textbf{Cilj:}Na temelju koda na proizvodu vidjeti recepte u kojima se on nalazi
+%                        \item  \textbf{Sudionici:} Baza podataka
+%                        \item  \textbf{Preduvjet:} Klijent je prijavljen
+%                        \item  \textbf{Opis osnovnog tijeka:}
+%
+%                        \item[] \begin{packed_enum}
+%
+% 						\item Korisnik bira opciju "Skeniraj kod proizvoda"
+%						\item Korisnik je poslan na stranicu s opcijom postavljanja slike na poslužitelj
+%						\item Korisnik postavlja sliku i čeka njenu obradu
+%						\item Korisnik dobiva popis recepata koji sadrže skenirani proizvod
+%                         \end{packed_enum}
+%					                        
+%
+%                         \item  \textbf{Opis mogućih odstupanja:}
+%
+%                         \item[] \begin{packed_item}
+%
+%                       	\item[3.a] Slika nije u podržanom formatu
+%                             \item[] \begin{packed_enum}
+%
+%                                 \item Sustav ispisuje poruku da slika nije u podržanom formatu i traži se ponovni unos slike
+%
+%                             \end{packed_enum}
+%					\item[3.b] Kod u slici nije pronađen
+%					\item[] \begin{packed_enum}
+%
+%                                \item Sustav ispisuje poruku da kod na slici nije prepoznat i traži se ponovni unos slike
+%
+%                         \end{packed_enum}
+%                    \end{packed_item}
+
 %					\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
 %					
 %
