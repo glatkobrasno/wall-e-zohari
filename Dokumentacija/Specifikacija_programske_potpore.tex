@@ -895,7 +895,44 @@
                             \item Korisnik pritisne gumb "Prihvati" čime se prihvaća prijava korisnika za ulogu u bazi podataka ili pritisne gumb "Odbij" čime se odbija prijava korisnika za traženu ulogu
                         \end{packed_enum}
                         
-                    \end{packed_item}  
+                    \end{packed_item}  					
+
+
+
+			\noindent \underbar{\textbf{UC25 - Komentiranje kuharica}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }Klijent, Kulinarski entuzijast, Nutricionist, Administrator 
+						\item  \textbf{Cilj:} Komentiranje kuharica
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:} 
+						
+						\item[] \begin{packed_enum}
+	
+							\item korisnik unutar kuharice pritišće gumb "Komentiraj"
+							\item Otvara se sučelje gdje korisnik upisuje tekst
+							\item Pritiskom na gumb "Spremi", komentar se sprema u bazu podataka i vidljiv je unutar kuharice
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] Pokušaj spremanja praznog komentara
+							\item[] \begin{packed_enum}
+								
+								\item Sustav obavještava korisnika o neuspjelom pokušaju spremanja komentara 
+								\item Klijent ispuni polje za komentar ili odustane
+								
+							\end{packed_enum}
+
+						\end{packed_item}
+					\end{packed_item}
+
+
+
+
 %%
 %                   \noindent \underbar{\textbf{UC9 - Pretraživanje unosom QR koda}}
 %                    \begin{packed_item}
