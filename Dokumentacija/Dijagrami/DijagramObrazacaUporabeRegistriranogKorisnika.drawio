@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-11-03T10:05:06.989Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="5NcEHlICZCCoLSX-o0Ei" version="22.0.3" type="device">
+<mxfile host="Electron" modified="2023-11-03T13:05:14.232Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="w7RB7ZG31H0ZLqi_fsJ0" version="22.0.3" type="device">
   <diagram name="Page-1" id="fwK2Ggv9HPIssb5DjCe4">
     <mxGraphModel dx="1674" dy="848" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -56,6 +56,9 @@
             <mxPoint x="547" y="460" as="sourcePoint" />
             <mxPoint x="597" y="410" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="a7sIe61lCEOvOHhmKymb-18" value="Svi obrazci uporabe komuniciraju s bazom podataka" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingTop=-6;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="715" y="445" width="95" height="62" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
