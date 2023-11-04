@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-11-04T10:47:54.499Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="OGhd3--lqPpweMhkiHSo" version="22.0.3" type="device">
+<mxfile host="Electron" modified="2023-11-04T20:27:37.618Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="6b2LG8JRRvyGSuzLwsM3" version="22.0.3" type="device">
   <diagram name="Page-1" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
     <mxGraphModel dx="1674" dy="848" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -37,7 +37,7 @@
             <mxPoint y="-5" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="GmPQLxV8rdaBZSMHByHE-1" value="UC24 - Prihvaćanje ili odbijanje registracije Nutricionista i kulinarskih entuzijasta" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=81;height=111;" vertex="1" parent="7baba1c4bc27f4b0-4">
+        <mxCell id="GmPQLxV8rdaBZSMHByHE-1" value="UC24 - Prihvaćanje ili odbijanje registracije Nutricionista i kulinarskih entuzijasta" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=81;height=111;" parent="7baba1c4bc27f4b0-4" vertex="1">
           <mxGeometry x="-530" y="-10" width="641" height="600" as="geometry" />
         </mxCell>
         <mxCell id="7baba1c4bc27f4b0-8" value="Korisnik" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
