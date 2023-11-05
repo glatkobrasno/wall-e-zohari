@@ -1010,22 +1010,70 @@
 				
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
-					
-					\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
+					\begin{figure}[H]
+						\centering
+						\includegraphics[scale=0.5]{dijagrami/dijagram-obrazaca-uporabe-neregistriranog-korisnika.png}
+						\caption{Dijagram obrasca uporabe za neregistriranog korisnika}
+						\label{fig:uc-neregistrirani}
+					\end{figure}
+					\begin{figure}[H]
+						\centering
+						\includegraphics[scale=0.5]{dijagrami/dijagram-obrazaca-uporabe-registriranog-korisnika.png}
+						\caption{Dijagram obrasca uporabe za registriranog korisnika}
+						\label{fig:uc-registrirani}
+					\end{figure} 
+					\begin{figure}[H]
+						\centering
+						\includegraphics[scale=0.5]{dijagrami/dijagram-obrazaca-uporabe-za-sve-korisnike.png}
+						\caption{Dijagram obrasca uporabe zajedničkog za sve korisnike}
+						\label{fig:uc-svi-korisnici}
+					\end{figure}
+					\begin{figure}[H]
+						\centering
+						\includegraphics[scale=0.5]{dijagrami/dijagram-obrazaca-uporabe-kulinarskog-entuzijasta-i-nutricionista.png}
+						\caption{Dijagram obrasca uporabe za kulinarskog entuzijasta i nutricionista}
+						\label{fig:uc-kulinarski-i-nutricionist}
+					\end{figure}
+%					\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
+
 				\eject		
 				
 			\subsection{Sekvencijski dijagrami}
-				
-				\textbf{\textit{dio 1. revizije}}\\
-				
-				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
+					\begin{figure}[H]
+						\centering
+						\includegraphics[scale=0.5]{dijagrami/sekvencijski-dijagram-prijave-u-sustav.png}
+						\caption{Sekvencijski dijagram prijave u sustav}
+						\label{fig:sekv-prijava}
+					\end{figure}
+					\subsubsection{Opis dijagrama}
+						Opis
+					
+					\begin{figure}[H]
+						\centering
+						\includegraphics[scale=0.5]{dijagrami/sekvencijski-dijagram-registracije-nutricionista-i-kulinarskih-entuzijasta.png}
+						\caption{Sekvencijski dijagram-registracije nutricionista i kulinarskih entuzijasta}
+						\label{fig:sekv-registracija}
+					\end{figure}
+					\subsubsection{Opis dijagrama}
+						Opis
+%				\textbf{\textit{dio 1. revizije}}\\
+%				
+%				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
 				\eject
 	
 		\section{Ostali zahtjevi}
-		
-			\textbf{\textit{dio 1. revizije}}\\
-		 
-			 \textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
+			\begin{packed_item}
+				\item Potrebno je omogućiti rad više korisnika u isto vrijeme.
+				\item Sustav mora biti implementiran web aplikacijom
+				\item Osjetljivi podatci poput lozinki moraju biti pohranjeni na adekvatan način, to jest kriptirani
+				\item Korisničko sučelje mora biti otporno na pogreške tijekom korisnika
+				\item Sustav mora biti javno dostupan putem web domene 
+				\item Promet koji razmjenjuju klijent i poslužitelj mora biti zaštićen protokolom HTTPS
+				\item Aplikacija mora biti razvijena koristeći objektno-orijentiranu paradigmu
+			\end{packed_item}
+%			\textbf{\textit{dio 1. revizije}}\\
+%		 
+%			 \textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
 			 
 			 
 			 
