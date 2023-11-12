@@ -1,10 +1,18 @@
+//modules imports
 import React from 'react';
+//css imports
+import '../styles/Header.css';
+//component imports
+import Menue from './Menue';
 
 function Header(){
     return(
         <div className = "header">
-            <h1>Header Component</h1>
+            <div className = "menue_button"></div>
+            
+            <Menue/>
         </div>
+        
 
     );
 }
