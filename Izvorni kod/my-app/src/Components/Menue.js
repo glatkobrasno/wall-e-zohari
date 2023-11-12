@@ -10,7 +10,7 @@ function Menue(){
             <div className="menue">
                 <ul className="select">
                     <Link to="/Login"><li>LogIn</li></Link>
-                    <li>nesto</li>
+                    <Link to="/SignUp"><li>SignUp</li></Link>
                     <li>nesto</li>
                 </ul>
             </div>

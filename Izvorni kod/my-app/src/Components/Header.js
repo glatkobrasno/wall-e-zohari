@@ -8,18 +8,13 @@ import BackgroindImg1 from '../images/menueIcon_cloase.png'
 
 function Header(){
     //variables
-    const [menueOpen, setMenueOpen] = useState(false);
-    var iconStyle = { transition: '0.3s'}
+    var [menueOpen, setMenueOpen] = useState(false);
+    var iconStyle = { transition: '0.6s'}
     function menueIconClick(){
         setMenueOpen(!menueOpen);
     }
-
-    if(menueOpen){// changes the stile depending on menue state
-           iconStyle = {...iconStyle, backgroundColor : 'rgb(60, 86, 119)', backgroundImage : `url(${BackgroindImg1})`,}; 
-        }
-        else{ iconStyle = {...iconStyle,};
-        }
-
+    
+    checkMopen();
     // render resault
     return(
         <div className = "header">
@@ -33,6 +28,15 @@ function Header(){
             {menueOpen && <Menue/>} {/*Adds menue if Icon is clicked*/}
         </div>
     );
+
+    function checkMopen(){
+        if(menueOpen){// changes the stile depending on menue state
+           iconStyle = {...iconStyle, backgroundColor : 'rgb(60, 86, 119)', backgroundImage : `url(${BackgroindImg1})`,}; 
+        }
+        else{ iconStyle = {...iconStyle,};
+        }
+    }
 }
+
 
 export default Header;
