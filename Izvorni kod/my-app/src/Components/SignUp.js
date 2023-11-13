@@ -68,6 +68,7 @@ function Form(){
         }
 
         if(!incorrect){
+            toDataBase(data);// upload na bazu
             alert('Uspješna prijava');
         }
 
@@ -91,6 +92,10 @@ function Form(){
         function ifUserFree(){
             // treba provjeriti postoji li user u bazi
             return true;
+        }
+        function toDataBase(data){
+            // implmentirati upload na bazu
+            return ;
         }
     }
 
