@@ -5,6 +5,13 @@ import { useState } from 'react';
 import '../styles/SignUp.css'
 //component imports
 
+
+function useFormField(initialValue) {
+    const [value, setValue] = React.useState(initialValue);
+    const handleChange = (e) => setValue(e.target.value);
+    return { value, onChange: handleChange };
+}
+
 function SignUp(){
     return(
         <div className  = "signUp_box">
@@ -17,24 +24,88 @@ function SignUp(){
 
 
 function Form(){
+    // variables
+    const [file, setFile]=useState(''); // for using file
+    const [imgUrl, setImgUrl] = useState(''); // for image prepreview
+    const fname = useFormField('');
+    const surname = useFormField('');
+    const email = useFormField('');
+    const username = useFormField('');
+    const password = useFormField('');
+    const passwordC = useFormField('');
+    const bio = useFormField('');
+    // const imgfile = useFormField(null);
 
-    const [file, setFile]=useState()
     function handleImage(e){
-        setFile(URL.createObjectURL(e.target.files[0])) // for image previev
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+        setImgUrl(URL.createObjectURL(selectedFile));
+    }
+
+    function handleSubmit(e){
+        e.preventDefault(); // staps default behaviour
+        var incorrect = false;
+        var data={
+            'Name' : fname.value,
+            'Surname' : surname.value,
+            'Email' : email.value,
+            'UserName' : username.value,
+            'Password' : password.value,
+            'PasswordC' : passwordC.value,
+            'Bio' : bio.value,
+            'ImgName' : file.name,
+            'ImgType' : file.type
+        }
+
+        if(!ifConfirmed()){
+            incorrect = true;
+            alert('Lozinke se ne poklapaju probajte ponovno.');
+        }
+        if(!ifUserFree()){
+            incorrect = true;
+            alert('Korisnićko ime je zauzeto.');
+            
+        }
+
+        if(!incorrect){
+            alert('Uspješna prijava');
+        }
+
+
+        console.log('Name:', data['Name']);
+        console.log('Surname:', data['Surname']);
+        console.log('Email:', data['Email']);
+        console.log('Username:', data['UserName']);
+        console.log('Password:', data['Password']);
+        console.log('Confirmed Password:', data['PasswordC']);
+        console.log('Bio:', data['Bio']);
+        console.log('Image Name:', data['ImgName']);
+        console.log('Image Type:', data['ImgType']);
+
+        function ifConfirmed(){
+            if(data['Password'] === data['PasswordC']){
+                return true;
+            }
+            else return false;
+        }
+        function ifUserFree(){
+            // treba provjeriti postoji li user u bazi
+            return true;
+        }
     }
 
     return(
-        <form className='SUPform'>
+        <form className='SUPform' onSubmit={handleSubmit}>
             <h1 id='hTitle'>SignUp</h1> 
-            <input type='text' id='name' name='name' title='Ime' placeholder='Ime' required></input>
-            <input type='text' id='surname' name='surname' title='Prezime' placeholder='Prezime' required></input>
-            <input type='email' id='mail' name='email' title='email' placeholder='Upisite email adresu' required></input>
-            <input type='text' id='username' name='username' title='Korisničko ime' placeholder='Korisničko ime' required></input>
-            <input type="password" id="password" name="password" placeholder="Lozinka" required></input>
-            <input type="password" id="passwordC" name="passwordC" placeholder="Potvrdite svoju lozinku" required></input>
-            <textarea id="bio" name='bio' placeholder='Upišite kratki životopis ...' required ></textarea>
+            <input type='text' id='fname' name='fname' title='Ime' placeholder='Ime' {...fname} required></input>
+            <input type='text' id='surname' name='surname' title='Prezime' placeholder='Prezime' {...surname} required></input>
+            <input type='email' id='mail' name='email' title='email' placeholder='Upisite email adresu' {...email} required></input>
+            <input type='text' id='username' name='username' title='Korisničko ime' placeholder='Korisničko ime' {...username} required></input>
+            <input type="password" id="password" name="password" placeholder="Lozinka" {...password} required></input>
+            <input type="password" id="passwordC" name="passwordC" placeholder="Potvrdite svoju lozinku" {...passwordC} required></input>
+            <textarea id="bio" name='bio' placeholder='Upišite kratki životopis ...' {...bio} required ></textarea>
             <input type='file' name='profImg' id='upload' onChange={handleImage} accept='image/*' required></input>
-            <img src ={file}  className='imgprev' alt='uploaded.img'></img>
+            <img src ={imgUrl}  className='imgprev' alt='uploaded.img'></img>
             <input type='submit' name='submitButton' id='submitButton'></input>
         </form>
     );

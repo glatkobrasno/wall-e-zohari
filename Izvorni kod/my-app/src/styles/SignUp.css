@@ -62,7 +62,7 @@
 
 
 
-#name, #upl, #surname, #username, #password, #passwordC, #mail, #bio, #submitButton, .imgprev{
+#fname, #upl, #surname, #username, #password, #passwordC, #mail, #bio, #submitButton, .imgprev{
     font-size: 0.9rem;
     padding: 5px;
     background-color: rgb(0, 0, 0,0.2);
@@ -71,7 +71,7 @@
     border-radius: 10px;
     margin-bottom: 10px;
 }
-#name:focus,
+#fname:focus,
 #surname:focus,
 #username:focus,
 #password:focus,
@@ -107,7 +107,7 @@
 #hTitle{
     grid-area: ht;
 }
-#name{
+#fname{
     grid-area: name;
 }
 #surname{
