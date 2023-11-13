@@ -101,6 +101,13 @@ function Form(){
 
     return(
         <form className='SUPform' onSubmit={handleSubmit}>
+            <label htmlFor="fname" id='fname' className='labelTx'>Ime:</label>
+            <label htmlFor="surname" id='surname' className='labelTx'>Prezime:</label>
+            <label htmlFor="mail" id='mail' className='labelTx'> Email:</label>
+            <label htmlFor="username" id='username' className='labelTx'>Korisničko ime:</label>
+            <label htmlFor="password" id='password' className='labelTx'>Lozinka:</label>
+            <label htmlFor="passwordC" id='passwordC' className='labelTx'>Potvrdite lozinku:</label>
+            <label htmlFor="bio" id='bio' className='labelTx'>Biografija:</label>
             <h1 id='hTitle'>SignUp</h1> 
             <input type='text' id='fname' name='fname' title='Ime' placeholder='Ime' {...fname} required></input>
             <input type='text' id='surname' name='surname' title='Prezime' placeholder='Prezime' {...surname} required></input>

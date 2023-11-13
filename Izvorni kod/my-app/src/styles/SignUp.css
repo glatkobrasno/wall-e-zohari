@@ -150,3 +150,14 @@
     background-color: rgb(60, 86, 119);
 }
 
+.labelTx {
+    position: relative !important;
+    top:-22px !important;
+    border: 0 !important;
+    background-color: transparent !important;
+    font-size: 0.7rem !important;
+    color: rgb(255, 213, 194, 0.3) !important;
+    width: fit-content !important;
+    height: fit-content !important;
+    margin: 0 !important;
+}
