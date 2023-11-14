@@ -9,7 +9,7 @@ import BackgroindImg1 from '../images/menueIcon_cloase.png'
 function Header(){
     //variables
     var [menueOpen, setMenueOpen] = useState(false);
-    var iconStyle = { transition: '0.6s'}
+    var iconStyle = { transition: '0.1s'}
     function menueIconClick(){
         setMenueOpen(!menueOpen);
     }

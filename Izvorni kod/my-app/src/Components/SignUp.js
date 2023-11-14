@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState } from 'react';
 //css imports
-import '../styles/SignUp.css'
+import '../styles/SignUp.css';
 //component imports
 
 

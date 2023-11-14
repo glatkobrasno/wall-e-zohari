@@ -9,8 +9,9 @@
 }
 
 .signUp_form{
+    overflow: hidden;
     width: 40%;
-    height:auto;
+    height:calc(auto);
     min-height: 100px;
     background-color: rgb(35, 51, 70);
     border-radius: 20px;
@@ -19,18 +20,19 @@
 }
 
 .SUPform{
+    box-sizing: border-box;
     display:grid;
-    grid-template-areas: "ht ht . . . . . "
-                         "name name uname uname . . ."
-                         "user user user img img img ."
-                         "mail mail mail img img img ."
-                         "pass pass pass img img img ."
-                         "passC passC passC img img img ."
-                         "bio bio bio img img img ."
-                         "bio bio bio img img img ."
-                         "btn btn btn btn btn btn btn"
+    grid-template-areas: "ht ht . . . . ."
+                         "name name name uname uname uname ."
+                         "user user user img img img img"
+                         "mail mail mail img img img img"
+                         "pass pass pass img img img img"
+                         "passC passC passC img img img img"
+                         "bio bio bio img img img img"
+                         "bio bio bio img img img img"
+                         ". btn btn btn btn btn ."
                          ;
-    gap: 10px;
+    grid-auto-columns: 14.2857143%;
     width: 100%;
     height: auto;
     padding: 20px;
@@ -38,7 +40,7 @@
     overflow: hidden;
     scroll-behavior: auto;
 }
-@media (max-aspect-ratio: 1.45) {
+@media (max-aspect-ratio: 1.6) {
     .signUp_form{
         width: 75%;
     }
@@ -51,11 +53,11 @@
                              "mail mail mail mail mail"
                              "pass pass pass pass pass"
                              "passC passC passC passC passC"
-                             ". . img  . ."
+                             ". img img  img ."
                              "bio bio bio bio bio"
-                             "btn btn btn btn btn"
+                             ". btn btn btn ."
                              ;
-        gap: 10px;
+        grid-auto-columns: 20%;
         
     }
 }
@@ -63,6 +65,7 @@
 
 
 #fname, #upl, #surname, #username, #password, #passwordC, #mail, #bio, #submitButton, .imgprev{
+    margin-top: 10px;
     font-size: 0.9rem;
     padding: 5px;
     background-color: rgb(0, 0, 0,0.2);
@@ -70,6 +73,7 @@
     color: rgba(255, 196, 168, 1);
     border-radius: 10px;
     margin-bottom: 10px;
+    margin: 10px;
 }
 #fname:focus,
 #surname:focus,
@@ -91,9 +95,8 @@
     margin: 0;
     box-sizing: border-box;
     aspect-ratio: 1/1;
-    width: inherit;
-    max-width:250px;
-    height: auto;
+    width: 80%;
+    margin-left: 10%;
     object-fit: cover;
     object-position: center;
     overflow: hidden;
@@ -130,14 +133,14 @@
 }
 #upload{
     grid-area: img;
-
     margin: 0;
     padding: 0;
+    object-fit: contain;
     overflow: hidden;
-    opacity: 0;
-    width: 100%;
-    max-width:250px;
-    height: 100%;
+    opacity: 0 !important;
+    aspect-ratio: 1/1;
+    width: 80%;
+    margin-left: 10%;
     border-radius: 50%;
     z-index: 5;
     cursor: pointer;
@@ -152,7 +155,8 @@
 
 .labelTx {
     position: relative !important;
-    top:-22px !important;
+    top:-12px !important;
+    left: 10px;
     border: 0 !important;
     background-color: transparent !important;
     font-size: 0.7rem !important;

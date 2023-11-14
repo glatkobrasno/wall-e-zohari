@@ -11,6 +11,7 @@ function Menue(){
                 <ul className="select">
                     <Link to="/Login"><li>LogIn</li></Link>
                     <Link to="/SignUp"><li>SignUp</li></Link>
+                    <Link to="/"><li>Home</li></Link>
                     <li>nesto</li>
                 </ul>
             </div>
