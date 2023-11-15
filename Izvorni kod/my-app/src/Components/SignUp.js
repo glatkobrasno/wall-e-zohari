@@ -51,7 +51,9 @@ function Form(){
     function handleImage(e){
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
+        if(selectedFile){
         setImgUrl(URL.createObjectURL(selectedFile));
+        }
     }
 
     function handleSubmit(e){
