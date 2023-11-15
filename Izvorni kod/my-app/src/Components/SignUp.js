@@ -54,6 +54,10 @@ function Form(){
         if(selectedFile){
         setImgUrl(URL.createObjectURL(selectedFile));
         }
+        else{
+            URL.revokeObjectURL(imgUrl);
+            setImgUrl('');
+        }
     }
 
     function handleSubmit(e){
