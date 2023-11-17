@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,195" last-zoom="1" max-obj-count="28"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="KuhajIT" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="Dijeta" layers="0" collapse-mode="2" max-obj-count="27" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1160" y="380"/>
+	<column name="ImeDijeta" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="Opis">
+		<type name="varchar" length="2048"/>
+	</column>
+	<column name="MinEnergija">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MaxEnergija">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MinMasnoce">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MaxMasnoce">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MinZMKiseline">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MaxZMKiseline">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MinUgljikohidrati">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MaxUgljikohidrati">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MinSeceri">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MaxSeceri">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MinBjelancevine">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MaxBjelancevine">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MinSol">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MaxSol">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="DnevniMaxEnergija">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="DnevniMaxMasnoce">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="DnevniMaxZMKiseline">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="DnevniMaxUgljikohidrati">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="DnevniMaxSeceri">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="DnevniMaxBjelancevine">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="DnevniMaxSol">
+		<type name="numeric" length="0"/>
+	</column>
+	<constraint name="Dijeta_pk" type="pk-constr" table="public.&quot;Dijeta&quot;">
+		<columns names="ImeDijeta" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Slike" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="800"/>
+	<column name="IDslika" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="Slika">
+		<type name="bytea" length="2048"/>
+	</column>
+	<constraint name="Slike_pk" type="pk-constr" table="public.&quot;Slike&quot;">
+		<columns names="IDslika" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Korisnik" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="280"/>
+	<column name="KorisnickoIme" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="Lozinka">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="Ime">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="Prezime">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="ImeDijeta">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="RazinaPrivilegije">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="Korisnik_pk" type="pk-constr" table="public.&quot;Korisnik&quot;">
+		<columns names="KorisnickoIme" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="PrivilegiraniKorisnik" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="700"/>
+	<column name="KorisnickoIme" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="Email">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="Biografija">
+		<type name="varchar" length="2048"/>
+	</column>
+	<column name="IDslika">
+		<type name="integer" length="2048"/>
+	</column>
+	<constraint name="KorisnickoImeN_pk" type="pk-constr" table="public.&quot;PrivilegiraniKorisnik&quot;">
+		<columns names="KorisnickoIme" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="PratiKorisnika" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="0"/>
+	<column name="KorisnickoIme_1" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="KorisnickoIme_2" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="Klijent_pk_cp" type="pk-constr" table="public.&quot;PratiKorisnika&quot;">
+		<columns names="KorisnickoIme_1,KorisnickoIme_2" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Proizvod" layers="0" collapse-mode="2" max-obj-count="13" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1220" y="60"/>
+	<column name="IDproizvod" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="ImeProizvod">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="EnergijaPr">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MasnocePr">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="BjelancevinePr">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="UgljikohidratiPr">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="SolPr">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="MasaPr">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="ZMKiselinePr">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="SeceriPr">
+		<type name="numeric" length="0"/>
+	</column>
+	<column name="IDslika">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="Proizvod_pk" type="pk-constr" table="public.&quot;Proizvod&quot;">
+		<columns names="IDproizvod" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="DodatneOznake" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1560" y="280"/>
+	<column name="IDOzn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="OpisOzn">
+		<type name="varchar" length="2048"/>
+	</column>
+	<constraint name="DodatneOznake_pk" type="pk-constr" table="public.&quot;DodatneOznake&quot;">
+		<columns names="IDOzn" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Restrikcija" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1580" y="480"/>
+	<column name="ImeDijeta" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="IDOzn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="Restrikcija_pk" type="pk-constr" table="public.&quot;Restrikcija&quot;">
+		<columns names="ImeDijeta,IDOzn" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="OznakeProizvoda" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1560" y="60"/>
+	<column name="IDProizvod" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="IDOzn" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="OznakeProizvoda_pk" type="pk-constr" table="public.&quot;OznakeProizvoda&quot;">
+		<columns names="IDProizvod,IDOzn" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Recept" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="840" y="220"/>
+	<column name="IDrecept" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="VelicinaPorcija">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="VrijemePripreme">
+		<type name="time" length="0"/>
+	</column>
+	<column name="DatumIzrade">
+		<type name="date" length="0"/>
+	</column>
+	<column name="KorisnickoIme">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="Recept_pk" type="pk-constr" table="public.&quot;Recept&quot;">
+		<columns names="IDrecept" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="PotrebniSastojci" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="840" y="0"/>
+	<column name="IDrecept" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="IDproizvod" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="Kolicina">
+		<type name="numeric" length="0"/>
+	</column>
+	<constraint name="PotrebniSastojci_pk" type="pk-constr" table="public.&quot;PotrebniSastojci&quot;">
+		<columns names="IDrecept,IDproizvod" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Kuharica" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="860" y="740"/>
+	<column name="IDKuharica" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="Naslov">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="DatumIzrade">
+		<type name="date" length="0"/>
+	</column>
+	<column name="KorisnickoIme">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="Kuharica_pk" type="pk-constr" table="public.&quot;Kuharica&quot;">
+		<columns names="IDKuharica" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Korak" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="720" y="460"/>
+	<column name="IDrecept" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="IDslika" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="OpisSl">
+		<type name="varchar" length="2048"/>
+	</column>
+	<column name="OpisKorak">
+		<type name="varchar" length="2048"/>
+	</column>
+	<constraint name="Korak_pk" type="pk-constr" table="public.&quot;Korak&quot;">
+		<columns names="IDrecept,IDslika" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Sadrzi" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="360" y="500"/>
+	<column name="IDRecept" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="IDKuharica" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="Sadrzi_pk" type="pk-constr" table="public.&quot;Sadrzi&quot;">
+		<columns names="IDRecept,IDKuharica" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Konzumirao" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="240" y="160"/>
+	<column name="KorisnickoIme" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="IDrecept" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="Datum">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="Konzumirao_pk" type="pk-constr" table="public.&quot;Konzumirao&quot;">
+		<columns names="KorisnickoIme,IDrecept" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="KomentarRecept" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="520" y="0"/>
+	<column name="KorisnickoIme" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="IDrecept" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="SadrzajKomentaraR">
+		<type name="varchar" length="2048"/>
+	</column>
+	<column name="OdgovorNaKomentarR">
+		<type name="varchar" length="2048"/>
+	</column>
+	<column name="OcjenaR">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="KomentarRecept_pk" type="pk-constr" table="public.&quot;KomentarRecept&quot;">
+		<columns names="KorisnickoIme,IDrecept" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="KomentarKuharica" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="460" y="220"/>
+	<column name="KorisnickoIme" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="IDKuharica" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="SadrzajKomentaraR">
+		<type name="varchar" length="2048"/>
+	</column>
+	<column name="OdgovorNaKomentarR">
+		<type name="varchar" length="2048"/>
+	</column>
+	<column name="OcjenaK">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="KomentarRecept_pk_cp" type="pk-constr" table="public.&quot;KomentarKuharica&quot;">
+		<columns names="KorisnickoIme,IDKuharica" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="ImeDijeta_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Dijeta&quot;" table="public.&quot;Korisnik&quot;">
+	<columns names="ImeDijeta" ref-type="src-columns"/>
+	<columns names="ImeDijeta" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="KorisnickoIme_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;PrivilegiraniKorisnik&quot;">
+	<columns names="KorisnickoIme" ref-type="src-columns"/>
+	<columns names="KorisnickoIme" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDslika_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Slike&quot;" table="public.&quot;PrivilegiraniKorisnik&quot;">
+	<columns names="IDslika" ref-type="src-columns"/>
+	<columns names="IDslika" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="KorisnickoIme_1_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;PratiKorisnika&quot;">
+	<columns names="KorisnickoIme_1" ref-type="src-columns"/>
+	<columns names="KorisnickoIme" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="KorisnickoIme_2_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;PratiKorisnika&quot;">
+	<columns names="KorisnickoIme_2" ref-type="src-columns"/>
+	<columns names="KorisnickoIme" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDSlika_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Slike&quot;" table="public.&quot;Proizvod&quot;">
+	<columns names="IDslika" ref-type="src-columns"/>
+	<columns names="IDslika" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="ImeDijeta_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Dijeta&quot;" table="public.&quot;Restrikcija&quot;">
+	<columns names="ImeDijeta" ref-type="src-columns"/>
+	<columns names="ImeDijeta" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDOzn_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;DodatneOznake&quot;" table="public.&quot;Restrikcija&quot;">
+	<columns names="IDOzn" ref-type="src-columns"/>
+	<columns names="IDOzn" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDOzn_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;DodatneOznake&quot;" table="public.&quot;OznakeProizvoda&quot;">
+	<columns names="IDOzn" ref-type="src-columns"/>
+	<columns names="IDOzn" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDproizvod_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Proizvod&quot;" table="public.&quot;OznakeProizvoda&quot;">
+	<columns names="IDProizvod" ref-type="src-columns"/>
+	<columns names="IDproizvod" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="KorisnickoIme_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;Recept&quot;">
+	<columns names="KorisnickoIme" ref-type="src-columns"/>
+	<columns names="KorisnickoIme" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDrecept_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Recept&quot;" table="public.&quot;PotrebniSastojci&quot;">
+	<columns names="IDrecept" ref-type="src-columns"/>
+	<columns names="IDrecept" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDproizvod_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Proizvod&quot;" table="public.&quot;PotrebniSastojci&quot;">
+	<columns names="IDproizvod" ref-type="src-columns"/>
+	<columns names="IDproizvod" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="KorisnickoImeAutor_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;Kuharica&quot;">
+	<columns names="KorisnickoIme" ref-type="src-columns"/>
+	<columns names="KorisnickoIme" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDslikaKorak_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Slike&quot;" table="public.&quot;Korak&quot;">
+	<columns names="IDslika" ref-type="src-columns"/>
+	<columns names="IDslika" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDreceptKorak_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Recept&quot;" table="public.&quot;Korak&quot;">
+	<columns names="IDrecept" ref-type="src-columns"/>
+	<columns names="IDrecept" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDreceptSadrzi_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Recept&quot;" table="public.&quot;Sadrzi&quot;">
+	<columns names="IDRecept" ref-type="src-columns"/>
+	<columns names="IDrecept" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDKuharicaSadrzi_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Kuharica&quot;" table="public.&quot;Sadrzi&quot;">
+	<columns names="IDKuharica" ref-type="src-columns"/>
+	<columns names="IDKuharica" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="KorisnickoImeKonzumirao_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;Konzumirao&quot;">
+	<columns names="KorisnickoIme" ref-type="src-columns"/>
+	<columns names="KorisnickoIme" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDreceptKonzumirao_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Recept&quot;" table="public.&quot;Konzumirao&quot;">
+	<columns names="IDrecept" ref-type="src-columns"/>
+	<columns names="IDrecept" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="KorisnickoImeKomentarRecept_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;KomentarRecept&quot;">
+	<columns names="KorisnickoIme" ref-type="src-columns"/>
+	<columns names="KorisnickoIme" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDreceptKomentarRecept" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Recept&quot;" table="public.&quot;KomentarRecept&quot;">
+	<columns names="IDrecept" ref-type="src-columns"/>
+	<columns names="IDrecept" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="KorisnickoImeKomentarRecept_fk_cp" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;KomentarKuharica&quot;">
+	<columns names="KorisnickoIme" ref-type="src-columns"/>
+	<columns names="KorisnickoIme" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="IDKuharicaKomentarKuharica_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Kuharica&quot;" table="public.&quot;KomentarKuharica&quot;">
+	<columns names="IDKuharica" ref-type="src-columns"/>
+	<columns names="IDKuharica" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_Korisnik_Dijeta" type="relfk" layers="0"
+	 src-table="public.&quot;Korisnik&quot;"
+	 dst-table="public.&quot;Dijeta&quot;" reference-fk="ImeDijeta_fk"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="324.485" y="103.162"/>
+	</label>
+</relationship>
+
+<relationship name="rel_PrivilegiraniKorisnik_Korisnik" type="relfk" layers="0"
+	 src-table="public.&quot;PrivilegiraniKorisnik&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoIme_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="21.5041" y="7.46774"/>
+	</label>
+</relationship>
+
+<relationship name="rel_PrivilegiraniKorisnik_Slike" type="relfk" layers="0"
+	 src-table="public.&quot;PrivilegiraniKorisnik&quot;"
+	 dst-table="public.&quot;Slike&quot;" reference-fk="IDslika_fk"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_PratiKorisnika_Korisnik1" type="relfk" layers="0"
+	 src-table="public.&quot;PratiKorisnika&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoIme_1_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-42.2179" y="-32.9323"/>
+	</label>
+</relationship>
+
+<relationship name="rel_PratiKorisnika_Korisnik2" type="relfk" layers="0"
+	 src-table="public.&quot;PratiKorisnika&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoIme_2_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="21.2856" y="-12.9323"/>
+	</label>
+</relationship>
+
+<relationship name="rel_Proizvod_Slike" type="relfk" layers="0"
+	 src-table="public.&quot;Proizvod&quot;"
+	 dst-table="public.&quot;Slike&quot;" reference-fk="IDSlika_fk"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-111.193" y="208.809"/>
+	</label>
+</relationship>
+
+<relationship name="rel_Restrikcija_Dijeta" type="relfk" layers="0"
+	 src-table="public.&quot;Restrikcija&quot;"
+	 dst-table="public.&quot;Dijeta&quot;" reference-fk="ImeDijeta_fk"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="55.2744" y="42.8677"/>
+	</label>
+</relationship>
+
+<relationship name="rel_Restrikcija_DodatneOznake" type="relfk" layers="0"
+	 src-table="public.&quot;Restrikcija&quot;"
+	 dst-table="public.&quot;DodatneOznake&quot;" reference-fk="IDOzn_fk"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-0.26663" y="-23.3323"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_OznakeProizvoda_DodatneOznake&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;OznakeProizvoda&quot;"
+	 dst-table="public.&quot;DodatneOznake&quot;" reference-fk="IDOzn_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_OznakeProizvoda_Proizvod" type="relfk" layers="0"
+	 src-table="public.&quot;OznakeProizvoda&quot;"
+	 dst-table="public.&quot;Proizvod&quot;" reference-fk="IDproizvod_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="5.74043" y="-148.429"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_Recept_Korisnik&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;Recept&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoIme_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_PotrebniSastojci_Recept" type="relfk" layers="0"
+	 src-table="public.&quot;PotrebniSastojci&quot;"
+	 dst-table="public.&quot;Recept&quot;" reference-fk="IDrecept_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="95.7917" y="-12.7323"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_PotrebniSastojci_Proizvod&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;PotrebniSastojci&quot;"
+	 dst-table="public.&quot;Proizvod&quot;" reference-fk="IDproizvod_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_Kuharica_Korisnik" type="relfk" layers="0"
+	 src-table="public.&quot;Kuharica&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoImeAutor_fk"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="272.985" y="111.322"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_Korak_Slike&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;Korak&quot;"
+	 dst-table="public.&quot;Slike&quot;" reference-fk="IDslikaKorak_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="&quot;rel_Korak_Recept&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;Korak&quot;"
+	 dst-table="public.&quot;Recept&quot;" reference-fk="IDreceptKorak_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="&quot;rel_Sadrzi_Recept&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;Sadrzi&quot;"
+	 dst-table="public.&quot;Recept&quot;" reference-fk="IDreceptSadrzi_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="&quot;rel_Sadrzi_Kuharica&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;Sadrzi&quot;"
+	 dst-table="public.&quot;Kuharica&quot;" reference-fk="IDKuharicaSadrzi_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="&quot;rel_Konzumirao_Korisnik&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;Konzumirao&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoImeKonzumirao_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="&quot;rel_Konzumirao_Recept&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;Konzumirao&quot;"
+	 dst-table="public.&quot;Recept&quot;" reference-fk="IDreceptKonzumirao_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="&quot;rel_KomentarRecept_Korisnik&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;KomentarRecept&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoImeKomentarRecept_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="&quot;rel_KomentarRecept_Recept&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;KomentarRecept&quot;"
+	 dst-table="public.&quot;Recept&quot;" reference-fk="IDreceptKomentarRecept"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_KomentarKuharica_Korisnik" type="relfk" layers="0"
+	 src-table="public.&quot;KomentarKuharica&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoImeKomentarRecept_fk_cp"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_KomentarKuharica_Kuharica" type="relfk" layers="0"
+	 src-table="public.&quot;KomentarKuharica&quot;"
+	 dst-table="public.&quot;Kuharica&quot;" reference-fk="IDKuharicaKomentarKuharica_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="85.8901" y="4.53259"/>
+	</label>
+</relationship>
+
+</dbmodel>

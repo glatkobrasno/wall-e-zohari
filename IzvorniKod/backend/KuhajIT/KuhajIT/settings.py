@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'KuhajIT.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'KuhajIT',
+        'USER': 'postgres',
+        'PASSWORD': '',         # Enter personal postgres password and leave the rest as it is
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -119,9 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'authentication/static/reactApp/static/js'),
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
