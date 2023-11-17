@@ -1,18 +1,22 @@
 \chapter{Arhitektura i dizajn sustava}
 \setlength{\headheight}{14.49998pt}		
-		\textbf{\textit{dio 1. revizije}}\\
+		%\textbf{\textit{dio 1. revizije}}\\
 
-		\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
-	\begin{itemize}
-		\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
-		\item 	\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
-		\item 	\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }		
-	\end{itemize}
+		%\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
+	%\begin{itemize}
+		%\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
+		%\item 	\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
+		%\item 	\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }
+	%\end{itemize}
 
-	
-		
-
-		
+Stil arhitekture korišten za izradu ovog sustava je mješavina objektno usmjerenog arhitekturnog stila, te stila Model-Pogled-Nadglednik (MVC), kombinirajući prednosti obje arhitekture dok se istovremeno poništavaju njihovi nedostaci. Korisničko je sučelje izdvojeno od ostatka sustava, dok je općenit pristup rješenju objektno orijentiran. Sustav je podijeljen na tri glavna, manja podsustava:
+\begin{itemize}
+\item Bazu podataka
+\item Obradu podataka (backend)
+\item Korisničko sučelje (frontend)
+\end{itemize}
+Podsustav za obradu podataka jedini surađuje sa bazom, a podaci se ne spremaju nigdje osim u bazu. Korisničko sučelje pak sve podatke dobiva iz podsustava za obradu te se time osigurava integritet i dosljednost sustava.
+Podsustav za obradu i korisničko sučelje komuniciraju putem HTTPS protokola, dok se sa bazom komunicira upitima prema njoj.
 
 				
 		\section{Baza podataka}
