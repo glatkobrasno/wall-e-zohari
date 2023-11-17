@@ -49,7 +49,7 @@ ALTER TABLE public."Dijeta" OWNER TO postgres;
 -- DROP TABLE IF EXISTS public."Slike" CASCADE;
 CREATE TABLE public."Slike" (
 	"IDslika" integer NOT NULL,
-	"Slika" varchar(2048),
+	"Slika" bytea,
 	CONSTRAINT "Slike_pk" PRIMARY KEY ("IDslika")
 );
 -- ddl-end --
