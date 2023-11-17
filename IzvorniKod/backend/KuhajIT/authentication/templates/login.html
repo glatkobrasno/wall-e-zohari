@@ -1,4 +1,4 @@
-<!-- main/templates/index.html -->
+<!-- authentication/templates/login.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +7,11 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>Welcome to the Login.</h1>
+    <div id="login_element"></div>
+
+    {% load static %}
+    {% block scripts %}
+        <script type="text/javascript" src="{% static 'login.bundle.js' %}"></script>
+    {% endblock %}
 </body>
 </html>

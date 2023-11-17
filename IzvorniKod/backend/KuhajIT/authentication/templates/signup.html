@@ -1,4 +1,4 @@
-<!-- main/templates/index.html -->
+<!-- authentication/templates/signup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +7,11 @@
     <title>Signup</title>
 </head>
 <body>
-    <h1>Welcome to the Signup.</h1>
+    <div id="signUp_element"></div>
+
+    {% load static %}
+    {% block scripts %}
+        <script type="text/javascript" src="{% static 'signUp.bundle.js' %}"></script>
+    {% endblock %}
 </body>
 </html>
