@@ -1,7 +1,13 @@
 //module imports
 import React from 'react';
+import Axios from 'axios';
 //css imports
 import '../styles/Login.css';
+
+
+
+//global val
+const backURL=''//backend URL
 
 function Login(){
     return(
@@ -42,15 +48,26 @@ function Form(){
         console.log('Password:', data['Password']);
 
         if(!checkDataBase){
-            alert('Krivo upisani podatci')
+            alert('Krivo upisani podatci');
         }
         else{
-            alert('Uspjesna prijava')
+            alert('Uspjesna prijava');
         }
 
-        function checkDataBase(data){
-            // implmentirati provjeru s bazom
-            return true;
+        function checkDataBase(data) {
+            // Use Axios to check the credentials against the backend
+            Axios.post(backURL+'/check_credentials/', data)
+                .then((response) => {
+                    if (response.data.is_valid) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error checking credentials:', error);
+                    alert('Pogreška prilikom provjere podataka');
+                });
         }
     }
 

@@ -1,10 +1,13 @@
 //modules imports
 import React from 'react';
 import { useState } from 'react';
+import Axios from 'axios';
 //css imports
 import '../styles/SignUp.css';
 //component imports
 
+//global val
+const backURL=''//backend URL
 
 function useFormField(initialValue) {
     const [value, setValue] = React.useState(initialValue);
@@ -106,12 +109,30 @@ function Form(){
             else return false;
         }
         function ifUserFree(){
-            // treba provjeriti postoji li user u bazi
+            // Check if the username is taken in the backend using Axios
+            Axios.post(backURL+'/check_username/', {username : data['UserName']})
+            .then((response) => {
+                if (response.data.is_taken) {
+                    alert('Korisničko ime je zauzeto.');
+                    return false;
+                }
+            })
+            .catch((error) => {
+                console.error('Error checking username:', error);
+            });
             return true;
         }
-        function toDataBase(data){
-            // implmentirati upload na bazu
-            return ;
+        function toDataBase(data) {
+            // Implement the upload to the database using Axios
+            Axios.post(backURL+'/save_data/', data)
+                .then((response) => {
+                    console.log('Data saved successfully:');
+                    alert("Uspjesna registracija");
+                })
+                .catch((error) => {
+                    console.error('Error saving data:', error);
+                    alert("Problem u komunikaciji s bazom");
+                });
         }
     }
 
