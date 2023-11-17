@@ -64,9 +64,20 @@ function Form(){
     }
 
     function handleSubmit(e){
+        var data;
         e.preventDefault(); // staps default behaviour
         var incorrect = false;
-        var data={
+        if(roll.value === 'LVL1'){
+            data={
+                'Name' : fname.value,
+                'Surname' : surname.value,
+                'UserName' : username.value,
+                'Password' : password.value,
+                'PasswordC' : passwordC.value,
+                'Roll' : roll.value
+            }
+        }else
+        data={
             'Name' : fname.value,
             'Surname' : surname.value,
             'Email' : email.value,
@@ -89,7 +100,6 @@ function Form(){
         }
         if(!incorrect){
             toDataBase(data);// upload na bazu
-            alert('Uspješna prijava');
         }
         console.log('Name:', data['Name']);
         console.log('Surname:', data['Surname']);
