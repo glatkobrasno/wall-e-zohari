@@ -43,10 +43,8 @@ function Form(){
             'UserName' : username.value,
             'Password' : password.value,
         }
-
         console.log('Username:', data['UserName']);
         console.log('Password:', data['Password']);
-
         if(!checkDataBase){
             alert('Krivo upisani podatci');
         }
@@ -56,9 +54,9 @@ function Form(){
 
         function checkDataBase(data) {
             // Use Axios to check the credentials against the backend
-            Axios.post(backURL+'/check_credentials/', data)
+            Axios.post(backURL+'/check_login/', data)
                 .then((response) => {
-                    if (response.data.is_valid) {
+                    if (response.data.correct) {
                         return true;
                     } else {
                         return false;

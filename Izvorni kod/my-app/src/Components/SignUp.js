@@ -77,17 +77,18 @@ function Form(){
                 'Roll' : roll.value
             }
         }else
-        data={
-            'Name' : fname.value,
-            'Surname' : surname.value,
-            'Email' : email.value,
-            'UserName' : username.value,
-            'Password' : password.value,
-            'PasswordC' : passwordC.value,
-            'Bio' : bio.value,
-            'ImgName' : file.name,
-            'ImgType' : file.type,
-            'Roll' : roll.value
+            data={
+                'Name' : fname.value,
+                'Surname' : surname.value,
+                'Email' : email.value,
+                'UserName' : username.value,
+                'Password' : password.value,
+                'PasswordC' : passwordC.value,
+                'Bio' : bio.value,
+                'ImgName' : file.name,
+                'ImgType' : file.type,
+                'Img' : file,
+                'Roll' : roll.value
         }
         if(!ifConfirmed()){
             incorrect = true;
@@ -122,7 +123,7 @@ function Form(){
             // Check if the username is taken in the backend using Axios
             Axios.post(backURL+'/check_username/', {username : data['UserName']})
             .then((response) => {
-                if (response.data.is_taken) {
+                if (response.data.taken) {
                     alert('Korisničko ime je zauzeto.');
                     return false;
                 }
@@ -134,7 +135,7 @@ function Form(){
         }
         function toDataBase(data) {
             // Implement the upload to the database using Axios
-            Axios.post(backURL+'/save_data/', data)
+            Axios.post(backURL+'/save_SignUp/', data)
                 .then((response) => {
                     console.log('Data saved successfully:');
                     alert("Uspjesna registracija");
