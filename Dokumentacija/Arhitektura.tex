@@ -26,7 +26,8 @@ Podsustav za obradu i korisničko sučelje komuniciraju putem HTTPS protokola, d
 		%\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}
 Za pohranjivanje svih potrebnih informacija o korisnicima i njihovim aktivnostima u aplikaciji koristimo relacijski model baze poodataka. Glavna komponenta relacijske baze podataka je relacija. Relacija je imenovana dvodimenzinalna tablica koja predtavlja neki entitet čije informacije želimo preslikati u bazu podataka. Stupci tablice predstavljaju atribute entiteta, a redovi su n-torke tih atributa koji predstavljaju jednu instancu tog entiteta. Baza podataka ove aplikacije sastoji se od entiteta:
 \begin{itemize}
-\item Korisnik(i njegovi podtipovi klijent, nutricionist i kulinarski entuzijast)
+\item Korisnik
+\item PrivilegiraniKorisnik
 \item Recept
 \item Korak
 \item PotrebniSastojci
@@ -62,26 +63,26 @@ Za pohranjivanje svih potrebnih informacija o korisnicima i njihovim aktivnostim
 					Slika & VARCHAR & Slika \\ \hline
 				\end{longtblr}
 
-\textbf{Korisnik}- opisuje sve korisnike koji se registrirani na stranici. Pošto postoji više vrsta korisnika,
-tako ima i više tablica koje drže informacije svih korisnika. Entitet korisnik je glavni entitet, a entiteti klijent,
-nutricionist i kulinarski entuzijast su njegove specijalizacije. Entitet korisnik ima osnovne informacije  o korisnicima
-t.j. ima atribute Korisničko ime(Posebno za svakog korisnika), lozinku, ime i prezime. Tablice nutricionist i Kulinarski entuzijast
-sadrže dodatne informacije koje su potrebne za takve korisnike(Slika, email,biografija). Tablica klijent sadrži korisnička imena svih 
-korisnika koji nisu nutricionisti ili kulinarski entuzijasti. Korisnik je povezan sa dijetom koju prati preko imena dijete(N,1 veza).
+\textbf{Korisnik}- opisuje sve korisnike koji se registrirani na stranici. Entitet korisnik ima osnovne informacije  o korisnicima
+t.j. ima atribute Korisničko ime(Posebno za svakog korisnika), lozinku, ime i prezime, te koji je tip korisnika(normalni korisnik, kulinarski entuzijast ili neutricionist) preko adtributa razinaprivilegije.
+Za pohranu dodatnih podataka koje trebaju imati kulinarski entuzijast i nutricionist, potreban je slabi entitet PrivilegiraniKorisnik.
+Taj entitet ima atribute email, biografija, ID slike(1,1 veza), te korisničko ime(identifikacijska 1,1 veza)
+ Korisnik je povezan sa dijetom koju prati preko imena dijete(N,1 veza).
 Korisnici mogu pratiti druge korisnike, što je zapisano u zasebnoj tablici.
 \begin{longtblr}[
 					label=none,
 					entry=none
 					]{
 						width = \textwidth,
-						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+						colspec={|X[8,l]|X[6, l]|X[18, l]|}, 
 						rowhead = 1,
 					}
 					\hline \SetCell[c=3]{c}{\textbf{Korisnik}}	 \\ \hline[3pt]
 					\SetCell{LightGreen}KorisnickoIme & VARCHAR & Korisničko ime korisnika \\ \hline
 					Lozinka & VARCHAR & Lozinka korisnika \\ \hline 
 					Ime & VARCHAR & Ime korisnika \\ \hline
-					Prezime & VARCHAR & Prezime korisnika \\ \hline 
+					Prezime & VARCHAR & Prezime korisnika \\ \hline
+					RazinaPrivilegije& INT & Razina/tip korisnika\\ \hline 
 					\SetCell{LightBlue} ImeDijeta & VARCHAR & Ime dijete koju korisnik prati \\ \hline 
 				\end{longtblr}
 
@@ -93,43 +94,13 @@ Korisnici mogu pratiti druge korisnike, što je zapisano u zasebnoj tablici.
 						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
 						rowhead = 1,
 					}
-					\hline \SetCell[c=3]{c}{\textbf{Klijent}}	 \\ \hline[3pt]
-					\SetCell{LightGreen}KorisnickoIme & VARCHAR & Korisničko ime korisnika \\ \hline
-					Lozinka & VARCHAR & Lozinka korisnika \\ \hline 
-					Ime & VARCHAR & Ime korisnika \\ \hline
-					Prezime & VARCHAR & Prezime korisnika \\ \hline 
-					\SetCell{LightBlue} KorisnickoIme & VARCHAR & Korisnicko ime klijenta \\ \hline 
-				\end{longtblr}
-
-				\begin{longtblr}[
-					label=none,
-					entry=none
-					]{
-						width = \textwidth,
-						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
-						rowhead = 1,
-					}
-					\hline \SetCell[c=3]{c}{\textbf{Kulinarski entuzijast}}	 \\ \hline[3pt]
+					\hline \SetCell[c=3]{c}{\textbf{PrivilegiraniKorisnik}}	 \\ \hline[3pt]
 					\SetCell{LightGreen}KorisnickoIme & VARCHAR & Korisničko ime korisnika \\ \hline
 					Biografija & VARCHAR & Biografija korisnika \\ \hline
 					Email & VARCHAR & E-mail adresa korisnika \\ \hline
 					\SetCell{LightBlue} IDslika & INT & ID slike korisnika \\ \hline 
 				\end{longtblr}
 
-				\begin{longtblr}[
-					label=none,
-					entry=none
-					]{
-						width = \textwidth,
-						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
-						rowhead = 1,
-					}
-					\hline \SetCell[c=3]{c}{\textbf{Nutricionist}}	 \\ \hline[3pt]
-					\SetCell{LightGreen}KorisnickoIme & VARCHAR & Korisničko ime korisnika \\ \hline
-					Biografija & VARCHAR & Biografija korisnika \\ \hline
-					Email & VARCHAR & E-mail adresa korisnika \\ \hline
-					\SetCell{LightBlue} IDslika & INT & ID slike korisnika \\ \hline 
-				\end{longtblr}
 
 				\begin{longtblr}[
 					label=none,
@@ -381,10 +352,15 @@ DodatneOznake(veza je opisana entitetom Restrikcija i predstavlja restrikcije di
 			
 			
 		\section{Dijagram razreda}
-		
-			\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
+			\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.05]{dijagrami/dijagram-klasa.png}
+				\caption{dijagram klasa}
+				\label{fig:klase}
+			\end{figure}
+			%\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
 			
-			\textbf{\textit{dio 1. revizije}}\\
+			%\textbf{\textit{dio 1. revizije}}\\
 			
 			\textit{Prilikom prve predaje projekta, potrebno je priložiti potpuno razrađen dijagram razreda vezan uz \textbf{generičku funkcionalnost} sustava. Ostale funkcionalnosti trebaju biti idejno razrađene u dijagramu sa sljedećim komponentama: nazivi razreda, nazivi metoda i vrste pristupa metodama (npr. javni, zaštićeni), nazivi atributa razreda, veze i odnosi između razreda.}\\
 			
