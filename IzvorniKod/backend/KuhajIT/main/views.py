@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.db.models import Max
-from .models import Korisnik, Privilegiranikorisnik, Slike
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+from .serializers import *
+from .models import *
 
 # Create your views here.
 
@@ -12,72 +15,71 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'index.html')
 
+class SignUpView(serializers.Serializer):
+    @api_view(['POST'])
+    def sign_up_save(request): # geting data from react data(Name, Surname, Email, UserName, Password, PasswordC, Bio, Img, ImgName, ImgType, Roll)
+        if request.method == 'POST':
+            role = request.data.get('Roll')
+            if role == 'LVL1':
+                korisnik_data = {
+                    'korisnickoime': request.data.get('UserName'),
+                    'lozinka': request.data.get('Password'),
+                    'ime': request.data.get('Name'),
+                    'prezime': request.data.get('Surname'),
+                    'razinaprivilegije': 1,
+                }
 
-def check_username(request): 
-    if request.method == 'POST':
-        username = request.POST.get('username') # u Reactu {username : data['UserName']}
-        user_exists = Korisnik.objects.filter(username=username).exists()
-        return JsonResponse({"taken" : user_exists}) #in React data.taken
-    else:
-        return JsonResponse({'error': 'Invalid request method'})
+                korisnik_serializer = KorisnikSerializer(data=korisnik_data)
+                
+                if korisnik_serializer.is_valid():
+                    korisnik_serializer.save()
+                    return Response({'success': True}, status=status.HTTP_201_CREATED)
+                else:
+                    return Response({'error': korisnik_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+            elif role in ['LVL2', 'LVL3']:
+                slika_data = {
+                    'slika': request.data.get('Img'),
+                }
+
+                privilegirani_data = {
+                    'korisnickoime': request.data.get('UserName'),
+                    'email': request.data.get('Email'),
+                    'biografija': request.data.get('Bio'),
+                    'idslika' : None,
+                }
+
+                korisnik_data = {
+                    'korisnickoime': privilegirani_data['korisnickoime'],
+                    'lozinka': request.data.get('Password'),
+                    'ime': request.data.get('Name'),
+                    'prezime': request.data.get('Surname'),
+                    'razinaprivilegije': -2 if role == 'LVL2' else -3,
+                }
+
+                slika_serializer = SlikeSerializer(data=slika_data)
+                korisnik_serializer = KorisnikSerializer(data=korisnik_data)
+
+                if slika_serializer.is_valid() and korisnik_serializer.is_valid():
+                    slika = slika_serializer.save()
+                    privilegirani_data['idslika'] = slika.idslika
+                    privilegirani_serializer = PrivilegiranikorisnikSerializer(data=privilegirani_data)
+                    
+                    if privilegirani_serializer.is_valid():
+                        korisnik_serializer.save()
+                        privilegirani_serializer.save()
+                        return Response({'success': True}, status=status.HTTP_201_CREATED)
+                    else:
+                        return Response({'error': korisnik_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    return Response({'error': slika_serializer.errors or privilegirani_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
     
+    def check_username(request):
+        username = request.data.get('username')  #data received ('username')
 
-def check_login(request):
-    if request.method == 'POST':
-        # Get username and password from the request data
-        # #in React data={'UserName' : username.value, 'Password' : password.value,}
-        username = request.POST.get('UserName') 
-        password = request.POST.get('Password')
-        checked = False
-        korData = None
-        if Korisnik.objects.filter(username=username).exists():
-            korData=Korisnik.objects.filter(username=username)
-            if (korData.first().korisnickoime == username and
-                korData.first().lozinka == password):
-                checked=True
-        if checked:
-            return JsonResponse({'correct': True}) #in React response.data.correct
-        else:
-            return JsonResponse({'correct': False})
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
-
-
-def save_signup(request): #request{Name, Surname, Email, UserName, Password, PasswordC, Bio, Img, ImgName, ImgType, Roll}
-    if request.method == 'POST': 
-        roll = request.POST.get('Roll')
-        data = {
-            'Name': request.POST.get('Name'),
-            'Surname': request.POST.get('Surname'),
-            'UserName': request.POST.get('UserName'),
-            'Password': request.POST.get('Password'),
-        }
-        new_korisnik= Korisnik( # make new Korsinik 
-            korisnickoime=data['UserName'],
-            lozinka=data['Password'],
-            ime=data['Name'],
-            prezime=data['Surname'],
-            razinaprivilegije=0,
-        )
-        if roll == 'LVL1':
-            new_korisnik.razinaprivilegije=1
-        elif roll == 'LVL2':
-            new_korisnik.razinaprivilegije=-2 # negative till they get aproved from admin
-        elif roll == 'LVL3':
-            new_korisnik.razinaprivilegije=-3 # negative till they get aproved from admin
-        new_korisnik.save()# save new Korisnik
-        if roll == 'LVL2' or roll == 'LVL3': # if is PrKorisnik
-            max_id = Slike.objects.all().aaggregate(Max('idslika'))['max_id'] # returns {'max_id' : val}
-            new_slika = Slike(
-                idslika = max_id['max_id']+1,
-                slika = request.POST.get('Img'),
-            )
-            new_slika.save()
-            new_privilegirani_korisnik = Privilegiranikorisnik( # make new PrKorisnik
-                korisnickoime = Korisnik.objects.get(korisnickoime=data['UserName']),
-                email = request.POST.get('Email'),
-                biografija = request.POST.get('Bio'),
-                idslika = max_id['max_id']+1
-            )
-            new_privilegirani_korisnik.save()# save new PrKorisnik
-        return JsonResponse({'success': True})
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
+        try:
+            korisnik_instance = Korisnik.objects.get(korisnickoime=username)
+            return JsonResponse({'is_taken': True})
+        except Korisnik.DoesNotExist:
+            return JsonResponse({'is_taken': False})

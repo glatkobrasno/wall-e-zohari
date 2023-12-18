@@ -7,7 +7,7 @@ import '../styles/SignUp.css';
 //component imports
 
 //global val
-const backURL=''//backend URL
+const backURL='http://127.0.0.1:8000'//backend URL
 
 function useFormField(initialValue) {
     const [value, setValue] = React.useState(initialValue);
