@@ -40,6 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #added TODO:---------------------------------------------------------
+    'rest_framework',
+    'api',
+    'corsheaders',
+    #--------------------------------------------------------------
 ]
 
 MIDDLEWARE = [
@@ -50,6 +55,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #added TODO:----------------------------------------------------------
+    'corsheaders.middleware.CorsMiddleware',
+    #---------------------------------------------------------------
 ]
 
 ROOT_URLCONF = 'KuhajIT.urls'
@@ -128,3 +136,23 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#added TODO: ----------------------------------------------------------------------------
+# django rest default setings
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Adjust permissions as needed
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
+
+# allowed addreses for requests
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    '*', # TODO: !!!!!! maknuti u konacnoj verziji !!!!!!
+]
+# ------------------------------------------------------------------------------------
