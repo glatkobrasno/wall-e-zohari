@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
-    'main.apps.MainConfig',
+    #'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #added TODO:---------------------------------------------------------
     'rest_framework',
-    'api',
+    'main',
     'corsheaders',
     #--------------------------------------------------------------
 ]
@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'KuhajIT',
         'USER': 'postgres',
-        'PASSWORD': '',         # Enter personal postgres password and leave the rest as it is
+        'PASSWORD': '3694575leO',         # Enter personal postgres password and leave the rest as it is
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -130,7 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -153,6 +153,6 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
-    '*', # TODO: !!!!!! maknuti u konacnoj verziji !!!!!!
+    'http://localhost:', # TODO: !!!!!! maknuti u konacnoj verziji !!!!!!
 ]
 # ------------------------------------------------------------------------------------

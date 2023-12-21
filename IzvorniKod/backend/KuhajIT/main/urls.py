@@ -4,7 +4,7 @@ from .views import SignUpView
 from . import views
 
 urlpatterns = [
-    path('/auth', include('authentication.urls')),
+    path('auth/', include('authentication.urls')),
     path("", views.index, name="index"),
 
     # React functions

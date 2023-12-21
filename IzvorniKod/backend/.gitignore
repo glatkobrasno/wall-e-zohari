@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Caches
+*.cache/
+
+# Logs
+*.log
+
+
+# Database
+db.sqlite3
+
+# Local development settings
+local_settings.py
+
+# Media files
+media/
+
+# Static files
+staticfiles/
+
+# Secret key file
+*.key
+
+
+# Ignore generated files by IDEs
+*.iml
+*.pyproj
+*.pyc
+*.suo
+*.user
+*.sln
+*.vscode/
+
+# Ignore migration files for each app
+**/migrations/
