@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #added TODO:---------------------------------------------------------
+    #added:---------------------------------------------------------
     'rest_framework',
     'main',
     'corsheaders',
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #added TODO:----------------------------------------------------------
+    #added:----------------------------------------------------------
     'corsheaders.middleware.CorsMiddleware',
     #---------------------------------------------------------------
 ]
@@ -89,9 +89,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'KuhajIT',
         'USER': 'postgres',
-        'PASSWORD': '3694575leO',         # Enter personal postgres password and leave the rest as it is
+        'PASSWORD': '',         #TODO Enter personal postgres password and leave the rest as it is
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5432', # OVO BI TREBALO BITI DOBRO DEFAULT AKO NE MJENJATE NIST NA POSTGRESU
     }
 }
 
@@ -137,7 +137,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#added TODO: ----------------------------------------------------------------------------
+#added : ----------------------------------------------------------------------------
 # django rest default setings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -153,6 +153,6 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
-    'http://localhost:', # TODO: !!!!!! maknuti u konacnoj verziji !!!!!!
+    'http://localhost:', #: !!!!!! maknuti u konacnoj verziji !!!!!!
 ]
 # ------------------------------------------------------------------------------------

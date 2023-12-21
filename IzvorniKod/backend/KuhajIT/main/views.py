@@ -17,8 +17,8 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'index.html')
 
-class SignUpView(serializers.Serializer):
-    @api_view(['POST'])
+class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
+    @api_view(['POST', 'GET'])
     def sign_up_save(request): # geting data from react data(Name, Surname, Email, UserName, Password, PasswordC, Bio, Img, ImgName, ImgType, Roll)
         if request.method == 'POST':
             role = request.data.get('Roll')
