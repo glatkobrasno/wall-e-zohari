@@ -214,7 +214,7 @@ class Sadrzi(models.Model):
 
 class Slike(models.Model):
     idslika = models.IntegerField(db_column='IDslika', primary_key=True)  # Field name made lowercase.
-    slika = models.BinaryField(db_column='Slika', blank=True, null=True)  # Field name made lowercase.
+    slika = models.FileField(db_column='Slika', blank=True, null=True)  # Field name made lowercase. #TODO works with FileField should be BinaryField
 
     class Meta:
         managed = False

@@ -29,6 +29,7 @@ function SignUp(){
 function Form(){
     // variables
     const [file, setFile]=useState(''); // for using file
+    const [binImg, setBinImg] = useState(null); // stores binary img data
     const [imgUrl, setImgUrl] = useState(''); // for image prepreview
     const roll = useFormField('LVL');
     const fname = useFormField('');
@@ -54,19 +55,41 @@ function Form(){
     function handleImage(e){
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
+        
+
         if(selectedFile){
-        setImgUrl(URL.createObjectURL(selectedFile));
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const binaryData = reader.result;
+                const base64String = arrayBufferToBase64(binaryData); // Convert ArrayBuffer to Base64
+                setBinImg(base64String);
+                
+            }
+
+            setImgUrl(URL.createObjectURL(selectedFile));
+            reader.readAsArrayBuffer(selectedFile);
         }
         else{
             URL.revokeObjectURL(imgUrl);
             setImgUrl('');
         }
+        
+        function arrayBufferToBase64(arrayBuffer) {
+            let binary = '';
+            const bytes = new Uint8Array(arrayBuffer);
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binary);
+        }
     }
 
-    function handleSubmit(e){
+
+
+    async function handleSubmit(e){
         var data;
         e.preventDefault(); // staps default behaviour
-        var incorrect = false;
         if(roll.value === 'LVL1'){
             data={
                 'Name' : fname.value,
@@ -87,21 +110,20 @@ function Form(){
                 'Bio' : bio.value,
                 'ImgName' : file.name,
                 'ImgType' : file.type,
-                'Img' : file,
+                'Img' : binImg,
                 'Roll' : roll.value
         }
-        if(!ifConfirmed()){
-            incorrect = true;
+        if(ifConfirmed()){ // ako je password dobro napisan dvaput
+            //console.log(await ifUserFree())
+            if(await ifUserFree()){ // ako je slobodno korisnicko ime
+                toDataBase(data);// upload na bazu
+            }
+            else
+                alert('Korisnićko ime je zauzeto.');
+        } 
+        else
             alert('Lozinke se ne poklapaju probajte ponovno.');
-        }
-        if(!ifUserFree()){
-            incorrect = true;
-            alert('Korisnićko ime je zauzeto.');
             
-        }
-        if(!incorrect){
-            toDataBase(data);// upload na bazu
-        }
         console.log('Name:', data['Name']);
         console.log('Surname:', data['Surname']);
         console.log('Email:', data['Email']);
@@ -111,28 +133,18 @@ function Form(){
         console.log('Bio:', data['Bio']);
         console.log('Image Name:', data['ImgName']);
         console.log('Image Type:', data['ImgType']);
+        console.log('Img Binary:',data['Img'])
         console.log('Roll:', data['Roll']);
 
         function ifConfirmed(){
-            if(data['Password'] === data['PasswordC']){
-                return true;
-            }
-            else return false;
+            return data['Password'] === data['PasswordC']
         }
-        function ifUserFree(){
+        async function ifUserFree(){
             // Check if the username is taken in the backend using Axios
-            Axios.post(backURL+'/check_username/', {username : data['UserName']})
-            .then((response) => {
-                if (response.data.taken) {
-                    alert('Korisničko ime je zauzeto.');
-                    return false;
-                }
-            })
-            .catch((error) => {
-                console.error('Error checking username:', error);
-            });
-            return true;
+            const response = await Axios.post(backURL + '/check_username/', { username: data['UserName'] });
+                return !response.data.taken
         }
+
         function toDataBase(data) {
             // Implement the upload to the database using Axios
             Axios.post(backURL+'/save_SignUp/', data)
@@ -167,7 +179,7 @@ function Form(){
             else{
                 setDisabledState(false);
             }
-        console.log("Roll:", disabledState);
+        //console.log("Roll:", disabledState);
     }
    // roll.onChange(handleRoll)
 

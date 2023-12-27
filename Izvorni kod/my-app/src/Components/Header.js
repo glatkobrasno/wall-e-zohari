@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import '../styles/Header.css';
 //component imports
 import Menue from './Menue';
+import MiniProfile from './MiniProfile';
 import BackgroindImg1 from '../images/menueIcon_cloase.png'
 
 function Header(){
     //variables
     var [menueOpen, setMenueOpen] = useState(false);
+    var displayProfile = true;
     var iconStyle = { transition: '0.1s'}
     function menueIconClick(){
         setMenueOpen(!menueOpen);
@@ -18,7 +20,7 @@ function Header(){
     // render resault
     return(
         <div className = "header">
-
+            {displayProfile && <MiniProfile/>} {/*Adds profile if someone is loged in*/}
             <div className = "menue_button" 
             style={iconStyle}
             onClick={menueIconClick}
@@ -37,6 +39,8 @@ function Header(){
         }
     }
 }
+
+
 
 
 export default Header;

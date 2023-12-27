@@ -9,5 +9,5 @@ urlpatterns = [
 
     # React functions
     path('save_SignUp/', SignUpView.sign_up_save, name='save_SignUp'),
-    path('check_username/', SignUpView.sign_up_save, name='check_username'),
+    path('check_username/', SignUpView.check_username, name='check_username'),
 ]

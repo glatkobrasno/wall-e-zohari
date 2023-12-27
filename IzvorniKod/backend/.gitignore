@@ -38,3 +38,5 @@ staticfiles/
 
 # Ignore migration files for each app
 **/migrations/
+
+*/temp
