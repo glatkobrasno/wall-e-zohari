@@ -20,7 +20,9 @@ function MiniProfile(){
             //console.log(userData)
             //console.log(userData)
             setMiniUname(userData.username)
-            setMiniProfImg("data:image/png;base64,"+userData.slika);
+            if(userData.lvl === 2 || userData.lvl === 3){
+                setMiniProfImg("data:image/png;base64,"+userData.slika);
+            }
         }
     },[]);
 
