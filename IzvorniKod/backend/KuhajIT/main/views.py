@@ -8,8 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from django.db.models import Max
 from .serializers import *
-from django.core.files.base import ContentFile
-from io import BytesIO
+from django.contrib.auth.hashers import check_password
 #added TODO ------------------------------------------
 from .models import *
 
@@ -48,9 +47,9 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
                 max_slike_id = Slike.objects.aggregate(Max('idslika'))['idslika__max']
                 slika_name = "temp/image" + str(max_slike_id+1) + request.data.get('ImgName')
                 print(slika_name)
-                binaryImg = ImgOperations.ImgDecodeB64(request.data.get('Img'))
+                base64Img = request.data.get('Img') #base64 format string
                 slika_data = {
-                    'slika': ContentFile(binaryImg, name=slika_name),
+                    'slika': base64Img,
                     'idslika' : max_slike_id+1,
                 }
                 #print(slika_data['slika'])
@@ -98,18 +97,50 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
 class LogInView(serializers.Serializer):
     @api_view(['POST', 'GET'])
     def validateLogIn(request):
-        user_data = [request.data.get('username'), request.data.get('password')]
+        user_data = [request.data.get('UserName'), request.data.get('Password')]
         user_object = Korisnik.objects.filter(korisnickoime=user_data[0])
-        # user_list = [user.korisnickoime for user in user_object]
-        return JsonResponse({'taken': user_object.exists()})
+        if(user_object.exists()): 
+            passfield = getattr(user_object[0], "lozinka", None)
+            if(user_data[1] == passfield):
+                return JsonResponse({'valid': True})
+            else:
+                return JsonResponse({'valid': False})
+        else:
+            return JsonResponse({'valid': False})
+        
+    @api_view(['POST', 'GET'])
+    def sendUserData(request):
+        user_logIn = request.data.get('UserName')
+        user_object = Korisnik.objects.filter(korisnickoime=user_logIn)
+        userLVL = getattr(user_object[0], "razinaprivilegije")
+        userLVL = abs(userLVL)
+        if(userLVL == 1):
+            user_data = {'username':getattr(user_object[0], "korisnickoime"),
+                         'name':getattr(user_object[0],"ime"),
+                         'surname':getattr(user_object[0],"prezime"),
+                         'lvl':userLVL,
+                         'diets':[getattr(x,"imedijeta") for x in user_object],}
+        if(userLVL==2 or userLVL==3):
+            special_user_object = Privilegiranikorisnik.objects.filter(korisnickoime=user_logIn)
+            imgId=getattr(special_user_object[0],"idslika").idslika
+            special_user_img = Slike.objects.filter(idslika=imgId)
+            user_data = {'username':getattr(user_object[0], "korisnickoime"),
+                         'name':getattr(user_object[0],"ime"),
+                         'surname':getattr(user_object[0],"prezime"),
+                         'lvl':userLVL,
+                         'diets':[getattr(x,"imedijeta") for x in user_object],
+                         'slika':ImgOperations.byteToString(getattr(special_user_img[0],"slika")), #ImageOperations je napravljena klasa!
+                         'email':getattr(special_user_object[0],"email"),
+                         'bio':getattr(special_user_object[0],"biografija"),}
+        return JsonResponse(user_data)
 
 
 class ImgOperations:
-    def ImgDecodeB64(b64Img):
-        decoded_image_data = base64.b64decode(b64Img)
-        return decoded_image_data
-    
 
-    def qeCodeAnalize(): # TODO obrada qrKoda
+    def byteToString(byteImg):
+        stringImg = byteImg.decode('ascii')
+        return stringImg
+    
+    def qrCodeAnalize(): # TODO obrada qrKoda
         pass
     

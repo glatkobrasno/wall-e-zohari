@@ -1,13 +1,14 @@
 //module imports
 import React from 'react';
 import Axios from 'axios';
+import { useNavigate } from "react-router-dom";
 //css imports
 import '../styles/Login.css';
 
 
 
 //global val
-const backURL=''//backend URL
+const backURL='http://127.0.0.1:8000'//backend URL
 
 function Login(){
     return(
@@ -23,6 +24,8 @@ function Form(){
     // variables
     const username = useFormField('');
     const password = useFormField('');
+    const navigate = useNavigate();
+           
 
 
     return(
@@ -37,36 +40,44 @@ function Form(){
     );
 
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault(); // staps default behaviour
         var data={
             'UserName' : username.value,
             'Password' : password.value,
         }
-        console.log('Username:', data['UserName']);
-        console.log('Password:', data['Password']);
-        if(!checkDataBase){
-            alert('Krivo upisani podatci');
+        // console.log('Username:', data['UserName']);
+        // console.log('Password:', data['Password']);
+        //console.log(await validateLogIn(data))
+        if(await validateLogIn(data)){
+            //console.log(await getUserData(data))
+            sessionStorage.setItem("userData",await getUserData(data))
+            alert('Uspjesna prijava');
+            navigate("/");
+            window.location.reload();
         }
         else{
-            alert('Uspjesna prijava');
+            alert('Krivo upisani podatci');
         }
 
-        function checkDataBase(data) {
+        async function validateLogIn(data) {
             // Use Axios to check the credentials against the backend
-            Axios.post(backURL+'/check_login/', data)
-                .then((response) => {
-                    if (response.data.correct) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error checking credentials:', error);
-                    alert('Pogreška prilikom provjere podataka');
-                });
+            var response = await Axios.post(backURL+'/check_login/', data);
+                    console.log(response.data);
+                    return response.data.valid;
         }
+
+        async function getUserData(data){
+            try{
+                var response = await Axios.post(backURL+'/get_user_data/', data);
+                //console.log(JSON.stringify(response.data));
+                return JSON.stringify(response.data);
+            }
+            catch(error){
+                console.error('Error geting data: ', error);
+            }
+        }
+
     }
 
 }

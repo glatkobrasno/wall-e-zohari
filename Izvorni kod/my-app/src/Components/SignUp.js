@@ -55,20 +55,26 @@ function Form(){
     function handleImage(e){
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
+        const reader = new FileReader();
         
 
         if(selectedFile){
-
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const binaryData = reader.result;
-                const base64String = arrayBufferToBase64(binaryData); // Convert ArrayBuffer to Base64
-                setBinImg(base64String);
-                
+            var fSize=selectedFile.size
+            if(fSize > 500000){
+                alert('Prevelika Slika, max 0.5 MB')
+                URL.revokeObjectURL(imgUrl);
+                setImgUrl('');
+                e.target.value = null;
             }
-
+            else{
+                reader.onloadend = () => {
+                    const binaryData = reader.result;
+                    const base64String = arrayBufferToBase64(binaryData); // Convert ArrayBuffer to Base64
+                    setBinImg(base64String);
+                }
             setImgUrl(URL.createObjectURL(selectedFile));
             reader.readAsArrayBuffer(selectedFile);
+            }
         }
         else{
             URL.revokeObjectURL(imgUrl);
@@ -124,17 +130,17 @@ function Form(){
         else
             alert('Lozinke se ne poklapaju probajte ponovno.');
             
-        console.log('Name:', data['Name']);
-        console.log('Surname:', data['Surname']);
-        console.log('Email:', data['Email']);
-        console.log('Username:', data['UserName']);
-        console.log('Password:', data['Password']);
-        console.log('Confirmed Password:', data['PasswordC']);
-        console.log('Bio:', data['Bio']);
-        console.log('Image Name:', data['ImgName']);
-        console.log('Image Type:', data['ImgType']);
-        console.log('Img Binary:',data['Img'])
-        console.log('Roll:', data['Roll']);
+        // console.log('Name:', data['Name']);
+        // console.log('Surname:', data['Surname']);
+        // console.log('Email:', data['Email']);
+        // console.log('Username:', data['UserName']);
+        // console.log('Password:', data['Password']);
+        // console.log('Confirmed Password:', data['PasswordC']);
+        // console.log('Bio:', data['Bio']);
+        // console.log('Image Name:', data['ImgName']);
+        // console.log('Image Type:', data['ImgType']);
+        // console.log('Img Binary:',data['Img'])
+        // console.log('Roll:', data['Roll']);
 
         function ifConfirmed(){
             return data['Password'] === data['PasswordC']
@@ -211,7 +217,7 @@ function Form(){
             <input type="password" id="password" name="password" placeholder="Lozinka" {...password} disabled={disabledState['password']} required></input>
             <input type="password" id="passwordC" name="passwordC" placeholder="Potvrdite svoju lozinku" {...passwordC} disabled={disabledState['passwordC']} required></input>
             <textarea id="bio" name='bio' placeholder='Upišite kratki životopis ...' {...bio} disabled={disabledState['bio']} required ></textarea>
-            <input type='file' name='profImg' id='upload' onChange={handleImage} disabled={disabledState['file']} accept='image/*' required></input>
+            <input type='file' name='profImg' id='upload' onChange={handleImage} disabled={disabledState['file']} accept='.jpg, .jpeg, .png' size="500000" required></input>
             <img src ={imgUrl}  className='imgprev' alt='uploaded.img' id={disabledState['file'] ? 'imgDes' : ''}></img>
             <input type='submit' name='submitButton' id='submitButton' disabled={disabledState['fname']}></input>
         </form>

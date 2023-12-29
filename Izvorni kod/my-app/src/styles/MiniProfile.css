@@ -1,6 +1,7 @@
 
 
 .miniProfileBox{
+    box-sizing: border-box;
     /* border: 2px solid black; */
     padding: 10px;
     background-color: rgb(35, 51, 70); 
@@ -16,8 +17,9 @@
     /* border: 2px solid rgb(156, 42, 42); */
     background-color: rgb(95, 47, 47);
     border-radius: 10rem;
-    width: 50%;
-    height: 50%;
+    width: calc(50% - 4px);
+    height: calc(50% - 4px);
+    margin: 2px;
     font-size: 0.95rem;
     align-items: center;
     justify-content: center;
@@ -47,12 +49,54 @@
 .userName_mini{
     display: flex;
     /* border: 2px solid rgb(89, 39, 170); */
-    
-    width: 50%;
-    height: 50%;
-    font-size: 0.95rem;
-    align-items: center;
-    justify-content: center;
+    width: calc(50% - 4px);
+    height: calc(50% - 4px);
+    margin: 2px;
+    font-size: 0.9rem;
+    text-align: center;
+    white-space: nowrap;
+    align-items: flex-end;
+    overflow: clip;
     font-weight: 750;
     color: rgb(255, 218, 201);
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: inset 0px 0px 10px 3px  rgba(173, 77, 77, 0.2);
+    text-shadow: 0 1px 2px #747474, 
+      1px 1px 3px #222, 
+      0 8px 3px #474747, 
+      0 11px 4px #747474,
+      0 14px 4px #565656,
+      0 17px 4px #343434,
+      0 20px 4px #171717;
 }
+
+.scroll-text{
+    position: absolute;
+    padding-left: 50%;
+}
+.scroll-text:nth-child(1) {
+    animation: scrollText1 15s linear infinite;
+}
+.scroll-text:nth-child(2) {
+    animation: scrollText2 15s linear infinite;
+    animation-delay: -7.5s;
+}
+
+  @keyframes scrollText1 {
+    0% { transform: translateX(100%); } /* Start off-screen to the right */
+    25% { transform: translateX(50%); } /* Start off-screen to the right */
+    50% { transform: translateX(0%); } /* Start off-screen to the right */
+    75% { transform: translateX(-50%); } /* Move off-screen to the left */
+    100% { transform: translateX(-100%); } /* Start off-screen to the right */
+  }
+
+  @keyframes scrollText2 {
+    0% { transform: translateX(100%); } /* Start off-screen to the right */
+    25% { transform: translateX(50%); } /* Start off-screen to the right */
+    50% { transform: translateX(0%); } /* Start off-screen to the right */
+    75% { transform: translateX(-50%); } /* Move off-screen to the left */
+    100% { transform: translateX(-100%); } /* Start off-screen to the right */
+  }
