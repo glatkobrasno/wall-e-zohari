@@ -44,7 +44,7 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
                     return Response({'error': korisnik_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
             elif role in ['LVL2', 'LVL3']:
-                max_slike_id = Slike.objects.aggregate(Max('idslika'))['idslika__max']
+                max_slike_id = Slike.objects.aggregate(Max('idslika', default = '0'))['idslika__max']
                 slika_name = "temp/image" + str(max_slike_id+1) + request.data.get('ImgName')
                 print(slika_name)
                 base64Img = request.data.get('Img') #base64 format string
@@ -101,10 +101,7 @@ class LogInView(serializers.Serializer):
         user_object = Korisnik.objects.filter(korisnickoime=user_data[0])
         if(user_object.exists()): 
             passfield = getattr(user_object[0], "lozinka", None)
-            if(user_data[1] == passfield):
-                return JsonResponse({'valid': True})
-            else:
-                return JsonResponse({'valid': False})
+            return JsonResponse({'valid': user_data[1] == passfield})
         else:
             return JsonResponse({'valid': False})
         
