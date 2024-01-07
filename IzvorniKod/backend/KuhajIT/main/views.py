@@ -131,6 +131,45 @@ class LogInView(serializers.Serializer):
                          'bio':getattr(special_user_object[0],"biografija"),}
         return JsonResponse(user_data)
 
+class ProductsView(serializers.Serializer):
+    @api_view(['POST', 'GET'])
+    def addProduct(request):
+        if request.method == 'POST':
+            max_slike_id = Slike.objects.aggregate(Max('idslika', default = '0'))['idslika__max']
+            
+            base64Img = request.data.get('Img') #base64 format string
+            slika_data = {
+                'slika': base64Img,
+                'idslika' : max_slike_id + 1,
+            }
+
+            slika_serializer = SlikeSerializer(data=slika_data)
+
+            max_proizvod_id = Slike.objects.aggregate(Max('idproizvod', default = '0'))['idproizvod__max']
+            proizvod_data = {
+                'IDproizvod' : max_proizvod_id + 1,
+                'ImeProizvod': request.data.get('ProductName'),
+                'EnergijaPr': request.data.get('Energy'),
+                'MasnocePr': request.data.get('Fats'),
+                'BjelancevinePr': request.data.get('Proteins'),
+                'UgljikohidratiPr': request.data.get('Carbohydrates'),
+                'SolPr': request.data.get('Salt'),
+                'MasaPr': request.data.get('Mass'),
+                'ZMKiselinePr': request.data.get('Acids'),
+                'SeceriPr': request.data.get('Sugars'),
+                'IDslika': max_slike_id + 1,
+            }
+            
+            proizvod_serializer = ProizvodSerializer(data=proizvod_data)
+            
+            if slika_serializer.is_valid() and proizvod_serializer.is_valid():
+                slika_serializer.save()
+                produkt_serializer.save()
+                
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'error': slika_serializer.errors or proizvod_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ImgOperations:
 
