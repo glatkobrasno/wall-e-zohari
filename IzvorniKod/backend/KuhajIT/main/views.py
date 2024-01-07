@@ -36,7 +36,7 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
                 }
 
                 korisnik_serializer = KorisnikSerializer(data=korisnik_data)
-                
+
                 if korisnik_serializer.is_valid():
                     korisnik_serializer.save()
                     return Response({'success': True}, status=status.HTTP_201_CREATED)
@@ -77,7 +77,7 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
                     korisnik_serializer.save()
                     #privilegirani_data['idslika'] = slika.idslika
                     privilegirani_serializer = PrivilegiranikorisnikSerializer(data=privilegirani_data)
-                    
+
                     if privilegirani_serializer.is_valid():
                         privilegirani_serializer.save()
                         return Response({'success': True}, status=status.HTTP_201_CREATED)
@@ -93,18 +93,18 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
         user_list = [user.korisnickoime for user in user_object]
         print(user_object.exists())
         return JsonResponse({'taken': user_object.exists()})
-    
+
 class LogInView(serializers.Serializer):
     @api_view(['POST', 'GET'])
     def validateLogIn(request):
         user_data = [request.data.get('UserName'), request.data.get('Password')]
         user_object = Korisnik.objects.filter(korisnickoime=user_data[0])
-        if(user_object.exists()): 
+        if(user_object.exists()):
             passfield = getattr(user_object[0], "lozinka", None)
             return JsonResponse({'valid': user_data[1] == passfield})
         else:
             return JsonResponse({'valid': False})
-        
+
     @api_view(['POST', 'GET'])
     def sendUserData(request):
         user_logIn = request.data.get('UserName')
@@ -135,8 +135,9 @@ class ProductsView(serializers.Serializer):
     @api_view(['POST', 'GET'])
     def addProduct(request):
         if request.method == 'POST':
+           
             max_slike_id = Slike.objects.aggregate(Max('idslika', default = '0'))['idslika__max']
-            
+
             base64Img = request.data.get('Img') #base64 format string
             slika_data = {
                 'slika': base64Img,
@@ -145,31 +146,35 @@ class ProductsView(serializers.Serializer):
 
             slika_serializer = SlikeSerializer(data=slika_data)
 
-            max_proizvod_id = Slike.objects.aggregate(Max('idproizvod', default = '0'))['idproizvod__max']
+            max_proizvod_id = Proizvod.objects.aggregate(Max('idproizvod', default = '0'))['idproizvod__max']
+
             proizvod_data = {
-                'IDproizvod' : max_proizvod_id + 1,
-                'ImeProizvod': request.data.get('ProductName'),
-                'EnergijaPr': request.data.get('Energy'),
-                'MasnocePr': request.data.get('Fats'),
-                'BjelancevinePr': request.data.get('Proteins'),
-                'UgljikohidratiPr': request.data.get('Carbohydrates'),
-                'SolPr': request.data.get('Salt'),
-                'MasaPr': request.data.get('Mass'),
-                'ZMKiselinePr': request.data.get('Acids'),
-                'SeceriPr': request.data.get('Sugars'),
-                'IDslika': max_slike_id + 1,
+                'idproizvod': max_proizvod_id + 1,
+                'imeproizvod': request.data.get('Productname'),
+                'energijapr': float(request.data.get('Calories')),
+                'masnocepr': float(request.data.get('Fats')),
+                'bjelancevinepr': float(request.data.get('Protein')),
+                'ugljikohidratipr': float(request.data.get('Carbohydrates')),
+                'solpr': float(request.data.get('Salt')),
+                'masapr': float(request.data.get('Mass')),
+                'zmkiselinepr': float(request.data.get('Acids')),
+                'seceripr': float(request.data.get('Sugars')),
+                'idslika': max_slike_id + 1,
             }
-            
-            proizvod_serializer = ProizvodSerializer(data=proizvod_data)
-            
-            if slika_serializer.is_valid() and proizvod_serializer.is_valid():
+
+            if slika_serializer.is_valid():
+
                 slika_serializer.save()
-                proizvod_serializer.save()
-                
-                return Response({'success': True}, status=status.HTTP_201_CREATED)
+                proizvod_serializer = ProizvodSerializer(data=proizvod_data)
+                if proizvod_serializer.is_valid():
+                    proizvod_serializer.save()
+                    return Response({'success': True}, status=status.HTTP_201_CREATED)
+
+                return Response({'error': slika_serializer.errors or proizvod_serializer.errors},status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({'error': slika_serializer.errors or proizvod_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-            return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ImgOperations:
 
@@ -177,6 +182,6 @@ class ImgOperations:
         stringImg = byteImg.decode('ascii')
         return stringImg
     
-    def qrCodeAnalize(): # TODO obrada qrKoda
-        pass
+    #def qrCodeAnalize(): # TODO obrada qrKoda
+        #pass
     

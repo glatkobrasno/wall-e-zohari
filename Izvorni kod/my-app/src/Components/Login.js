@@ -46,9 +46,9 @@ function Form(){
             'UserName' : username.value,
             'Password' : password.value,
         }
-        // console.log('Username:', data['UserName']);
-        // console.log('Password:', data['Password']);
-        //console.log(await validateLogIn(data))
+        console.log('Username:', data['UserName']);
+        console.log('Password:', data['Password']);
+        console.log(await validateLogIn(data))
         if(await validateLogIn(data)){
             //console.log(await getUserData(data))
             sessionStorage.setItem("userData",await getUserData(data))
