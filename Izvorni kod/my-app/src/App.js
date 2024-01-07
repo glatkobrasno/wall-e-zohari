@@ -9,6 +9,8 @@ import SignUp from './Components/SignUp';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Home from './Components/Home';
+import AddProduct from './Components/addProduct';
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
           <Route exact path='/' element={<div><Header/><Home/><Footer/></div>}></Route>
           <Route exact path='/Login' element={<div><Header/><Login/><Footer/></div>}></Route>
           <Route exact path='/SignUp' element={<div><Header/><SignUp/><Footer/></div>}></Route>
+          <Route exact path='/AddProduct' element={<div><Header/><AddProduct/><Footer/></div>}></Route>
       </Routes>
     </Router> 
   );

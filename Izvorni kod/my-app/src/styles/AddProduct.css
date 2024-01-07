@@ -1,0 +1,29 @@
+.labelTx {
+    position: relative !important;
+    top:-12px !important;
+    left: 10px;
+    border: 0 !important;
+    background-color: transparent !important;
+    font-size: 0.7rem !important;
+    color: rgb(255, 213, 194, 0.3) !important;
+    width: fit-content !important;
+    height: fit-content !important;
+    margin: 0 !important;
+}
+
+.product_info_form{
+    box-sizing: border-box;
+    display: grid;
+    grid-column: 2;
+    color: rgba(255, 196, 168, 1);
+    overflow: hidden;
+    scroll-behavior: auto;
+
+
+}
+#hTitle{
+    grid-column: 1/3;
+}
+
+
+

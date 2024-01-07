@@ -13,7 +13,7 @@ function useFormField(initialValue) {
 
 
 
-function addProduct(){
+function AddProduct(){
     return(
         <div className='addProd_box'>
             <div className='addProd_form'>
@@ -107,16 +107,17 @@ function ProductForm(){
 
     return(
         <div className='product_info_form' onSubmit={handleSubmit}>
-            <label htmlFor='Productname' className='labelTx'>Naziv proizvoda:</label>
-            <label htmlFor='Calories' className='labelTx'>Energija(po 100g):</label>
-            <label htmlFor='Fats' className='labelTx'>Masnoće(po 100g):</label>
-            <label htmlFor='Protein' className='labelTx'>Bjelanćevine(po 100g):</label>
-            <label htmlFor='Carohydrates' className='labelTx'>Ugljikohidrati(po 100g):</label>
-            <label htmlFor='Salt' className='labelTx'>Sol(po 100g):</label>
-            <label htmlFor='Mass' className='labelTx'>Masa:</label>
-            <label htmlFor='Acids' className='labelTx'>Zasićene masne kiseline(po 100g):</label>
-            <label htmlFor='Sugars' className='labelTx'>Šećeri(po 100g):</label>
-            <label htmlFor='Img' className='labelTx'>Slika:</label>
+            <h1 className='hTitle'> Dodaj proizvod</h1>
+            <label htmlFor='Productname' id='Prodname' className='labelTx'>Naziv proizvoda:</label>
+            <label htmlFor='Calories' id='Cal' className='labelTx'>Energija(po 100g):</label>
+            <label htmlFor='Fats' id='F' className='labelTx'>Masnoće(po 100g):</label>
+            <label htmlFor='Protein' id='Prot' className='labelTx'>Bjelanćevine(po 100g):</label>
+            <label htmlFor='Carohydrates' id='Carbs' className='labelTx'>Ugljikohidrati(po 100g):</label>
+            <label htmlFor='Salt' id='Sal' className='labelTx'>Sol(po 100g):</label>
+            <label htmlFor='Mass' id='M' className='labelTx'>Masa:</label>
+            <label htmlFor='Acids'id='A' className='labelTx'>Zasićene masne kiseline(po 100g):</label>
+            <label htmlFor='Sugars' id='Sug' className='labelTx'>Šećeri(po 100g):</label>
+            <label htmlFor='Img' id='Img' className='labelTx'>Slika:</label>
 
             <input type='text' name='Productname' required></input>
             <input type='text' name='Calories' required></input>
@@ -136,4 +137,4 @@ function ProductForm(){
     ); 
 }
 
-export default addProduct;
+export default AddProduct;

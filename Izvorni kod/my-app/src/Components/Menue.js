@@ -30,7 +30,7 @@ function Menue(){
                     <Link to="/Login"><li>LogIn</li></Link>
                     <Link to="/SignUp"><li>SignUp</li></Link>
                     <Link to="/"><li>Home</li></Link>
-		    <Link to="/AddProduct"><li>Products</li></Link>
+		            <Link to="/AddProduct"><li>Products</li></Link>
                     <li>nesto</li>
                 </ul>
             </div>
