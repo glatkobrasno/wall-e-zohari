@@ -164,7 +164,7 @@ class ProductsView(serializers.Serializer):
             
             if slika_serializer.is_valid() and proizvod_serializer.is_valid():
                 slika_serializer.save()
-                produkt_serializer.save()
+                proizvod_serializer.save()
                 
                 return Response({'success': True}, status=status.HTTP_201_CREATED)
             else:
