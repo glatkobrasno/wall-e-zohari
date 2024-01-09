@@ -13,5 +13,5 @@
 
 /.idea
 
-/Izvorni\ kod/venv/
-/Izvorni\ kod/linux-venv/
+/Izvornikod/backend/venv/
+/Izvornikod/backend/linux-venv/
