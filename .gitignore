@@ -12,3 +12,6 @@
 *.toc
 
 /.idea
+
+/Izvorni\ kod/venv/
+/Izvorni\ kod/linux-venv/
