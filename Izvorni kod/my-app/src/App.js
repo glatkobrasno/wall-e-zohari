@@ -10,7 +10,7 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Home from './Components/Home';
 import AddProduct from './Components/addProduct';
-
+import Profile from './Components/Profile';
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
           <Route exact path='/Login' element={<div><Header/><Login/><Footer/></div>}></Route>
           <Route exact path='/SignUp' element={<div><Header/><SignUp/><Footer/></div>}></Route>
           <Route exact path='/AddProduct' element={<div><Header/><AddProduct/><Footer/></div>}></Route>
+	  <Route path='/Profile/:username' element={<div><Header/><Profile/><Footer/></div>}></Route>
       </Routes>
     </Router> 
   );
