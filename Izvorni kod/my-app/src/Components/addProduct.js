@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import Axios from 'axios';
-import "../styles/AddProduct.css"
+import "../styles/AddProduct.css";
 
-const backURL='http://127.0.0.1:8000'//backend URL
+const backURL='http://127.0.0.1:8000';//backend URL
 
 function useFormField(initialValue) {
     const [value, setValue] = React.useState(initialValue);
@@ -139,7 +139,7 @@ function ProductForm(){
             <label htmlFor='Img' id='Img' className='labelTx2'>Slika:</label>
 
             <input type='file' onChange={handleImage} name='Img' id='Img' accept='.jpg, .jpeg, .png' size="500000" required></input>
-            <img src={imgUrl} alt='' id={(imgUrl==='')? 'notsel':'sel'} ></img>
+            <img className='productImg' src={imgUrl} alt='' id={(imgUrl==='')? 'notsel':'sel'} ></img>
             <input type='submit' id='S123'></input>
         </form>
 
