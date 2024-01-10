@@ -182,6 +182,7 @@ class Proizvod(models.Model):
 
 class Recept(models.Model):
     idrecept = models.IntegerField(db_column='IDrecept', primary_key=True)  # Field name made lowercase.
+    imerecept = models.CharField(db_column='ImeRecept', max_length=200, blank=True, null=True)  # Field name made lowercase.
     velicinaporcija = models.IntegerField(db_column='VelicinaPorcija', blank=True, null=True)  # Field name made lowercase.
     vrijemepripreme = models.TimeField(db_column='VrijemePripreme', blank=True, null=True)  # Field name made lowercase.
     datumizrade = models.DateField(db_column='DatumIzrade', blank=True, null=True)  # Field name made lowercase.

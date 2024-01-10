@@ -266,6 +266,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDrecept" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
+	<column name="ImeRecept">
+		<type name="varchar" length="200"/>
+	</column>
 	<column name="VelicinaPorcija">
 		<type name="integer" length="0"/>
 	</column>

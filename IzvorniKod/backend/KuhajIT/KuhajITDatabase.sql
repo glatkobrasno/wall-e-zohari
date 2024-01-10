@@ -152,6 +152,7 @@ ALTER TABLE public."OznakeProizvoda" OWNER TO postgres;
 -- DROP TABLE IF EXISTS public."Recept" CASCADE;
 CREATE TABLE public."Recept" (
 	"IDrecept" integer NOT NULL,
+	"ImeRecept" varchar(200),
 	"VelicinaPorcija" integer,
 	"VrijemePripreme" time,
 	"DatumIzrade" date,

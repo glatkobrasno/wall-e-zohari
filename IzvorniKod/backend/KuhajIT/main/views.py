@@ -176,6 +176,53 @@ class ProductsView(serializers.Serializer):
 
         return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
 
+class ProfileView(serializers.Serializer):
+    @api_view(['POST', 'GET'])
+    def getProfile(request):
+        user_data = request.data.get('UserName')
+        user_object = Korisnik.objects.filter(korisnickoime=user_data)
+        
+        if (user_object.exists()):
+            userLVL = getattr(user_object[0], "razinaprivilegije")
+            userLVL = abs(userLVL)
+            if (userLVL == 1):
+                user_data_ret = {'username' : getattr(user_object[0], "korisnickoime"),
+                             'name' : getattr(user_object[0],"ime"),
+                             'surname' : getattr(user_object[0],"prezime"),
+                             'lvl' : userLVL,
+                             'valid' : True}
+                
+            if (userLVL == 2 or userLVL == 3):
+                special_user_object = Privilegiranikorisnik.objects.filter(korisnickoime=user_data)
+                imgId = getattr(special_user_object[0],"idslika").idslika
+                special_user_img = Slike.objects.filter(idslika=imgId)
+                user_data_ret = {'username' : getattr(user_object[0], "korisnickoime"),
+                             'name' : getattr(user_object[0],"ime"),
+                             'surname' : getattr(user_object[0],"prezime"),
+                             'lvl' : userLVL,
+                             'slika' : ImgOperations.byteToString(getattr(special_user_img[0],"slika")), #ImageOperations je napravljena klasa!
+                             'bio' : getattr(special_user_object[0],"biografija"),
+                             'kuharica' : [[getattr(x, "idkuharica"), getattr(x, "naslov")] for x in Kuharica.objects.raw(
+                                          """
+                                          SELECT "Kuharica"."IDKuharica",
+                                                 "Kuharica"."Naslov"
+                                          FROM "Kuharica"
+                                          WHERE "Kuharica"."KorisnickoIme" = \'"""+user_data+"""\';"""
+                             )],
+                             'recept' : [[getattr(x, "idrecept"), getattr(x, "imerecept")] for x in Recept.objects.raw(
+                                          """
+                                          SELECT "Recept"."IDrecept",
+                                                 "Recept"."ImeRecept"
+                                          FROM "Recept"
+                                          WHERE "Recept"."KorisnickoIme" = \'"""+user_data+"""\';"""
+                             )],
+                             'valid' : True}
+            print("ODEEEEEEEEEEEEEEEEE" , user_data_ret)
+            return JsonResponse(user_data_ret)    
+            
+        else:
+            return JsonResponse({'valid': False})
+    
 class ImgOperations:
 
     def byteToString(byteImg):
