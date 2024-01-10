@@ -75,7 +75,7 @@
 
 .scroll-text{
     position: absolute;
-    padding-left: 50%;
+    padding-left: 100%;
 }
 .scroll-text:nth-child(1) {
     animation: scrollText1 15s linear infinite;

@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'KuhajIT',
         'USER': 'postgres',
-        'PASSWORD': 'stilshifra123',         #TODO Enter personal postgres password and leave the rest as it is
+        'PASSWORD': '3694575leO',         #TODO Enter personal postgres password and leave the rest as it is
         'HOST': 'localhost',
         'PORT': '5432', # OVO BI TREBALO BITI DOBRO DEFAULT AKO NE MJENJATE NIST NA POSTGRESU
     }
