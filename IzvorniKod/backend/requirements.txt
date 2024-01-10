@@ -9,3 +9,4 @@ typing_extensions==4.8.0
 tzdata==2023.3
 qrcode
 opencv-python
+python-dotenv

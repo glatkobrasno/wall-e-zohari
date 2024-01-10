@@ -84,6 +84,7 @@ WSGI_APPLICATION = 'KuhajIT.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+load_dotenv()
 PG_PASSWORD = os.getenv("PG_PASSWORD")  # Citanje passworda iz datoteke ".env" pored ove datoteke, nju ne trackamo!!!
 DATABASES = {
     'default': {
