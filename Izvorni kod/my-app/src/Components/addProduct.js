@@ -78,7 +78,7 @@ function ProductForm(){
         }
     }
     async function handleSubmit(e){
-        console.log("adwasdawsdaw");
+        
         e.preventDefault();
         var data;
         
@@ -109,29 +109,38 @@ function ProductForm(){
     return(
         <form className='product_info_form' onSubmit={handleSubmit}>
             <h1 className='hTitle'> Dodaj proizvod</h1>
-            <label htmlFor='Productname' id='Productname' className='labelTx'>Naziv proizvoda:</label>
-            <label htmlFor='Calories' id='Calories' className='labelTx'>Energija(po 100g):</label>
-            <label htmlFor='Fats' id='Fats' className='labelTx'>Masnoće(po 100g):</label>
-            <label htmlFor='Protein' id='Protein' className='labelTx'>Bjelanćevine(po 100g):</label>
-            <label htmlFor='Carbohydrates' id='Carbohydrates' className='labelTx'>Ugljikohidrati(po 100g):</label>
-            <label htmlFor='Salt' id='Salt' className='labelTx'>Sol(po 100g):</label>
-            <label htmlFor='Mass' id='Mass' className='labelTx'>Masa:</label>
-            <label htmlFor='Acids'id='Acids' className='labelTx'>Zasićene masne kiseline(po 100g):</label>
-            <label htmlFor='Sugars' id='Sugars' className='labelTx'>Šećeri(po 100g):</label>
-            <label htmlFor='Img' id='Img' className='labelTx'>Slika:</label>
-
+            <label htmlFor='Productname' id='Productname' className='labelTx2'>Naziv proizvoda:</label>
             <input type='text' name='Productname' id='Productname' {...Productname}  required></input>
+
+            <label htmlFor='Calories' id='Calories' className='labelTx2'>Energija(po 100g):</label>
             <input type='text' name='Calories' id='Calories' {...Calories} required></input>
+
+            <label htmlFor='Fats' id='Fats' className='labelTx2'>Masnoće(po 100g):</label>
             <input type='text' name='Fats' id='Fats' {...Fats} required></input>
+
+            <label htmlFor='Protein' id='Protein' className='labelTx2'>Bjelanćevine(po 100g):</label>
             <input type='text' name='Protein' id='Protein' {...Protein} required></input>
+
+            <label htmlFor='Carbohydrates' id='Carbohydrates' className='labelTx2'>Ugljikohidrati(po 100g):</label>
             <input type='text' name='Carbohydrates' id='Carbohydrates' {...Carbohydrates} required></input>
+
+            <label htmlFor='Salt' id='Salt' className='labelTx2'>Sol(po 100g):</label>
             <input type='text' name='Salt' id='Salt' {...Salt} required></input>
+            
+            <label htmlFor='Mass' id='Mass' className='labelTx2'>Masa:</label>
             <input type='text' name='Mass' id='Mass' {...Mass} required></input>
+
+            <label htmlFor='Acids'id='Acids' className='labelTx2'>Zasićene masne kiseline(po 100g):</label>
             <input type='text' name='Acids' id='Acids' {...Acids} required></input>
+
+            <label htmlFor='Sugars' id='Sugars' className='labelTx2'>Šećeri(po 100g):</label>
             <input type='text' name='Sugars' id='Sugars' {...Sugars}  required></input>
+
+            <label htmlFor='Img' id='Img' className='labelTx2'>Slika:</label>
+
             <input type='file' onChange={handleImage} name='Img' id='Img' accept='.jpg, .jpeg, .png' size="500000" required></input>
-            <img src={imgUrl} alt='' ></img>
-            <input type='submit'></input>
+            <img src={imgUrl} alt='' id={(imgUrl==='')? 'notsel':'sel'} ></img>
+            <input type='submit' id='S123'></input>
         </form>
 
 

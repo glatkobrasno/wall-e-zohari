@@ -13,5 +13,7 @@ urlpatterns = [
     path('check_login/', LogInView.validateLogIn, name='validate_login'),
     path('get_user_data/', LogInView.sendUserData, name='send_user_data'),
     path('add_product/', ProductsView.addProduct, name='add_product'),
-    path('get_profile_data/', ProfileView.getProfile, name='add_product')
+    path('get_profile_data/', ProfileView.getProfile, name='add_product'),
+    path('add_diet/', Dietview.addDiet, name='addDiet')
+
 ]

@@ -135,7 +135,7 @@ class ProductsView(serializers.Serializer):
     @api_view(['POST', 'GET'])
     def addProduct(request):
         if request.method == 'POST':
-           
+
             max_slike_id = Slike.objects.aggregate(Max('idslika', default = '0'))['idslika__max']
 
             base64Img = request.data.get('Img') #base64 format string
@@ -175,6 +175,40 @@ class ProductsView(serializers.Serializer):
                 return Response({'error': slika_serializer.errors or proizvod_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
+class Dietview(serializers.Serializer):
+    @api_view(['POST', 'GET'])
+    def addDiet(request):
+        if request.method== 'POST':
+            diet_data={
+                'imedijeta': request.data.get('DietName'),
+                'minenergija': request.data.get('MinCals'),
+                'maxenergija': request.data.get('MaxCals'),
+                'opis': request.data.get('Desc'),
+                'minuglkjikohidrati': request.data.get('MinCarbs'),
+                'maxugljikohidrati': request.data.get('MaxCarbs'),
+                'minmasnoce': request.data.get('MinFats'),
+                'maxmasnoce': request.data.get('Maxfats'),
+                'minzmkiseline': request.data.get('MinAcids'),
+                'maxzmkiseline': request.data.get('MaxAcids'),
+                'minseceri': request.data.get('MinSugars'),
+                'maxseceri': request.data.get('MaxSugars'),
+                'minbjelancevine': request.data.get('MinProtein'),
+                'maxbjelancevine': request.data.get('MaxProtein'),
+                'dnevnimaxenergija': request.data.get('DailyMaxCals'),
+                'dnevnimaxugljikohidrati': request.data.get('DailyMaxCarbs'),
+                'dnevnimaxmasnoce': request.data.get('DailyMaxFats'),
+                'dnevnimaxseceri': request.data.get('DailyMaxSugar'),
+                'dnevnimaxzmkiseline': request.data.get('DailyMaxAcids'),
+                'dnevnimaxbjelancevine': request.data.get('DailyMaxProtein'),
+            }
+            djeta_serializer= DijetaSerializer(data=diet_data)
+            if djeta_serializer.is_valid():
+                djeta_serializer.save()
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'error': djeta_serializer.errors}, status= status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ProfileView(serializers.Serializer):
     @api_view(['POST', 'GET'])
