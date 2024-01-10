@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
+from dotenv import load_dotenv  # za izvadit password van
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# TODO Stavi kao secret u .env
 SECRET_KEY = 'django-insecure-15h+o2mv%-jqa%*zre=y$=p7taj*2-h%^ajk%4=2tdcur(3@9!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -83,13 +84,13 @@ WSGI_APPLICATION = 'KuhajIT.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+PG_PASSWORD = os.getenv("PG_PASSWORD")  # Citanje passworda iz datoteke ".env" pored ove datoteke, nju ne trackamo!!!
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'KuhajIT',
         'USER': 'postgres',
-        'PASSWORD': '3694575leO',         #TODO Enter personal postgres password and leave the rest as it is
+        'PASSWORD': PG_PASSWORD,         #TODO Enter personal postgres password and leave the rest as it is
         'HOST': 'localhost',
         'PORT': '5432', # OVO BI TREBALO BITI DOBRO DEFAULT AKO NE MJENJATE NIST NA POSTGRESU
     }
