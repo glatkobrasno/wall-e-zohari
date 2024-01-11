@@ -12,6 +12,7 @@ import Home from './Components/Home';
 import AddProduct from './Components/addProduct';
 import Profile from './Components/Profile';
 import AddDiet from './Components/addDiet';
+import ComentFields from './Components/ComentFields';
 
 
 
@@ -20,6 +21,7 @@ function App() {
     <Router>
       <Routes>
           <Route exact path='/' element={<div><Header/><Home/><Footer/></div>}></Route>
+          <Route exact path='/coment' element={<div><Header/><ComentFields/><Footer/></div>}></Route>
           <Route exact path='/Login' element={<div><Header/><Login/><Footer/></div>}></Route>
           <Route exact path='/SignUp' element={<div><Header/><SignUp/><Footer/></div>}></Route>
           <Route exact path='/AddProduct' element={<div><Header/><AddProduct/><Footer/></div>}></Route>
