@@ -107,6 +107,13 @@ class LogInView(serializers.Serializer):
 
     @api_view(['POST', 'GET'])
     def sendUserData(request):
+
+        def dijeta_to_dict(dijeta):
+            return {
+            'imedijeta': getattr(dijeta, "imedijeta_id"),
+            }
+
+
         user_logIn = request.data.get('UserName')
         user_object = Korisnik.objects.filter(korisnickoime=user_logIn)
         userLVL = getattr(user_object[0], "razinaprivilegije")
@@ -116,7 +123,8 @@ class LogInView(serializers.Serializer):
                          'name':getattr(user_object[0],"ime"),
                          'surname':getattr(user_object[0],"prezime"),
                          'lvl':userLVL,
-                         'diets':[getattr(x,"imedijeta") for x in user_object],}
+                         'diets': [dijeta_to_dict(x) for x in user_object],
+                         }
         if(userLVL==2 or userLVL==3):
             special_user_object = Privilegiranikorisnik.objects.filter(korisnickoime=user_logIn)
             imgId=getattr(special_user_object[0],"idslika").idslika
@@ -125,7 +133,7 @@ class LogInView(serializers.Serializer):
                          'name':getattr(user_object[0],"ime"),
                          'surname':getattr(user_object[0],"prezime"),
                          'lvl':userLVL,
-                         'diets':[getattr(x,"imedijeta") for x in user_object],
+                         'diets': [dijeta_to_dict(x) for x in user_object],
                          'slika':ImgOperations.byteToString(getattr(special_user_img[0],"slika")), #ImageOperations je napravljena klasa!
                          'email':getattr(special_user_object[0],"email"),
                          'bio':getattr(special_user_object[0],"biografija"),}
@@ -256,13 +264,41 @@ class ProfileView(serializers.Serializer):
             
         else:
             return JsonResponse({'valid': False})
-    
-class ImgOperations:
+class CommentView(serializers.Serializer):
+    @api_view(['POST', 'GET'])
+    def getComents(request):
+        if(request.data.get("type")=='kuharica'):
+            comments = [
+                [getattr(x, "idkomentarkuharica"),
+                 getattr(x, "korisnickoime_id"),
+                 getattr(x, "ocjenak"),
+                 getattr(x,"sadrzajkomentarak"),
+                 getattr(x, "odgovornakomentark"),
+                 ]for x in KomentarKuharica.objects.filter(idkuharica=request.data.get("idsub"))
+            ]
 
+            entuzijast = [getattr(x, "korisnickoime_id") for x in Kuharica.objects.filter(idkuharica = request.data.get("idsub"))]
+            data = {'comments': comments, 'entuzijast': entuzijast[0]}
+            return JsonResponse(data, status=status.HTTP_200_OK)
+        elif(request.data.get("type")=='recept'):
+            
+            comments = [
+                [getattr(x, "idkomentarrecept"),
+                 getattr(x, "korisnickoime_id"),
+                 getattr(x, "ocjenar"),
+                 getattr(x,"sadrzajkomentarar"),
+                 getattr(x, "odgovornakomentarr"),
+                 ]for x in KomentarRecept.objects.filter(idrecept=request.data.get("idsub"))
+            ]
+
+            entuzijast = [getattr(x, "korisnickoime_id") for x in Recept.objects.filter(idrecept = request.data.get("idsub"))]
+            data = {'comments': comments, 'entuzijast': entuzijast[0]}
+            return JsonResponse(data, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({'valid':False}, status=status.HTTP_404_NOT_FOUND)
+
+class ImgOperations:
     def byteToString(byteImg):
         stringImg = byteImg.decode('ascii')
         return stringImg
-    
-    #def qrCodeAnalize(): # TODO obrada qrKoda
-        #pass
     

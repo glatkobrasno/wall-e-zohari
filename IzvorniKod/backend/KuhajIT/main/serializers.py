@@ -23,13 +23,13 @@ class DodatneoznakeSerializer(serializers.ModelSerializer):
 
 class KomentarkuharicaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Komentarkuharica
+        model = KomentarKuharica
         fields = '__all__'
 
 
 class KomentarreceptSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Komentarrecept
+        model = KomentarRecept
         fields = '__all__'
 
 

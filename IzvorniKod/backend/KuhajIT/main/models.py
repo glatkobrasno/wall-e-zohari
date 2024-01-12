@@ -47,30 +47,29 @@ class Dodatneoznake(models.Model):
         db_table = 'DodatneOznake'
 
 
-class Komentarkuharica(models.Model):
-    korisnickoime = models.OneToOneField('Korisnik', models.DO_NOTHING, db_column='KorisnickoIme', primary_key=True)  # Field name made lowercase. The composite primary key (KorisnickoIme, IDKuharica) found, that is not supported. The first column is selected.
-    idkuharica = models.ForeignKey('Kuharica', models.DO_NOTHING, db_column='IDKuharica')  # Field name made lowercase.
-    sadrzajkomentarar = models.CharField(db_column='SadrzajKomentaraR', max_length=2048, blank=True, null=True)  # Field name made lowercase.
-    odgovornakomentarr = models.CharField(db_column='OdgovorNaKomentarR', max_length=2048, blank=True, null=True)  # Field name made lowercase.
-    ocjenak = models.IntegerField(db_column='OcjenaK', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'KomentarKuharica'
-        unique_together = (('korisnickoime', 'idkuharica'),)
-
-
-class Komentarrecept(models.Model):
-    korisnickoime = models.OneToOneField('Korisnik', models.DO_NOTHING, db_column='KorisnickoIme', primary_key=True)  # Field name made lowercase. The composite primary key (KorisnickoIme, IDrecept) found, that is not supported. The first column is selected.
-    idrecept = models.ForeignKey('Recept', models.DO_NOTHING, db_column='IDrecept')  # Field name made lowercase.
-    sadrzajkomentarar = models.CharField(db_column='SadrzajKomentaraR', max_length=2048, blank=True, null=True)  # Field name made lowercase.
-    odgovornakomentarr = models.CharField(db_column='OdgovorNaKomentarR', max_length=2048, blank=True, null=True)  # Field name made lowercase.
-    ocjenar = models.IntegerField(db_column='OcjenaR', blank=True, null=True)  # Field name made lowercase.
+class KomentarRecept(models.Model):
+    idkomentarrecept = models.IntegerField(primary_key=True, db_column='IDKomentarRecept')  # IDKomentarRecept in the database
+    korisnickoime = models.ForeignKey('Korisnik', models.DO_NOTHING, db_column='KorisnickoIme')
+    idrecept = models.ForeignKey('Recept', models.DO_NOTHING, db_column='IDrecept')
+    sadrzajkomentarar = models.CharField(db_column='SadrzajKomentaraR', max_length=2048, blank=True, null=True)
+    odgovornakomentarr = models.CharField(db_column='OdgovorNaKomentarR', max_length=2048, blank=True, null=True)
+    ocjenar = models.IntegerField(db_column='OcjenaR', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'KomentarRecept'
-        unique_together = (('korisnickoime', 'idrecept'),)
+
+class KomentarKuharica(models.Model):
+    idkomentarkuharica = models.IntegerField(primary_key=True, db_column='IDKomentarKuharica')  # IDKomentarKuharica in the database
+    korisnickoime = models.ForeignKey('Korisnik', models.DO_NOTHING, db_column='KorisnickoIme')
+    idkuharica = models.ForeignKey('Kuharica', models.DO_NOTHING, db_column='IDKuharica')
+    sadrzajkomentarak = models.CharField(db_column='SadrzajKomentaraK', max_length=2048, blank=True, null=True)
+    odgovornakomentark = models.CharField(db_column='OdgovorNaKomentarK', max_length=2048, blank=True, null=True)
+    ocjenak = models.IntegerField(db_column='OcjenaK', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'KomentarKuharica'
 
 
 class Konzumirao(models.Model):
