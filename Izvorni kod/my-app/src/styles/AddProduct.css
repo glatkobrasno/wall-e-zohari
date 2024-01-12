@@ -40,7 +40,7 @@
     scroll-behavior: auto;
     padding: 20px;
 }
-input{
+.Diet_info_form input{
     font-size: 0.9rem;
     padding: 5px;
     background-color: rgb(0, 0, 0,0.2);
@@ -48,6 +48,7 @@ input{
     color: rgba(255, 196, 168, 1);
     border-radius: 5px;
 }
+
 .hTitle{
     
     grid-column: 1/3;
