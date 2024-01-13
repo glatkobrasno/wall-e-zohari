@@ -49,7 +49,7 @@ class Dodatneoznake(models.Model):
 
 class KomentarRecept(models.Model):
     idkomentarrecept = models.IntegerField(primary_key=True, db_column='IDKomentarRecept')  # IDKomentarRecept in the database
-    korisnickoime = models.ForeignKey('Korisnik', models.DO_NOTHING, db_column='KorisnickoIme')
+    korisnickoime = models.ForeignKey('Korisnik', models.DO_NOTHING, db_column='KorisnickoIme', null=True)
     idrecept = models.ForeignKey('Recept', models.DO_NOTHING, db_column='IDrecept')
     sadrzajkomentarar = models.CharField(db_column='SadrzajKomentaraR', max_length=2048, blank=True, null=True)
     odgovornakomentarr = models.CharField(db_column='OdgovorNaKomentarR', max_length=2048, blank=True, null=True)
@@ -61,7 +61,7 @@ class KomentarRecept(models.Model):
 
 class KomentarKuharica(models.Model):
     idkomentarkuharica = models.IntegerField(primary_key=True, db_column='IDKomentarKuharica')  # IDKomentarKuharica in the database
-    korisnickoime = models.ForeignKey('Korisnik', models.DO_NOTHING, db_column='KorisnickoIme')
+    korisnickoime = models.ForeignKey('Korisnik', models.DO_NOTHING, db_column='KorisnickoIme', null=True)
     idkuharica = models.ForeignKey('Kuharica', models.DO_NOTHING, db_column='IDKuharica')
     sadrzajkomentarak = models.CharField(db_column='SadrzajKomentaraK', max_length=2048, blank=True, null=True)
     odgovornakomentark = models.CharField(db_column='OdgovorNaKomentarK', max_length=2048, blank=True, null=True)

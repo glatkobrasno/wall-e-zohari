@@ -10,9 +10,6 @@ import '../styles/CommentFields.css';
 const backURL='http://127.0.0.1:8000';//backend URL
 
 
-// const userData = JSON.parse(sessionStorage.getItem('userData'));
-// const isKulinar = userData.lvl === 3;
-const isKulinar = true;
 
 
 
@@ -25,22 +22,57 @@ function useFormField(initialValue) { //updates variables values when they chang
 
 
 
-function PostCommentUi(id, type){ // needs: type(kuharica/recept),  idkuharica / idrecept, korisnickoIme, 
+
+function PostCommentUi(id, type, userData, setCommentsData){ // needs: type(kuharica/recept),  idkuharica / idrecept, korisnickoIme, 
     const komentarIn = useFormField('');
-
-    function handleCommentPost(e){
-        e.preventDefault();
-
-    
+    const [liked, setLiked] = useState(null);
+    let username = null;
+    if(userData === null){
+        username=null;
     }
+    else{
+        username = userData.username;
+    }
+
+    function handleRadioClick(value){// handles radio buttons
+        if (liked === value) {
+        setLiked(null);
+        } else {
+        setLiked(value);
+        }
+    }
+
+    async function handleCommentPost(e){
+        e.preventDefault();
+        //(id,type,uname,commtent,ocjena)
+       let data ={
+            'id':id,
+            'type':type,
+            'uname':username,
+            'comment':komentarIn.value,
+            'ocjena' : liked
+        };
+        try{
+        await Axios.post(backURL+'/add_comments/', data);
+        //alert("Hvala na komentaru :)");
+
+        const updatedCommentsData = await requestCommentData(type, id);
+        setCommentsData(updatedCommentsData);
+        }
+        catch(error){
+            console.log(error)
+            alert("Problem u pohrani komentara :(");
+        }
+    }
+
 
     return(
         <div className="comment_post_box">
             <form className="comment_post_form" onSubmit={handleCommentPost}>
                 <textarea id="commentFieldIn" name='commentFieldIn' placeholder='Upišite komentar ...' {...komentarIn} required ></textarea>
-                <input id="likeState1" type="radio" name="liked" value={true} required></input>
-                <input id="likeState2" type="radio" name="liked" value={false} required></input>
-                <input type='submit' name='postButton' id='postButton'></input>
+                <input id="likeState1" type="radio" name="liked" value={1} checked={liked === 1} onClick={()=>handleRadioClick(1)} onChange={()=>{}}></input>
+                <input id="likeState2" type="radio" name="liked" value={-1} checked={liked === -1} onClick={()=>handleRadioClick(-1)} onChange={()=>{}}></input>
+                <input type='submit' name='postButton' id='postButton' value='Post'></input>
             </form>
         </div>
     );
@@ -59,13 +91,15 @@ function ReplyBox(id, type, name, content, commentID){
     );
 }
 
-function ReplyArea(id, type, commentID){ 
+function ReplyArea(id, type, commentID, replyMsgs, setReplyMsgs, setCommentsData){ 
     var txAreaId = "commentReply"+commentID;
     var subButtonId = "commentReply"+commentID;
     return(
         <div className="reply_to_user" key={"replyAr"+commentID}>
-            <form className="comment_reply_form" onSubmit={postReplyToComment(type, commentID,/*textarea data*/)} key={"replyArF"+commentID}>
-                <textarea id={txAreaId} name={txAreaId} placeholder="Upišite odgovor ..." key={"replyArT"+commentID}></textarea>
+            <form className="comment_reply_form" onSubmit={(e)=>postReplyToComment(e, type, id, commentID, replyMsgs, setCommentsData)} key={"replyArF"+commentID}>
+                <textarea id={txAreaId} name={txAreaId} placeholder="Upišite odgovor ..." key={"replyArT"+commentID} 
+                    onChange={(e)=>{setReplyMsgs((prev) => ({ ...prev, [commentID]: e.target.value }))}} required>
+                </textarea>
                 <input type="submit" id={subButtonId} className="post_rep_btn" value="Post" key={"replyArI"+commentID}></input>
             </form>
         </div>
@@ -83,7 +117,7 @@ function CommentBox(id, type, isLiked, uname, content, commentID){
         );
     }
     else
-    if(isLiked === -1 ){
+    if(isLiked === -1){
         return(
             <div className="comment_box" id="comment_dislikes" key={"comment"+commentID}>
                 <div className="commentors_data" key={"commentU"+commentID}>{uname}</div>
@@ -101,8 +135,21 @@ function CommentBox(id, type, isLiked, uname, content, commentID){
     }
 }
 
-function postReplyToComment(type, idComment, replyMsg){ // type, idkomentara, odgovor
-    //logic for sending data to backend
+async function postReplyToComment(e, type, id, idComment, replyMsg, setCommentsData){
+    e.preventDefault();
+    var data = {// podatci za bazu
+        'type' : type,
+        'idcom' : idComment,
+        'content' : replyMsg[idComment]
+    };
+    try{
+        await Axios.post(backURL+'/add_reply/', data);// dodaj reply u bazu
+        const updatedCommentsData = await requestCommentData(type, id);// ponovo dohvati komentare
+        setCommentsData(updatedCommentsData);// sluzi za re render komentara
+    }
+    catch(error){
+        console.log(error);
+    }
 }
 
 async function requestCommentData(type, idSubject){ // type('kuharica','recept'), idkuharica/recept
@@ -123,6 +170,22 @@ async function requestCommentData(type, idSubject){ // type('kuharica','recept')
 function CommentFields(){ // id kuharice/recepta, type 'recept'/ 'kuharica'
     const [commentsData, setCommentsData] = useState(null); 
     const {type, id} = useParams();
+    const [replyMsgs, setReplyMsgs] = useState({});
+
+
+    const [isKulinar, setIsKulinar] = useState(null);
+    const [userData, setuserData] = useState(null);
+    useEffect(() => {
+        const userDataFromSession = JSON.parse(sessionStorage.getItem('userData'));
+    
+        if (userDataFromSession) {
+          setuserData(userDataFromSession);
+          setIsKulinar(userDataFromSession.lvl === 3);
+        } else {
+          setIsKulinar(false);
+        }
+    }, []);
+     // console.log(userData);
 
     useEffect(() =>{ // Gets new  data when type ore id change
         const fetch = async () => {
@@ -143,13 +206,19 @@ function CommentFields(){ // id kuharice/recepta, type 'recept'/ 'kuharica'
             if(commentsData !== null){
                 var comments= commentsData.comments; // comments[i][IDcom,KorIme,ocjena,sadrzaj,odgovor]
                 var entuzijast= commentsData.entuzijast;
+                var commentorName = null;
                 for(var i = 0; i < comments.length; ++i){
-                    generated.push(CommentBox(id, type, comments[i][2], comments[i][1], comments[i][3], comments[i][0]));
+                    if(comments[i][1]===null) commentorName = "anoniman korisnik";
+                    else commentorName = comments[i][1];
+                    generated.push(CommentBox(id, type, comments[i][2], commentorName, comments[i][3], comments[i][0]));
                     if(comments[i][4]!=null){
                         generated.push(ReplyBox(id,type,entuzijast,comments[i][4], comments[i][0]));
                     }
                     else if(isKulinar){
-                        generated.push(ReplyArea(id, type, comments[i][0]));
+                        if(userData !== null)
+                            if(userData.username === entuzijast)
+                                generated.push(ReplyArea(id, type, comments[i][0], replyMsgs, setReplyMsgs, setCommentsData));
+
                     }
                 }
                 return(generated)
@@ -163,7 +232,7 @@ function CommentFields(){ // id kuharice/recepta, type 'recept'/ 'kuharica'
 
     return(
     <div className="comments_box">
-        {PostCommentUi(id, type)}
+        {PostCommentUi(id, type, userData, setCommentsData)}
         <div className="comment_reply_box">
         {GenerateComments(id,type)} 
         {/* {CommentBox(id,type,0,"user","bla bla")}

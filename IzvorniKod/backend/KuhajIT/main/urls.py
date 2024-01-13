@@ -15,5 +15,6 @@ urlpatterns = [
     path('add_product/', ProductsView.addProduct, name='add_product'),
     path('get_profile_data/', ProfileView.getProfile, name='add_product'),
     path('add_diet/', Dietview.addDiet, name='addDiet'),
-    path('get_comments/', CommentView.getComents, name='get_comments')
+    path('get_comments/', CommentView.getComents, name='get_comments'),
+    path('add_comments/', CommentView.saveComment, name='add_comments'),
 ]

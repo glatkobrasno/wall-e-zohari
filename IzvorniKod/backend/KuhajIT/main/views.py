@@ -118,7 +118,7 @@ class LogInView(serializers.Serializer):
         user_object = Korisnik.objects.filter(korisnickoime=user_logIn)
         userLVL = getattr(user_object[0], "razinaprivilegije")
         userLVL = abs(userLVL)
-        if(userLVL == 1):
+        if(userLVL == 1 or userLVL == 4):
             user_data = {'username':getattr(user_object[0], "korisnickoime"),
                          'name':getattr(user_object[0],"ime"),
                          'surname':getattr(user_object[0],"prezime"),
@@ -274,7 +274,7 @@ class CommentView(serializers.Serializer):
                  getattr(x, "ocjenak"),
                  getattr(x,"sadrzajkomentarak"),
                  getattr(x, "odgovornakomentark"),
-                 ]for x in KomentarKuharica.objects.filter(idkuharica=request.data.get("idsub"))
+                 ]for x in KomentarKuharica.objects.filter(idkuharica=request.data.get("idsub")).order_by("-idkomentarkuharica")
             ]
 
             entuzijast = [getattr(x, "korisnickoime_id") for x in Kuharica.objects.filter(idkuharica = request.data.get("idsub"))]
@@ -296,6 +296,55 @@ class CommentView(serializers.Serializer):
             return JsonResponse(data, status=status.HTTP_200_OK)
         else:
             return JsonResponse({'valid':False}, status=status.HTTP_404_NOT_FOUND)
+        
+    @api_view(['POST', 'GET'])
+    def saveComment(request): #(id,type,uname,commtent,ocjena)
+        req_data=request.data
+        print(req_data)
+        if(req_data.get("type")=='recept'):
+            max_comentid = KomentarRecept.objects.aggregate(Max('idkomentarrecept', default = '0'))['idkomentarrecept__max']
+            com_data={
+                'idkomentarrecept':max_comentid+1,
+                'idrecept':req_data.get("id"),
+                'korisnickoime' :req_data.get("uname"),
+                'sadrzajkomentarar' : req_data.get("comment"),
+                'odgovornakomentarr': None,
+                'ocjenar':req_data.get("ocjena"),
+            }
+            commentSerialiser = KomentarreceptSerializer(data=com_data)
+            if(commentSerialiser.is_valid()):
+                commentSerialiser.save()
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'error': commentSerialiser.errors}, status= status.HTTP_400_BAD_REQUEST)
+        elif(req_data.get("type")=='kuharica'):
+            max_comentid = KomentarKuharica.objects.aggregate(Max('idkomentarkuharica', default = '0'))['idkomentarkuharica__max']
+            com_data={
+                'idkomentarkuharica':max_comentid+1,
+                'idkuharica':req_data.get("id"),
+                'korisnickoime' :req_data.get("uname"),
+                'sadrzajkomentarak' : req_data.get("comment"),
+                'odgovornakomentark': None,
+                'ocjenak':req_data.get("ocjena"),
+            }
+            commentSerialiser = KomentarkuharicaSerializer(data=com_data)
+            if(commentSerialiser.is_valid()):
+                commentSerialiser.save()
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'error': commentSerialiser.errors}, status= status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "error in adding coment"}, status= status.HTTP_400_BAD_REQUEST)
+    @api_view(['POST', 'GET'])
+    def addReply(request):
+        req_data=request.data
+        if(req_data.get("type")=='recept'):
+            pass #TODO
+        elif(req_data.get("type")=='kuharica'):
+            pass #TODO
+        else:
+            return Response({'error': "error in adding reply"}, status= status.HTTP_400_BAD_REQUEST)
+
 
 class ImgOperations:
     def byteToString(byteImg):

@@ -10,3 +10,4 @@ tzdata==2023.3
 qrcode
 opencv-python
 python-dotenv
+django-cors-headers
