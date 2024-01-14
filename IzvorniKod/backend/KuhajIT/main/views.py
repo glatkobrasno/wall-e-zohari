@@ -288,7 +288,7 @@ class CommentView(serializers.Serializer):
                  getattr(x, "ocjenar"),
                  getattr(x,"sadrzajkomentarar"),
                  getattr(x, "odgovornakomentarr"),
-                 ]for x in KomentarRecept.objects.filter(idrecept=request.data.get("idsub"))
+                 ]for x in KomentarRecept.objects.filter(idrecept=request.data.get("idsub")).order_by("-idkomentarrecept")
             ]
 
             entuzijast = [getattr(x, "korisnickoime_id") for x in Recept.objects.filter(idrecept = request.data.get("idsub"))]
@@ -336,14 +336,26 @@ class CommentView(serializers.Serializer):
         else:
             return Response({'error': "error in adding coment"}, status= status.HTTP_400_BAD_REQUEST)
     @api_view(['POST', 'GET'])
-    def addReply(request):
-        req_data=request.data
-        if(req_data.get("type")=='recept'):
-            pass #TODO
-        elif(req_data.get("type")=='kuharica'):
-            pass #TODO
+    def addReply(request):  # data{type, idcom, content}
+        req_data = request.data
+        if req_data.get("type") == 'recept':
+            try:
+                comment = KomentarRecept.objects.get(idkomentarrecept=req_data.get("idcom"))
+                comment.odgovornakomentarr = req_data.get("content")
+                comment.save()
+                return Response({'success': True}, status=status.HTTP_200_OK)
+            except KomentarRecept.DoesNotExist:
+                return Response({'error': "Comment not found"}, status=status.HTTP_404_NOT_FOUND)
+        elif req_data.get("type") == 'kuharica':
+            try:
+                comment = KomentarKuharica.objects.get(idkomentarkuharica=req_data.get("idcom"))
+                comment.odgovornakomentark = req_data.get("content")
+                comment.save()
+                return Response({'success': True}, status=status.HTTP_200_OK)
+            except KomentarKuharica.DoesNotExist:
+                return Response({'error': "Comment not found"}, status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response({'error': "error in adding reply"}, status= status.HTTP_400_BAD_REQUEST)
+            return Response({'error': "error in adding reply"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ImgOperations:

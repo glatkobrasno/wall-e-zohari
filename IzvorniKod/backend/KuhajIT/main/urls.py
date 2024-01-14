@@ -17,4 +17,5 @@ urlpatterns = [
     path('add_diet/', Dietview.addDiet, name='addDiet'),
     path('get_comments/', CommentView.getComents, name='get_comments'),
     path('add_comments/', CommentView.saveComment, name='add_comments'),
+    path('add_reply/', CommentView.addReply, name='add_reply'),
 ]
