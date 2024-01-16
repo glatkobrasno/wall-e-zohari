@@ -6,12 +6,12 @@
 	Cilj projekta je razviti web aplikaciju koja omogućuje dijeljenje recepata te tako pomaže korisnicima pri dijeljenju kulinarskih ideja, suradnji s drugim kreatorima recepata, organizaciji vlastite dijete i otkrivanju novih načina za pripremu jela. Tako korist od nje mogu imati profesionalni kuhari, nutricionisti, ali i kuhari amateri te osobe koje radi zdravstvenog stanja moraju prilagođavati dijetu. Novopridošlim korisnicima se prikazuju recepti sortirani od novijih prema starijima, što omogućuje da bez registracije imaju pregled kulinarskih trendova i odluče hoće li je nastaviti koristiti. Moguće se registrirati kao klijent, kuharski entuzijast ili nutricionist. Korisnik može administratorima poslati zahtjev za registraciju koji, jednom kad je odobren, dopušta korisniku da pretražuje profile i recepte na temelju dijete koju prate. Entuzijasti kreiraju recepte i kuharice, koje su skupovi recepata, dok nutricionisti kreiraju dijete koje nameću ograničenja na recepte. Korisnici neposredno prije kuhanja mogu unijeti prehrambeni artikl QR kodom ili izborom iz kataloga te tako filtrirati recepte u kojima se on nalazi. Tada se recepti sortiraju prema tome koliko dobro prate dijetu korisnika, odnosno koliko poštuju njena ograničenja. Korisnici također vide statistiku povijesti unosa nutritivnih vrijednosti. Što se implementacije tiče, aplikacija mora biti objektno orijentirana.
 
 	\section{Potencijalna korist projekta}
-	Osim očite koristi da korisnici među sobom dijele i objavljuju recepte i dijete, korist se može naći i u statistici unosa nutritivnih vrijednosti te vrstama recepata koju prate. Uzmimo u obzir da aplikacija \glqq zaživi\grqq, odnosno dostigne broj korisnika dovoljan da predstavlja državu ili neki njen dio. Tada bi vladajući mogli iskoristiti informaciju o tome što ljudi najviše jedu i subvencionirati domaće proizvođače tih proizvoda jer je njihova prodaja izglednija. S druge strane, mogli bi ciljati na raznolikost prehrane pa subvencionirati one koji proizvode hranu koja je u manjku. Profit tada nije tako izgledan kao u prvom slučaju, ali bi financijska motivacija navela proizvođače da se preusmjere te tako dođe do veće dostupnosti raznolike prehrane na tržištu. S obzirom da aplikacija vodi računa o preferencijama korisnika i dijetama koje odabiru, novi vlasnici restorana i drugih lokala koji poslužuju hranu bi mogli to iskoristiti da se specijaliziraju, odnosno nude proizvode u skladu s nekom dijetom. Ljudi koji ne smiju konzumirati određene namirnice ili skupove namirnica radi zdravstvenog stanja ili uvjerenja ne mogu jesti u većini lokala. Podatci o dijetama i receptima koje korisnici vole omogućuju vlasnicima novih lokala da ponude takvim osobama obroke u obliku specijalnih menija ili pak specijaliziraju cijeli lokal za tu dijetu.
+	Osim očite koristi da korisnici među sobom dijele i objavljuju recepte i dijete, korist se može naći i u statistici unosa nutritivnih vrijednosti te vrstama recepata koju prate. Uzmimo u obzir da aplikacija \glqq zaživi\grqq, odnosno dostigne broj korisnika dovoljan da predstavlja državu ili neki njen dio. Tada bi vladajući mogli iskoristiti informaciju o tome što ljudi najviše jedu i subvencionirati domaće proizvođače tih proizvoda jer je njihova prodaja izglednija. S druge strane, mogli bi ciljati na raznolikost prehrane pa subvencionirati one koji proizvode hranu koja je u manjku. Profit tada nije tako izgledan kao u prvom slučaju, ali bi financijska motivacija navela proizvođače da se preusmjere te tako dođe do veće dostupnosti raznolike prehrane na tržištu. S obzirom da aplikacija vodi računa o preferencijama korisnika i dijetama koje odabiru, novi vlasnici restorana i drugih lokala koji poslužuju hranu bi mogli to iskoristiti da se specijaliziraju, odnosno nude proizvode u skladu s nekom dijetom. Kao što je naznačeno u rečenici prije, radilo bi se samo o preferencijama i dijetama, koje ne smatramo osobnim podatcima jer su to odabiri unutar aplikacije. Ljudi koji ne smiju konzumirati određene namirnice ili skupove namirnica radi zdravstvenog stanja ili uvjerenja ne mogu jesti u većini lokala. Podatci o dijetama i receptima koje korisnici vole omogućuju vlasnicima novih lokala da ponude takvim osobama obroke u obliku specijalnih menija ili pak specijaliziraju cijeli lokal za tu dijetu.
 
 	\section{Slična, već postojeća rješenja}
 	Kriteriji da rješenje smatramo sličnim:
 	\begin{packed_item}
-		\item Aplikacija\/web mjesto mora biti forum, to jest mora imati mogućnost registriranja korisnika koji onda mogu raspravljati.
+		\item Aplikacija/web mjesto mora biti forum, to jest mora imati mogućnost registriranja korisnika koji onda mogu raspravljati.
 		\item Tema diskusije mora biti hrana.
 		\item Mora postojati mogućnost filtriranja recepata prema više od jednog kriterija, ne nužno istovremeno.
 	\end{packed_item}
@@ -27,20 +27,28 @@
 				\end{figure} 
 	
 
-	\section{Skup korisnika koji bi mogao biti zainteresiran za ostvareno rješenje}
-	\begin{packed_item}
-		\item kulinarski entuzijasti
-		\item nutricionisti
-		\item klijenti
-		\item[]\begin{packed_item}
-			\item profesionalni kuhari
-			\item kuhari amateri
-			\item osobe kojima je potrebna specijalna dijeta radi zdravstvenih razloga ili uvjerenja
+	\section{Skup korisnika koji bi mogao biti zainteresiran za ostvareno rješenje...}
+		\subsection ... ako je aplikacija implementirana ovako
+		\begin{packed_item}
+			\item kulinarski entuzijasti
+			\item nutricionisti
+			\item klijenti
+			\item[]\begin{packed_item}
+				\item profesionalni kuhari
+				\item kuhari amateri
+				\item osobe kojima je potrebna specijalna dijeta radi zdravstvenih razloga ili uvjerenja
+			\end{packed_item}
 		\end{packed_item}
-	\end{packed_item}
+		
+		\subsection ... ako je tematika aplikacije (u originalu kuhanje, to jest hrana) prilagođena ciljanim korisnicima
+		\begin{packed_item}
+			\item "uradi sam" majstori
+			\item slikari
+		\end{packed_item}
+		Navedeni korisnici bi imali koristi od slične aplikacije. Općenitije, svaka zajednica ljudi za hobi ili zanimanje koje koristi algoritme, to jest radnje koje su podijeljene u niz koraka bi imalo koristi od slične aplikacije jer bi tako lakše razmjenjivali ideje i dolazili do inovacija u radu.
 
 	\section{Mogućnost prilagodbe rješenja}
-	Mana trenutnog rješenja je da ograničeno na objektno orijentirano pisanje jer to otežava skaliranje u budućnosti. Radi se o web (ili mobilnoj) aplikaciji koja treba imati sučelje koje je lako za razumjeti i koristi se u kuhinji, gdje, uz uobičajene laptope, mobitele i tablete, korisnici mogu imati i ostale pametne uređaje poput frižidera ili pećnica. Svi ti uređaji imaju web preglednik (ili operacijski sustav sličan Androidu ili nekoj konfiguraciji Linux-a) te su potencijalni klijenti. Što je više klijenata, baza podataka u pozadini je veća, a time i broj objekata, koji potiču problem upravljanja memorijom. Preporučeni programi, Java i Python te Javascript, koji izvršavaju preglednici, svi redom koriste garbage collector. Činjenica je da taj proces šteti brzini rada aplikacije jer algoritam za "čišćenje" mora proći cijelu memoriju. Što više objekata, to više posla za taj algoritam pa stoga i veći period vremena koji sustav ili dijelovi sustava moraju provesti čekajući. Još k tomu niti dodavanje radne memorije ne pomaže jer to također algoritmu zadaje dodatan posao. Razumljivo je da se u vidu projekta na fakultetu objektno-orijentirana paradigma koristi u svrhu izrade dijagrama razreda (i drugih dijagrama, ali poglavito njega). Međutim, činjenica je da će takvo rješenje u upotrebi naići na probleme radi svega navedenog.
+	Mana trenutnog rješenja je da ograničeno na objektno orijentirano pisanje jer to otežava skaliranje u budućnosti. Radi se o web (ili mobilnoj) aplikaciji koja treba imati sučelje koje je lako za razumjeti i koristi se u kuhinji, gdje, uz uobičajene laptope, mobitele i tablete, korisnici mogu imati i ostale pametne uređaje poput frižidera ili pećnica. Svi ti uređaji imaju web preglednik (ili operacijski sustav sličan Androidu ili nekoj konfiguraciji Linux-a) te su potencijalni klijenti. Što je više klijenata, baza podataka u pozadini je veća, a time i broj objekata, koji potiču problem upravljanja memorijom. Preporučeni programski jezici za poslužitelje, Java i Python uz Javascript, koji izvršavaju preglednici, svi redom koriste garbage collector. Činjenica je da taj proces šteti brzini rada aplikacije jer algoritam za "čišćenje" mora proći cijelu memoriju. Što više objekata, to više posla za taj algoritam pa stoga i veći period vremena koji sustav ili dijelovi sustava moraju provesti čekajući. Još k tomu niti dodavanje radne memorije ne pomaže jer to također algoritmu zadaje dodatan posao. Razumljivo je da se u vidu projekta na fakultetu objektno-orijentirana paradigma koristi u svrhu izrade dijagrama razreda (i drugih dijagrama, ali poglavito njega). Međutim, činjenica je da će takvo rješenje u upotrebi naići na probleme radi svega navedenog.
 
 	\section{Opseg projektnog zadatka}
 	Projekt obuhvaća:
