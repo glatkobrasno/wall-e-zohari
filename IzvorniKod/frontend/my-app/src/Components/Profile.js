@@ -28,11 +28,21 @@ const Profile = () => {
 	fetchData();
     }, []);
 
+    var isfollowing;
     const fetchData = async () => {
 	var data={
             'UserName' : username,
 	}
 	const response = await getProfileData(data);
+	let userData = sessionStorage.getItem("userData");
+	if (userData) {
+	    data={
+		'UserName1' : userData.username,
+		'UserName2' : username,
+	    }
+	    isfollowing = await Axios.post(backURL+'/is_following/', data);
+	    console.log(isfollowing);
+	}
 	console.log(response);
     };
     
