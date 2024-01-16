@@ -317,6 +317,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDKuharica" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
+	<column name="Tema" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
 	<column name="Naslov" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
