@@ -357,9 +357,34 @@ class CommentView(serializers.Serializer):
         else:
             return Response({'error': "error in adding reply"}, status=status.HTTP_400_BAD_REQUEST)
 
+class Cookbook(serializers.Serializer):
+    @api_view(['POST', 'GET'])
+    def get_cookbookdata(request):
+        req_data = request.data
+
+        cbid = req_data.get("cookbookID")
+        x = Kuharica.objects.filter(idkuharica=cbid).order_by("datumizrade")[0]
+        data1 = [getattr(x,"tema"),
+                getattr(x,"naslov"),
+                getattr(x,"datumizrade"),
+                getattr(x,"korisnickoime_id")
+                ]
+        x2 = Privilegiranikorisnik.objects.filter(korisnickoime=data1[3])[0]
+        data2 = getattr(x2,"idslika_id")
+        x3 = Slike.objects.filter(idslika=data2)[0]
+        data3 = getattr(x3,"slika")
+        data = {"tema":data1[0], 
+                "naslov":data1[1],
+                "datumizrade":data1[2],
+                "korisnickoime_id":data1[3],
+                "slika":ImgOperations.byteToString(data3)}
+        #print(data)
+        return JsonResponse(data, status=status.HTTP_200_OK)
 
 class ImgOperations:
     def byteToString(byteImg):
         stringImg = byteImg.decode('ascii')
         return stringImg
+    
+
     

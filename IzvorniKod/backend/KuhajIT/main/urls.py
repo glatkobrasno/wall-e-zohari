@@ -18,4 +18,5 @@ urlpatterns = [
     path('get_comments/', CommentView.getComents, name='get_comments'),
     path('add_comments/', CommentView.saveComment, name='add_comments'),
     path('add_reply/', CommentView.addReply, name='add_reply'),
+    path('get_cookbookdata/', Cookbook.get_cookbookdata, name='get_cookbookdata')
 ]

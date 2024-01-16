@@ -1,0 +1,39 @@
+.Individual_Cookbook_box{
+    display:grid;
+    background-color: rgb(35, 51, 70, 0.8);
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.Individual_Cookbook_box_title{
+    text-align:center;
+    font-weight:bold;
+    font-size:2rem;
+    color: rgba(255, 196, 168, 1);
+}
+
+.Individual_Cookbook_box_params{
+    margin-left: -20px;
+    width:25%;
+    padding: 20px;
+    border-top-right-radius: 4rem;
+    border-bottom-right-radius: 4rem;
+    border: 5px solid rgb(0, 0, 0, 0.3);
+    border-left: none;
+    font-size: 0.8rem;
+    color: rgba(255, 196, 168, 1);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.Individual_Cookbook_box_image_container{
+    margin-top:10px;
+    display:flex;
+}
+
+.CookbookCreatorDisplay{
+    border: 5px solid rgb(223, 172, 148);
+    border-radius:35%;
+    aspect-ratio:1;
+    width:50%;
+}
