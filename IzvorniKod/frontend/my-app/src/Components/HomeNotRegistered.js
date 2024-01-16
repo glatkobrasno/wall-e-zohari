@@ -18,3 +18,5 @@ function GenerateKuharice(){
         </div>
     </link>
 }
+
+export default HomeNotRegistered;
