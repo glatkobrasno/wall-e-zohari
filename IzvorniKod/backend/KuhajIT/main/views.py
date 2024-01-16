@@ -183,6 +183,7 @@ class ProductsView(serializers.Serializer):
                 return Response({'error': slika_serializer.errors or proizvod_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
+
 class Dietview(serializers.Serializer):
     @api_view(['POST', 'GET'])
     def addDiet(request):
@@ -259,11 +260,50 @@ class ProfileView(serializers.Serializer):
                                           WHERE "Recept"."KorisnickoIme" = \'"""+user_data+"""\';"""
                              )],
                              'valid' : True}
-            print("ODEEEEEEEEEEEEEEEEE" , user_data_ret)
+            
             return JsonResponse(user_data_ret)    
             
         else:
             return JsonResponse({'valid': False})
+
+    @api_view(['POST', 'GET'])
+    def isFollowing(request):
+        user1 = request.data.get('UserName1')
+        user2 = request.data.get('UserName2')
+        user_object = Pratikorisnika.objects.filter(korisnickoime_1 = user1, korisnickoime_2 = user2)
+        if user_object:
+            return JsonResponse({'follows': True})
+        else:
+            return JsonResponse({'follows': False})
+
+    @api_view(['POST', 'GET'])
+    def followUser(request):
+        user1 = request.data.get('UserName1')
+        user2 = request.data.get('UserName2')
+        user_object = Pratikorisnika.objects.filter(korisnickoime_1 = user1, korisnickoime_2 = user2)
+        if user_object:
+            return JsonResponse({'follows': True})
+        else:
+            pk_data = {'korisnickoime_1' : user1,
+                       'korisnickoime_2' : user2,
+            }
+            pk_serializer= PratikorisnikaSerializer(data = pk_data)
+            if pk_serializer.is_valid():
+                pk_serializer.save()
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'error': pk_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
+
+    @api_view(['POST', 'GET'])
+    def unFollowUser(request):
+        user1 = request.data.get('UserName1')
+        user2 = request.data.get('UserName2')
+        user_object = Pratikorisnika.objects.filter(korisnickoime_1 = user1, korisnickoime_2 = user2)
+        if user_object:
+            Pratikorisnika.objects.filter(korisnickoime_1 = user1, korisnickoime_2 = user2).delete()
+           
+        return JsonResponse({'follows': False})
+
 class CommentView(serializers.Serializer):
     @api_view(['POST', 'GET'])
     def getComents(request):

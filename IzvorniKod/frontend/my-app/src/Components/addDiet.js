@@ -35,7 +35,7 @@ function DietForm(){
     const MinAcids=useFormField("");
     const MaxAcids=useFormField("");
     const MinSugars=useFormField("");
-    const  MaxSugars=useFormField("");
+    const MaxSugars=useFormField("");
     const MinProtein=useFormField("");
     const MaxProtein=useFormField("");
     const DailyMaxCals=useFormField("");
