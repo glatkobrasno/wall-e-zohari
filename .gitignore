@@ -10,3 +10,12 @@
 *.synctex.gz
 
 *.toc
+
+/.idea
+
+# Python enviormenti
+/Izvornikod/backend/venv/
+/Izvornikod/backend/linux-venv/
+
+# Secreti
+*.env
