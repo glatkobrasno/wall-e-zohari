@@ -113,6 +113,7 @@ class Kuharica(models.Model):
     naslov = models.CharField(db_column='Naslov', max_length=200, blank=True, null=True)  # Field name made lowercase.
     datumizrade = models.DateField(db_column='DatumIzrade', blank=True, null=True)  # Field name made lowercase.
     korisnickoime = models.ForeignKey(Korisnik, models.DO_NOTHING, db_column='KorisnickoIme', blank=True, null=True)  # Field name made lowercase.
+    tema = models.CharField(db_column='Tema', max_length=200, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
