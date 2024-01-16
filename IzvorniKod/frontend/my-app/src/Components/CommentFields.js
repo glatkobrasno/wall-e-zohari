@@ -69,7 +69,7 @@ function PostCommentUi(id, type, userData, setCommentsData){ // needs: type(kuha
     return(
         <div className="comment_post_box">
             <form className="comment_post_form" onSubmit={handleCommentPost}>
-                <textarea id="commentFieldIn" name='commentFieldIn' placeholder='Upišite komentar ...' {...komentarIn} required ></textarea>
+                <textarea id="commentFieldIn" name='commentFieldIn' placeholder='Upišite komentar ...' {...komentarIn} required></textarea>
                 <input id="likeState1" type="radio" name="liked" value={1} checked={liked === 1} onClick={()=>handleRadioClick(1)} onChange={()=>{}}></input>
                 <label htmlFor="likeState1" className="Llike_label">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="like_dislike_svgL" viewBox="0 0 16 16">
