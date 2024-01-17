@@ -12,7 +12,9 @@ from django.contrib.auth.hashers import check_password
 #added TODO ------------------------------------------
 from .models import *
 
-# Create your views here.
+#utility imports
+
+from ..security import security
 
 
 from django.http import HttpResponse
@@ -27,12 +29,14 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
         if request.method == 'POST':
             role = request.data.get('Roll')
             if role == 'LVL1':
+                lozinka, salt = security.hash_password(request.data.get('Password'))
                 korisnik_data = {
                     'korisnickoime': request.data.get('UserName'),
-                    'lozinka': request.data.get('Password'),
+                    'lozinka': lozinka,
                     'ime': request.data.get('Name'),
                     'prezime': request.data.get('Surname'),
                     'razinaprivilegije': 1,
+                    'salt': salt,
                 }
 
                 korisnik_serializer = KorisnikSerializer(data=korisnik_data)
@@ -100,7 +104,7 @@ class LogInView(serializers.Serializer):
         user_data = [request.data.get('UserName'), request.data.get('Password')]
         user_object = Korisnik.objects.filter(korisnickoime=user_data[0])
         if(user_object.exists()):
-            passfield = getattr(user_object[0], "lozinka", None)
+            passfield = getattr(user_object[0], "lozinka", None) #TODO //updatati login, check za password
             return JsonResponse({'valid': user_data[1] == passfield})
         else:
             return JsonResponse({'valid': False})
