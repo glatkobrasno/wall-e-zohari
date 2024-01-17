@@ -11,9 +11,9 @@ function HomeNotRegistered(){
     const [cookBoksData, setCookBoksData] = useState(null)
 
     useEffect(()=>async function() {
-       var data = await getCookBoks(6);
-        setCookBoksData(data);
-    },[cookBoksData]);
+	var data = await getCookBoks(6);
+	setCookBoksData(data);
+    },[]);
     
     
     return(
