@@ -117,7 +117,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="varchar" length="50"/>
 	</column>
 	<column name="Lozinka" not-null="true">
-		<type name="varchar" length="200"/>
+		<type name="varchar" length="2000"/>
+	</column>
+	<column name="Salt" not-null="true">
+		<type name="bytea" length="524288"/>
 	</column>
 	<column name="Ime" not-null="true">
 		<type name="varchar" length="50"/>
