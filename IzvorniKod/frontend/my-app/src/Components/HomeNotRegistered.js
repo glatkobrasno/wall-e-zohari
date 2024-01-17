@@ -1,5 +1,5 @@
 //node modules imports
-import React from "react";
+import React, { useEffect, useState } from "react";
 //css imports
 import '../styles/HomeNotRegistered.css';
 import { Link } from "react-router-dom";
@@ -8,12 +8,17 @@ import Axios from "axios";
 const backURL='http://127.0.0.1:8000';
 
 function HomeNotRegistered(){
+    const [cookBoksData, setCookBoksData] = useState(null)
+
+    useEffect(()=>async function() {
+       var data = await getCookBoks(6);
+        setCookBoksData(data);
+    },[cookBoksData]);
     
-    getCookBoks(6);
     
     return(
         <div className="kuharice_display_box">
-            {/* {GenerateKuharice} */}
+            {cookBoksData && GenerateKuharice(cookBoksData)}
         </div>
     );
 }
@@ -26,10 +31,12 @@ async function getCookBoks(num){ // idcookbook, nemacookbook, typecookbook, entu
 }
 function GenerateKuharice(cookBoksData){
     function cookBook(idCookBook, nameCookBook, typeCookBook, entuziastName, B64entuziastIMG){
+        var imagesrc = "data:image/png;base64,"+B64entuziastIMG
+        return(
         <Link to={"/kuharica/kuharica/"+idCookBook}>
             <div className="kuharice_cards">
                 <div className="entuziast_img_box">
-                    <image className="entuziast_img"></image>
+                    <image className="entuziast_img" src={imagesrc}></image>
                 </div>
                 <div className="entuziast_name_box">
                     {entuziastName}
@@ -42,7 +49,15 @@ function GenerateKuharice(cookBoksData){
                 </div>
             </div>
         </Link>
+        );
     }
+    var data_kuharice = cookBoksData.kuharice
+    var generated = []
+    for(var i=0; i < data_kuharice.lenght; ++i){
+    generated.push(cookBook(data_kuharice.idkuh, data_kuharice.naslov, data_kuharice.tema, data_kuharice.entuziast, data_kuharice.slika))
+    }
+
+    return <div></div>;
 
 }
 
