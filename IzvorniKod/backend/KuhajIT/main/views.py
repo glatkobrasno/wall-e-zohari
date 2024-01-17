@@ -442,6 +442,27 @@ class Cookbook(serializers.Serializer):
                     break
         return JsonResponse({'kuharice':data_kuharicae}, status=status.HTTP_200_OK)
 
+class Recipe(serializers.Serializer):
+    
+    @api_view(['POST', 'GET'])
+    def get_recipes_from_cookbook(request):# <= idkuharica => idrecipe, zadnja slika
+        kuh=request.data.get('cookbookID')
+        print(kuh)
+        data_recepti=[
+            {
+            'IDrecept': getattr(sadrzi_data,"idrecept").idrecept,
+            'Imerecept': getattr(sadrzi_data,"idrecept").imerecept,
+            'Velicinaporcija': getattr(sadrzi_data,"idrecept").velicinaporcija,
+            'Vrijemepripreme': getattr(sadrzi_data,"idrecept").vrijemepripreme,
+            'Datumizrade': getattr(sadrzi_data,"idrecept").datumizrade,
+            }for sadrzi_data in Sadrzi.objects.filter(idkuharica=kuh)
+        ]
+        for indx,individual_recept_data in enumerate(data_recepti):
+            specific_recept_id = individual_recept_data['IDrecept']
+            individual_korak_data=Korak.objects.filter(idrecept=specific_recept_id).order_by("-idslika")[0]
+            trazena_slika= getattr(individual_korak_data,"idslika").slika
+            data_recepti[indx]['Slika'] = ImgOperations.byteToString(trazena_slika)
+        return JsonResponse({"Returned_Data":data_recepti})
 class ImgOperations:
     def byteToString(byteImg):
         stringImg = byteImg.decode('ascii')

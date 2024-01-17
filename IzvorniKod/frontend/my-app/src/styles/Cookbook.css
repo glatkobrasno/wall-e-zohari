@@ -1,5 +1,4 @@
 .Individual_Cookbook_box{
-    display:grid;
     background-color: rgb(35, 51, 70, 0.8);
     width: 100%;
     height: auto;
@@ -14,8 +13,10 @@
 }
 
 .Individual_Cookbook_box_params{
+    float:left;
     margin-left: -20px;
-    width:25%;
+    width:22%;
+    height:18rem;
     padding: 20px;
     border-top-right-radius: 4rem;
     border-bottom-right-radius: 4rem;
@@ -26,6 +27,12 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+.Individual_Cookbook_box_recipelist{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}
+
 .Individual_Cookbook_box_image_container{
     margin-top:10px;
     display:flex;
@@ -34,6 +41,62 @@
 .CookbookCreatorDisplay{
     border: 5px solid rgb(223, 172, 148);
     border-radius:35%;
+    height:10rem;
     aspect-ratio:1;
-    width:50%;
+}
+
+.recipe_link_box{
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 35rem;
+    height: 35rem;
+    overflow: clip;
+    border: 5px solid rgb(223, 172, 148);
+    border-radius: 2rem;
+    background-color: rgb(43, 62, 86);
+}
+
+.recipe_box_name{
+    font-size: 1.2rem;
+    font-weight:bold;
+    color: rgba(255, 196, 168, 1);
+    width:100%;
+    text-align:center;
+}
+
+.recipe_box_portionsize{
+    font-size: 1.2rem;
+    color: rgba(255, 196, 168, 1);
+    width:100%;
+    text-align:center;
+}
+
+.recipe_box_preptime{
+    font-size: 1.2rem;
+    color: rgba(255, 196, 168, 1);
+    width:100%;
+    text-align:center;
+}
+
+.recipe_box_date{
+    font-size: 1.2rem;
+    color: rgba(255, 196, 168, 1);
+    width:100%;
+    text-align:center;
+}
+
+.recipe_box_display{
+    display:flex;
+    border: 5px solid rgb(223, 172, 148);
+    border-radius:2rem;
+    width:60%;
+    aspect-ratio:1;
+    overflow:clip;
+}
+
+.recipe_box_displayed{
+    width:100%;
+    aspect-ratio:1;
 }
