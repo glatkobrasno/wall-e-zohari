@@ -60,14 +60,14 @@ Za pohranjivanje svih potrebnih informacija o korisnicima i njihovim aktivnostim
 					}
 					\hline \SetCell[c=3]{c}{\textbf{Slike}} \\ \hline[3pt]
 					\SetCell{LightGreen}IDslika & INT & ID slike \\ \hline
-					Slika & VARCHAR & Slika \\ \hline
+					Slika & BYTEA & Binarni zapis slike \\ \hline
 				\end{longtblr}
 
 \textbf{Korisnik}- opisuje sve korisnike koji su registrirani na stranici. Entitet korisnik ima osnovne informacije  o korisnicima
-t.j. ima atribute Korisničko ime(Posebno za svakog korisnika), lozinku, ime i prezime, te koji je tip korisnika(normalni korisnik, kulinarski entuzijast ili neutricionist) preko adtributa razinaprivilegije.
+t.j. ima atribute Korisničko ime(Posebno za svakog korisnika), lozinku, salt koji je nasumično generiran dodatak lozinki kako bi se postigla veća sigurnost pri korištenju hash funkcije, ime i prezime, te koji je tip korisnika(normalni korisnik, kulinarski entuzijast ili neutricionist) preko adtributa razinaprivilegije.
 Za pohranu dodatnih podataka koje trebaju imati kulinarski entuzijast i nutricionist, potreban je slabi entitet PrivilegiraniKorisnik.
 Taj entitet ima atribute email, biografija, ID slike(1,1 veza), te korisničko ime(identifikacijska 1,1 veza)
- Korisnik je povezan sa dijetom koju prati preko imena dijete(N,1 veza).
+Korisnik je povezan sa dijetom koju prati preko imena dijete(N,1 veza).
 Korisnici mogu pratiti druge korisnike, što je zapisano u zasebnoj tablici.
 \begin{longtblr}[
 					label=none,
@@ -80,6 +80,7 @@ Korisnici mogu pratiti druge korisnike, što je zapisano u zasebnoj tablici.
 					\hline \SetCell[c=3]{c}{\textbf{Korisnik}}	 \\ \hline[3pt]
 					\SetCell{LightGreen}KorisnickoIme & VARCHAR & Korisničko ime korisnika \\ \hline
 					Lozinka & VARCHAR & Lozinka korisnika \\ \hline 
+					Salt & BYTEA & Dodatak lozinki \\ \hline 
 					Ime & VARCHAR & Ime korisnika \\ \hline
 					Prezime & VARCHAR & Prezime korisnika \\ \hline
 					RazinaPrivilegije& INT & Razina/tip korisnika\\ \hline 
@@ -129,6 +130,7 @@ s entitetom korisnik na dva načina(entiteti KomentarRecept i Konzumirao)
 					}
 					\hline \SetCell[c=3]{c}{\textbf{Recept}}	 \\ \hline[3pt]
 					\SetCell{LightGreen}IDrecept & INT & ID recepta \\ \hline
+					ImeRecept & VARCHAR & Ime recepta \\ \hline
 					VelicinaPorcija & INT & Veličina porcije \\ \hline
 					VrijemePripreme & TIME & Vrijeme pripreme jela \\ \hline
 					DatumIzrade & DATE & Datum izrade recepta \\ \hline
@@ -220,7 +222,7 @@ koja je opisana entitetom OznakeProizvoda. Također u N,N vezi s Dijeta koja je 
 					OpisOzn & VARCHAR & Opis dodatne oznake \\ \hline
 				\end{longtblr}
 
-\textbf{Kuharica}- Sadrži informacije o kuharicama. Atributi su ID, naslov, datum izrade i korisničko ime autora(N,1 veza sa Entuzijast). 
+\textbf{Kuharica}- Sadrži informacije o kuharicama. Atributi su ID, tema, naslov, datum izrade i korisničko ime autora(N,1 veza sa Entuzijast). 
 Entitet je u N,N vezi s Korisnik(pisan entitetom 
 KomentarKuharica). Svaka kuharica je is karakterizirana listom recepata koje sadrži(N,N veza s Recept koja je opisana entitetom KuharicaSadrziRecept)
 \begin{longtblr}[
@@ -233,6 +235,7 @@ KomentarKuharica). Svaka kuharica je is karakterizirana listom recepata koje sad
 					}
 					\hline \SetCell[c=3]{c}{\textbf{Kuharica}} \\ \hline[3pt]
 					\SetCell{LightGreen}IDkuharica & INT & ID recepta \\ \hline
+					Tema & VARCHAR & Tema kuharice \\ \hline
 					Naslov & VARCHAR & Naslov kuharice \\ \hline
 					DatumIzrade & DATE & Datum izrade recepta \\ \hline
 					\SetCell{LightBlue} KorisnickoIme & VARCHAR & Autor kuharice \\ \hline 
@@ -249,7 +252,7 @@ KomentarKuharica). Svaka kuharica je is karakterizirana listom recepata koje sad
 					\SetCell{LightBlue}IDrecept & INT & Recept u kuharici \\ \hline
 					\SetCell{LightBlue}IDKuharica & INT & Kuharica koja sadrži recept \\ \hline
 				\end{longtblr}
-\textbf{KomentarRecept}- opisuje N,N vezu između korisnika i recepta koja predstavlja recenziju korisnika za neki recept. Atributi su korisničko ime(N,1 veza s korisnik), ID recepta(N,1 veza s
+\textbf{KomentarRecept}- opisuje N,N vezu između korisnika i recepta koja predstavlja recenziju korisnika za neki recept. Atributi su ID komentara na receptu, korisničko ime(N,1 veza s korisnik), ID recepta(N,1 veza s
 recept), ocjena koju je korisnik ostavio, komentar korisnika, te odgovor od autora recepta(ako ga ima).
 \begin{longtblr}[
 					label=none,
@@ -260,14 +263,15 @@ recept), ocjena koju je korisnik ostavio, komentar korisnika, te odgovor od auto
 						rowhead = 1,
 					}
 					\hline \SetCell[c=3]{c}{\textbf{KomentarRecept}} \\ \hline[3pt]
+					\SetCell{LightGreen}IDKomentarRecept & INT & ID Komentara za recepte \\ \hline
 					\SetCell{LightBlue}KorisnickoIme & VARCHAR & Korisnicko ime autora komentara \\ \hline
 					\SetCell{LightBlue}IDrecept & INT & ID recepta na kojem je komentar \\ \hline
 					SadrzajKomentaraR & VARCHAR & Sadržaj komentara \\ \hline
 					OdgovorNaKomentar & VARCHAR & Odgovar na komentar \\ \hline
-					OcjenaR & INT & Ocjena recepta \\ \hline 
+					OcjenaR & INT & Ocjena recepta \\ \hline
 				\end{longtblr}
 \textbf{KomentarKuharica}-opisuje N,N vezu između korisnika i kuharice koja predstavlja recenziju korisnika za neku kuharicu.
- Atributi su korisničko ime(N,1 veza s korisnik), ID kuharice(N,1 veza s
+ Atributi su ID komentara na kuharici, korisničko ime(N,1 veza s korisnik), ID kuharice(N,1 veza s
 kuharica), ocjena koju je korisnik ostavio, komentar korisnika, te odgovor od autora kuharice(ako ga ima).
 \begin{longtblr}[
 					label=none,
@@ -278,14 +282,27 @@ kuharica), ocjena koju je korisnik ostavio, komentar korisnika, te odgovor od au
 						rowhead = 1,
 					}
 					\hline \SetCell[c=3]{c}{\textbf{KomentarKuharica}} \\ \hline[3pt]
-					\SetCell{LightBlue}KorisnickoIme & VARCHAR & Korisnicko ime autora \\ \hline
+					\SetCell{LightGreen}IDKomentarKuharica & INT & ID Komentara za kuharice \\ \hline
+					\SetCell{LightBlue}KorisnickoIme & VARCHAR & Korisničko ime autora \\ \hline
 					\SetCell{LightBlue}IDkuharica & INT & ID komentirane kuharice \\ \hline
 					SadrzajKomentaraK & VARCHAR & Sadržaj komentara \\ \hline
 					OdgovorNaKomentarK & VARCHAR & Odgovor na komentar \\ \hline
 					OcjenaK & INT & Ocjena kuharice \\ \hline 
 				\end{longtblr}
 \textbf{Konzumirao}- opisuje N,N vezu između korisnika i recepta koja označuje da je neki korisnik probao neki recept. Atributi su korisničko ime(N,1 veza s korisnik), ID recepta(N,1 veza srecept) te datum zapisa.
-
+\begin{longtblr}[
+					label=none,
+					entry=none
+					]{
+						width = \textwidth,
+						colspec={|X[10,l]|X[6, l]|X[16, l]|}, 
+						rowhead = 1,
+					}
+					\hline \SetCell[c=3]{c}{\textbf{Konzumirao}} \\ \hline[3pt]
+					\SetCell{LightBlue}KorisnickoIme & VARCHAR & Korisničko ime \\ \hline
+					\SetCell{LightBlue}IDrecept & INT & ID konzumiranog recepta \\ \hline
+					Datum & DATE & Datum konzumiranja \\ \hline
+				\end{longtblr}
 \textbf{Dijeta}- Sadrži sve informacije o dijetama. Atributi su ime, opis, minimalne i maksimalne vrijednosti nutrijenata po proizvodu koje dopušta dijeta, te maksimalni dnevni unos tih nutrijenata(nutrijenti su isti oni kao i u opisu entiteta proizvod :energija, masnoće, zasićene masne kiseline, ugljikohidrati, šećeri, bjelančevine i sol). Atributi spomenuti nakon opisa služe kako bi se omogučilo filtritanje recepata korisniku s obzirom na to dali  taj recept zadovoljava parametre neke dijete. U N,N vezi je s entitetom 
 DodatneOznake(veza je opisana entitetom Restrikcija i predstavlja restrikcije dijete na proizvode s tim oznakama) 
 \begin{longtblr}[
