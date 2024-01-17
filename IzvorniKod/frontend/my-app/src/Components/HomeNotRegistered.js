@@ -8,18 +8,22 @@ import Axios from "axios";
 const backURL='http://127.0.0.1:8000';
 
 function HomeNotRegistered(){
-    async function getCookBoks(){
-        var respnse = await Axios.post(backURL+'/get_all_cookboks/')
-        return respnse.data
-    }
-
+    
+    getCookBoks(6);
+    
     return(
         <div className="kuharice_display_box">
-            {GenerateKuharice}
+            {/* {GenerateKuharice} */}
         </div>
     );
 }
 
+async function getCookBoks(num){ // idcookbook, nemacookbook, typecookbook, entuziastname, entuziastIMG
+        var respnse = await Axios.post(backURL+'/get_cookbooks/',{'num':num})
+        console.log(respnse.data.kuharice[0]);
+        return respnse.data
+        
+}
 function GenerateKuharice(cookBoksData){
     function cookBook(idCookBook, nameCookBook, typeCookBook, entuziastName, B64entuziastIMG){
         <Link to={"/kuharica/kuharica/"+idCookBook}>

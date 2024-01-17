@@ -420,6 +420,27 @@ class Cookbook(serializers.Serializer):
                 "slika":ImgOperations.byteToString(data3)}
         #print(data)
         return JsonResponse(data, status=status.HTTP_200_OK)
+    @api_view(['POST', 'GET'])
+    def get_cookbooks(request):# <= i num of entrys => idcookbook, nemacookbook, typecookbook, entuziastname, entuziastIMG 
+        num=request.data.get('num')
+        data_kuharicae=[
+            {
+            'idkuh': getattr(x,"idkuharica"),
+            'naslov': getattr(x, "naslov"),
+            'datum': getattr(x,"datumizrade"),
+            'entuziast': getattr(x,"korisnickoime_id"),
+            'tema':getattr(x,"tema"),
+            }for x in Kuharica.objects.order_by("-idkuharica")
+        ]
+        for i, x in enumerate(data_kuharicae):
+            priv_obj=Privilegiranikorisnik.objects.filter(korisnickoime=x['entuziast'])[0]
+            data_kuharicae[i]['slika'] = ImgOperations.byteToString(getattr(priv_obj, "idslika").slika)
+
+        for i, x in enumerate(data_kuharicae):
+            if(num>0):
+                if(i>=num):
+                    break
+        return JsonResponse({'kuharice':data_kuharicae}, status=status.HTTP_200_OK)
 
 class ImgOperations:
     def byteToString(byteImg):
