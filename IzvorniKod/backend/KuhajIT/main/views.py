@@ -104,7 +104,7 @@ class LogInView(serializers.Serializer):
         if(user_object.exists()):
             passfield = getattr(user_object[0], "lozinka", None) #TODO //updatati login, check za password
             salt = getattr(user_object[0], "salt")
-            return JsonResponse({'valid': (user_data[1], salt) == passfield})
+            return JsonResponse({'valid': security.hash_password_with_salt(user_data[1], salt) == passfield})
         else:
             return JsonResponse({'valid': False})
 
