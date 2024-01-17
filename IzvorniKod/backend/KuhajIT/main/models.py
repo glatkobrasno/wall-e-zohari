@@ -97,11 +97,12 @@ class Korak(models.Model):
 
 class Korisnik(models.Model):
     korisnickoime = models.CharField(db_column='KorisnickoIme', primary_key=True, max_length=50)  # Field name made lowercase.
-    lozinka = models.CharField(db_column='Lozinka', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    lozinka = models.CharField(db_column='Lozinka', max_length=2000, blank=True, null=True)  # Field name made lowercase.
     ime = models.CharField(db_column='Ime', max_length=50, blank=True, null=True)  # Field name made lowercase.
     prezime = models.CharField(db_column='Prezime', max_length=50, blank=True, null=True)  # Field name made lowercase.
     imedijeta = models.ForeignKey(Dijeta, models.DO_NOTHING, db_column='ImeDijeta', blank=True, null=True)  # Field name made lowercase.
     razinaprivilegije = models.IntegerField(db_column='RazinaPrivilegije', blank=True, null=True)  # Field name made lowercase.
+    salt = models.CharField(db_column='Salt',blank=True, null=True)
 
     class Meta:
         managed = False

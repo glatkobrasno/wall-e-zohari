@@ -1,21 +1,21 @@
 
 from django.shortcuts import render
-#added TODO -----------------------------------------
+#added-----------------------------------------
 from django.http import JsonResponse
-import base64
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from django.db.models import Max
 from .serializers import *
 from django.contrib.auth.hashers import check_password
-#added TODO ------------------------------------------
+#added------------------------------------------
 from .models import *
 
-# Create your views here.
+#utility imports
+
+from security import security
 
 
-from django.http import HttpResponse
 
 
 def index(request):
@@ -27,12 +27,14 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
         if request.method == 'POST':
             role = request.data.get('Roll')
             if role == 'LVL1':
+                lozinka, salt = security.hash_password(request.data.get('Password'))
                 korisnik_data = {
                     'korisnickoime': request.data.get('UserName'),
-                    'lozinka': request.data.get('Password'),
+                    'lozinka': lozinka,
                     'ime': request.data.get('Name'),
                     'prezime': request.data.get('Surname'),
                     'razinaprivilegije': 1,
+                    'salt': salt,
                 }
 
                 korisnik_serializer = KorisnikSerializer(data=korisnik_data)
@@ -100,8 +102,9 @@ class LogInView(serializers.Serializer):
         user_data = [request.data.get('UserName'), request.data.get('Password')]
         user_object = Korisnik.objects.filter(korisnickoime=user_data[0])
         if(user_object.exists()):
-            passfield = getattr(user_object[0], "lozinka", None)
-            return JsonResponse({'valid': user_data[1] == passfield})
+            passfield = getattr(user_object[0], "lozinka", None) #TODO //updatati login, check za password
+            salt = getattr(user_object[0], "salt")
+            return JsonResponse({'valid': security.hash_password_with_salt(user_data[1], salt) == passfield})
         else:
             return JsonResponse({'valid': False})
 

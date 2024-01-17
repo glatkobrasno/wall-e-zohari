@@ -26,6 +26,12 @@ def hash_password(password):
 
     return hashed_password, salt
 
+def hash_password_with_salt(password, binary_salt):
+    salt = binary_salt#.decode('utf-8')
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    print(hashed_password.decode('utf-8'))
+    return hashed_password.decode('utf-8')
+
 def store_password_in_database(username, hashed_password, salt):
     salt_binary=psycopg2.Binary(salt)
     # Spoji se
