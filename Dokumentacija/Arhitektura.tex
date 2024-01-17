@@ -63,7 +63,7 @@ Za pohranjivanje svih potrebnih informacija o korisnicima i njihovim aktivnostim
 					Slika & VARCHAR & Slika \\ \hline
 				\end{longtblr}
 
-\textbf{Korisnik}- opisuje sve korisnike koji se registrirani na stranici. Entitet korisnik ima osnovne informacije  o korisnicima
+\textbf{Korisnik}- opisuje sve korisnike koji su registrirani na stranici. Entitet korisnik ima osnovne informacije  o korisnicima
 t.j. ima atribute Korisničko ime(Posebno za svakog korisnika), lozinku, ime i prezime, te koji je tip korisnika(normalni korisnik, kulinarski entuzijast ili neutricionist) preko adtributa razinaprivilegije.
 Za pohranu dodatnih podataka koje trebaju imati kulinarski entuzijast i nutricionist, potreban je slabi entitet PrivilegiraniKorisnik.
 Taj entitet ima atribute email, biografija, ID slike(1,1 veza), te korisničko ime(identifikacijska 1,1 veza)
@@ -117,7 +117,7 @@ Korisnici mogu pratiti druge korisnike, što je zapisano u zasebnoj tablici.
 
 
 \textbf{Recept}- sadrži informacije o receptima . Sam entitet recept ima atribute ID recepta, datum izrade,
-vrijeme pripreme i veličine porcija. Recept je povezan sa entitetom korisnik(N,1 veza, predstavlja autora recepta). Svaki recept je podijeljen na korake, te su oni opisani posebnim entitetom. U N,N vezi sa entitetom Kuharica(veza je opisana entitetom Sadrži) i u N,N vezi 
+vrijeme pripreme i veličine porcija. Recept je povezan sa entitetom entuzijast(N,1 veza, predstavlja autora recepta). Svaki recept je podijeljen na korake, te su oni opisani posebnim entitetom. U N,N vezi sa entitetom Kuharica(veza je opisana entitetom Sadrži) i u N,N vezi 
 s entitetom korisnik na dva načina(entiteti KomentarRecept i Konzumirao) 
 \begin{longtblr}[
 					label=none,
@@ -170,7 +170,7 @@ Povezan je s receptom preko ID-a recepta(N,1 veza)
 					Kolicina & NUMERICAL & Količina proizvoda u gramima \\ \hline
 				\end{longtblr}
  
-\textbf{Proizvod}- Sadrži sve potrebne informacije o proizvodima. ma atribute ID proizvoda, ime proizvoda, energija, masnoće, zasićene masne kiseline, ugljikohidrati, šećeri, bjelančevine, sol i slika proizvoda(1,1 veza sa Slike). Svaki proizvod može imati jednu ili više posebnih oznaka(N,N veza sa entitetom DodatneOznake koja je opisana entitetom OznakeProizvoda)
+\textbf{Proizvod}- Sadrži sve potrebne informacije o proizvodima. ima atribute ID proizvoda, ime proizvoda, energija, masnoće, zasićene masne kiseline, ugljikohidrati, šećeri, bjelančevine, sol i slika proizvoda(1,1 veza sa Slike). Svaki proizvod može imati jednu ili više posebnih oznaka(N,N veza sa entitetom DodatneOznake koja je opisana entitetom OznakeProizvoda)
 \begin{longtblr}[
 					label=none,
 					entry=none
@@ -220,7 +220,7 @@ koja je opisana entitetom OznakeProizvoda. Također u N,N vezi s Dijeta koja je 
 					OpisOzn & VARCHAR & Opis dodatne oznake \\ \hline
 				\end{longtblr}
 
-\textbf{Kuharica}- Sadrži informacije o kuharicama. Atributi su ID, naslov, datum izrade i korisničko ime autora(N,1 veza sa Korisnik). 
+\textbf{Kuharica}- Sadrži informacije o kuharicama. Atributi su ID, naslov, datum izrade i korisničko ime autora(N,1 veza sa Entuzijast). 
 Entitet je u N,N vezi s Korisnik(pisan entitetom 
 KomentarKuharica). Svaka kuharica je is karakterizirana listom recepata koje sadrži(N,N veza s Recept koja je opisana entitetom KuharicaSadrziRecept)
 \begin{longtblr}[
@@ -330,7 +330,7 @@ DodatneOznake(veza je opisana entitetom Restrikcija i predstavlja restrikcije di
 						rowhead = 1,
 					}
 					\hline \SetCell[c=3]{c}{\textbf{Restrikcija}} \\ \hline[3pt]
-					\SetCell{LightBlue}ImeDijeta & VARCHAR & Djeta kojoa ima restrikciju \\ \hline
+					\SetCell{LightBlue}ImeDijeta & VARCHAR & Dijeta koja ima restrikciju \\ \hline
 					\SetCell{LightBlue}IDOzn & INT & Dodatna oznaka na kojoj je restrikcija \\ \hline
 				\end{longtblr}
 
