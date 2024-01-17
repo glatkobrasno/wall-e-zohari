@@ -1,4 +1,3 @@
-from django.db.models.base import connection
 import bcrypt
 import psycopg2
 from psycopg2 import sql
@@ -15,7 +14,7 @@ def connect_to_database():
 
     try:
         connection = psycopg2.connect(**parametri)
-        return connetcion
+        return connection
     except psycopg2.Error as e:
         print("Nisam se spojio s bazom.")
         print(e)
@@ -28,6 +27,7 @@ def hash_password(password):
     return hashed_password, salt
 
 def store_password_in_database(username, hashed_password, salt):
+    salt_binary=psycopg2.Binary(salt)
     # Spoji se
     connection = connect_to_database()
     if connection is None:
@@ -36,8 +36,8 @@ def store_password_in_database(username, hashed_password, salt):
     try:
         # Spremi usera, lozinku i salt u bazu
         with connection.cursor() as cursor:
-            insert_query = sql.SQL("INSERT INTO ??? (username, password_hash, salt) VALUES (%s, %s, %s)")
-            cursor.execute(insert_query, (username, hashed_password, salt))
+            insert_query = sql.SQL("INSERT INTO Korisnik (KorisnickoIme, Lozinka, Salt) VALUES (%s, %s, %s)")
+            cursor.execute(insert_query, (username, hashed_password, salt_binary))
         connection.commit()
         print("Lozinka spremljena u bazu.")
     except psycopg2.Error as e:
@@ -55,11 +55,12 @@ def check_password_in_database(username, input_password):
     try:
         # Uzmi hashanu lozinku, usera i salt
         with connection.cursor() as cursor:
-            cursor.execute("SELECT password_hash, salt FROM ??? WHERE username = %s", (username,))
+            cursor.execute("SELECT Lozinka, Salt FROM Korsnik WHERE KorisnickoIme LIKE %s", (username,))
             result = cursor.fetchone()
 
             if result:
-                hashed_password_from_db, salt = result
+                hashed_password_from_db, salt_binary = result
+                salt=bytes(salt_binary)
                 # Hashaj input
                 hashed_input_password = bcrypt.hashpw(input_password.encode('utf-8'), salt)
                 # Usporedi dva hasha
