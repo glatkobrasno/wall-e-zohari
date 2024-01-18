@@ -30,5 +30,7 @@ urlpatterns = [
     path('add_recipe/', RecipeView.addRecipe, name='add_recipe'),
     path('get_steps_from_recipe/', Step.get_steps_from_recipe, name='get_steps_from_recipe'),
     path('get_recipe_with/', Recipe.get_recipes_with, name='get_recipes_with'),
+    path('get_all_diets/',Dietview.get_all_diets , name='get_all_diets'),
+    path('alter_diet/',Dietview.alter_diet, name='alter_diet'),
 
 ]
