@@ -8,13 +8,12 @@ import Axios from "axios";
 const backURL='http://127.0.0.1:8000';
 
 function HomeNotRegistered(){
-    console.log("postedD")
     const [cookBoksData, setCookBoksData] = useState(null)
-    console.log("postedC")
-    useEffect(()=>async function() {
-        console.log("postedF")
+    useEffect(()=>{const fetch = async function() {
        var data = await getCookBoks(6);
         setCookBoksData(data);
+    }
+    fetch();
     },[]);
     
     
@@ -28,9 +27,7 @@ function HomeNotRegistered(){
 }
 
 async function getCookBoks(num){ // idcookbook, nemacookbook, typecookbook, entuziastname, entuziastIMG
-    console.log("postedB")
         var respnse = await Axios.post(backURL+'/get_cookbooks/',{'num':num})
-        console.log("postedA")
         return respnse.data;
         
 }
