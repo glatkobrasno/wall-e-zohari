@@ -214,34 +214,34 @@ function CommentFields(){ // id kuharice/recepta, type 'recept'/ 'kuharica'
 
     function GenerateComments(id, type){ // TODO ne radi
         var generated=[];
-            if(commentsData !== null){
-                var comments= commentsData.comments; // comments[i][IDcom,KorIme,ocjena,sadrzaj,odgovor]
-                var entuzijast= commentsData.entuzijast;
-                var commentorName = null;
-                for(var i = 0; i < comments.length; ++i){
-                    if(comments[i][3]===null) continue;
-                    if(comments[i][1]===null) commentorName = "anoniman korisnik";
-                    else commentorName = comments[i][1];
-                    generated.push(CommentBox(id, type, comments[i][2], commentorName, comments[i][3], comments[i][0]));
-                    if(comments[i][4]!=null){
-                        generated.push(ReplyBox(id,type,entuzijast,comments[i][4], comments[i][0]));
-                    }
-                    else if(isKulinar){
-                        if(userData !== null)
-                            if(userData.username === entuzijast)
-                                generated.push(ReplyArea(id, type, comments[i][0], replyMsgs, setReplyMsgs, setCommentsData));
-
-                    }
-                    generated.push(<hr key={"hr"+i}></hr>)
+        if(commentsData !== null){
+            var comments= commentsData.comments; // comments[i][IDcom,KorIme,ocjena,sadrzaj,odgovor]
+            var entuzijast= commentsData.entuzijast;
+            var commentorName = null;
+            for(var i = 0; i < comments.length; ++i){
+                if(comments[i][3]===null) continue;
+                if(comments[i][1]===null) commentorName = "anoniman korisnik";
+                else commentorName = comments[i][1];
+                generated.push(CommentBox(id, type, comments[i][2], commentorName, comments[i][3], comments[i][0]));
+                if(comments[i][4]!=null){
+                    generated.push(ReplyBox(id,type,entuzijast,comments[i][4], comments[i][0]));
                 }
-                return(generated)
-                
+                else if(isKulinar){
+                    if(userData !== null)
+                        if(userData.username === entuzijast)
+                            generated.push(ReplyArea(id, type, comments[i][0], replyMsgs, setReplyMsgs, setCommentsData));
+		    
+                    }
+                generated.push(<hr key={"hr"+i}></hr>)
             }
-            else{
-                return(null);
-            }
+            return(generated)
+            
+        }
+        else{
+            return(null);
+        }
     }
-
+    
 
     return(
     <div className="comments_box">
