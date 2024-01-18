@@ -175,6 +175,7 @@
     border-radius: 50%;
     z-index: 5;
     cursor: pointer;
+    color: rgb(35, 51, 70);
 }
 #submitButton{
     grid-area: btn;

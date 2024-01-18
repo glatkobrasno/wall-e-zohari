@@ -32,7 +32,7 @@ function RecipeBox(IDrecept,Imerecept,Velicinaporcija,Vrijemepripreme,Datumizrad
 
 function GenerateAddCookbookButton(id){
     return(
-        <Link to={"/addrecipe/"+id} className="addrecipe_box" key={"addrecipe"+id}>
+        <Link to={"/AddRecipe/"+id} className="addrecipe_box" key={"addrecipe"+id}>
             <div className="addrecipe_textbox" key={"addrecipetext"+id}>
                 +
             </div>

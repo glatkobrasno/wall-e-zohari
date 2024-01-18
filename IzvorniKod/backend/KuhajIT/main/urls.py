@@ -29,4 +29,6 @@ urlpatterns = [
     path('add_cookbook/', CookbookView.addCookbook, name='add_cookbook'),
     path('add_recipe/', RecipeView.addRecipe, name='add_recipe'),
     path('get_steps_from_recipe/', Step.get_steps_from_recipe, name='get_steps_from_recipe'),
+    path('get_recipe_with/', Recipe.get_recipes_with, name='get_recipes_with'),
+
 ]

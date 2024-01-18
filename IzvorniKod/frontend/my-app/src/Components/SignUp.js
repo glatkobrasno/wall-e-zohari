@@ -68,8 +68,8 @@ function Form(){
 
         if(selectedFile){
             var fSize=selectedFile.size
-            if(fSize > 500000){
-                alert('Prevelika Slika, max 0.5 MB')
+            if(fSize > 5000000){
+                alert('Prevelika Slika, max 5 MB')
                 URL.revokeObjectURL(imgUrl);
                 setImgUrl('');
                 e.target.value = null;

@@ -37,7 +37,7 @@ function RecipeForm() {
     const username = userData.username;
 
     // Set the current date as the submission date
-    const submissionDate = new Date().toLocaleDateString();
+    const submissionDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' });
 
     const handleIngredientChange = (index, field, value) => {
         const updatedIngredients = [...ingredients];

@@ -8,11 +8,14 @@ from rest_framework import status
 from django.db.models import Max
 from .serializers import *
 from django.contrib.auth.hashers import check_password
+import base64
+import json
 #added------------------------------------------
 from .models import *
 
 #utility imports
-
+from datetime import datetime
+from qr_codes import qr_codes
 from security import security
 
 
@@ -510,6 +513,28 @@ class Recipe(serializers.Serializer):
             trazena_slika= getattr(individual_korak_data,"idslika").slika
             data_recepti[indx]['Slika'] = ImgOperations.byteToString(trazena_slika)
         return JsonResponse({"Returned_Data":data_recepti})
+    @api_view(['POST', 'GET'])
+    def get_recipes_with(request):
+        req_data=request.data #img base64
+        b64Img = req_data.get('slika')
+        ImgOperations.b64ToImage(b64Img)
+        red_code=json.loads(qr_codes.read_code("temporary/temporary.png")) #"{\"id_of_product\": id}"
+        try:
+            recipe_with_data=[
+                {'idrecept': getattr(sastojci,"idrecept").idrecept,
+                'imerecept': getattr(sastojci,"idrecept").imerecept,
+                'vrijemePripreme': getattr(sastojci,"idrecept").vrijemepripreme,
+                'entuziast': getattr(sastojci,"idrecept").korisnickoime_id
+                }for sastojci in Potrebnisastojci.objects.filter(idproizvod=red_code['id_of_product'])
+            ]
+            for i,korak in enumerate(recipe_with_data):
+                slika = Korak.objects.filter(idrecept = recipe_with_data[i]['idrecept']).order_by("-idslika")[0]
+                recipe_with_data[i]['slika'] = ImgOperations.byteToString(getattr(slika,"idslika").slika) 
+            return JsonResponse({'recepti':recipe_with_data},status=status.HTTP_200_OK)
+        except:
+            return Response(data="Problem u receptima S...", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        
 
 class Step(serializers.Serializer):
 
@@ -555,6 +580,12 @@ class ImgOperations:
     def byteToString(byteImg):
         stringImg = byteImg.decode('ascii')
         return stringImg
+    def b64ToImage(b64Img):
+        decoded_data=base64.b64decode((b64Img))
+        img_file = open('temporary/temporary.png', 'wb')
+        img_file.write(decoded_data)
+        img_file.close()
+
     
 
     
@@ -597,6 +628,7 @@ class RecipeView:
 
             # Convert 'datumizrade' to the correct date format
             submission_date_str = request.data.get('submissionDate')
+            print(submission_date_str)
             submission_date = datetime.strptime(submission_date_str, '%d/%m/%Y').strftime('%Y-%m-%d')
 
 
