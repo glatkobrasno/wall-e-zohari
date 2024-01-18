@@ -4,11 +4,31 @@ import Axios from 'axios';
 import {useParams} from "react-router-dom";
 import {useState, useEffect} from "react";
 import '../Components/CommentFields'
+import { Link } from 'react-router-dom';
 //css imports
 import '../styles/Cookbook.css';
-import CommentFields from "../Components/CommentFields";
 
 const backURL='http://127.0.0.1:8000';//backend URL
+
+function RecipeBox(IDrecept,Imerecept,Velicinaporcija,Vrijemepripreme,Datumizrade,Slika){
+    var imagesrc = "data:image/png;base64,"+Slika
+    
+    return(
+        <Link to={"recept/recept"+IDrecept} className="recipe_link_box" key={"recipe"+IDrecept}>
+            <div className="recipe_box_name" key={"rbname"+IDrecept}>{Imerecept}</div>
+            <div className="recipe_box_portionsize" key={"rbportionsize"+IDrecept}>{"Broj porcija: " + Velicinaporcija}</div>
+            <div className="recipe_box_preptime" key={"rbpreptime"+IDrecept}>{"Vrijeme pripreme: " + Vrijemepripreme}</div>
+            <div className="recipe_box_date" key={"rbdate"+IDrecept}>{"Datum Izrade: " + Datumizrade}</div>
+            <div className="recipe_box_display" key={"rbdisplay"+IDrecept}>
+                <img className='recipe_box_displayed' key={"rbdisplayed"+IDrecept}
+                            src={imagesrc}
+                            alt="Recipe Display"
+                    >
+                </img>
+            </div>
+        </Link>
+    );
+}
 
 async function requestCookbookData(cookbookID){ // idkuharica
     try{
@@ -22,10 +42,38 @@ async function requestCookbookData(cookbookID){ // idkuharica
     
 }
 
+async function requestRecipesData(cookbookID){
+    try{
+        //logic for getting cookbook data
+        var response = await Axios.post(backURL+'/get_recipes_from_cookbook/', {'cookbookID':cookbookID});// response -> list of dicts with 'IDrecept','Imerecept','Velicinaporcija','Vrijemepripreme','Datumizrade','Slika'
+        return response.data;
+    }
+    catch(Error){
+        console.log(Error);
+    }
+}
 
+function GenerateRecipes(id, type,RecipesData){ // TODO ne radi
+    var generated=[];
+    console.log(RecipesData.Returned_Data);
+    if(RecipesData !== null){
+        var recipeslist= RecipesData.Returned_Data; //list of dicts with 'IDrecept','Imerecept','Velicinaporcija','Vrijemepripreme','Datumizrade','Slika'
+        for(var i = 0; i < recipeslist.length; ++i){
+            generated.push(RecipeBox(recipeslist[i].IDrecept,recipeslist[i].Imerecept,
+                recipeslist[i].Velicinaporcija,recipeslist[i].Vrijemepripreme,
+                recipeslist[i].Datumizrade,recipeslist[i].Slika));
+        }
+        return(generated);
+        
+    }
+    else{
+        return(null);
+    }
+}
 
 function Cookbook(){
     const [CookbookData, setCookbookData] = useState(null);
+    const [RecipesData, setRecipesData] = useState(null); //list of dicts with 'IDrecept','Imerecept','Velicinaporcija','Vrijemepripreme','Datumizrade','Slika'
     const {type, id} = useParams();
     const [CookbookImage, setCookbookImage] = useState(null);
 
@@ -33,7 +81,9 @@ function Cookbook(){
         const fetch = async () => {
             try {
             const data = await requestCookbookData(id);
+            const data2 = await requestRecipesData(id);
             setCookbookData(data);
+            setRecipesData(data2);
             setCookbookImage("data:image/png;base64,"+data.slika);
             } catch (error) {
             console.error('Error fetching cookbook data:', error);
@@ -47,17 +97,23 @@ function Cookbook(){
             {CookbookData && (
                 <>
                     <div className = "Individual_Cookbook_box_title">{CookbookData.naslov}</div>
-                    <div className = "Individual_Cookbook_box_params">
-                        Tema kuharice: {CookbookData.tema}<br></br>
-                        Izradio korisnik: {CookbookData.korisnickoime_id}<br></br>
-                        Datum izrade kuharice: {CookbookData.datumizrade}<br></br>
-                        <div className = "Individual_Cookbook_box_image_container">
-                            <img className='CookbookCreatorDisplay'
-                            src={CookbookImage}
-                            alt="Cookbook Display"
-                            >
-                            </img>
+
+                        <div className = "Individual_Cookbook_box_params">
+                            Tema kuharice: {CookbookData.tema}<br></br>
+                            Izradio korisnik: {CookbookData.korisnickoime_id}<br></br>
+                            Datum izrade kuharice: {CookbookData.datumizrade}<br></br>
+                            <div className = "Individual_Cookbook_box_image_container">
+                                <img className='CookbookCreatorDisplay'
+                                src={CookbookImage}
+                                alt="Cookbook Display"
+                                >
+                                </img>
+                            </div>
                         </div>
+
+                    
+                    <div className = "Individual_Cookbook_box_recipelist">
+                        {RecipesData && GenerateRecipes(id,type,RecipesData)}
                     </div>
                 </>
             )}

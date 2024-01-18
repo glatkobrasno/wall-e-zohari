@@ -22,5 +22,6 @@ urlpatterns = [
     path('add_comments/', CommentView.saveComment, name='add_comments'),
     path('add_reply/', CommentView.addReply, name='add_reply'),
     path('get_cookbookdata/', Cookbook.get_cookbookdata, name='get_cookbookdata'),
-    path('get_cookbooks/', Cookbook.get_cookbooks, name='get_cookbookdata'),
+    path('get_cookbooks/', Cookbook.get_cookbooks, name='get_cookbooks'),
+    path('get_recipes_from_cookbook/', Recipe.get_recipes_from_cookbook, name='get_recipes_from_cookbook'),
 ]

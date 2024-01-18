@@ -31,10 +31,10 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
                 korisnik_data = {
                     'korisnickoime': request.data.get('UserName'),
                     'lozinka': lozinka,
+                    'salt': salt,
                     'ime': request.data.get('Name'),
                     'prezime': request.data.get('Surname'),
                     'razinaprivilegije': 1,
-                    'salt': salt,
                 }
 
                 korisnik_serializer = KorisnikSerializer(data=korisnik_data)
@@ -60,15 +60,17 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
                     'korisnickoime': request.data.get('UserName'),
                     'email': request.data.get('Email'),
                     'biografija': request.data.get('Bio'),
-                    'idslika' : max_slike_id+1,
+                    'idslika' : max_slike_id + 1,
                 }
 
+                lozinka, salt = security.hash_password(request.data.get('Password'))
                 korisnik_data = {
                     'korisnickoime': privilegirani_data['korisnickoime'],
-                    'lozinka': request.data.get('Password'),
+                    'lozinka': lozinka,
                     'ime': request.data.get('Name'),
                     'prezime': request.data.get('Surname'),
                     'razinaprivilegije': -2 if role == 'LVL2' else -3,
+                    'salt': salt,
                 }
 
                 slika_serializer = SlikeSerializer(data=slika_data)
@@ -84,10 +86,13 @@ class SignUpView(serializers.Serializer): # klasa za obradu requestova za SignUp
                         privilegirani_serializer.save()
                         return Response({'success': True}, status=status.HTTP_201_CREATED)
                     else:
-                        return Response({'error': korisnik_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                        return Response({'error': privilegirani_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
                 else:
-                    return Response({'error': slika_serializer.errors or privilegirani_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({'error': slika_serializer.errors or korisnik_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                
         return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
+
+    
     @api_view(['POST', 'GET'])
     def check_username(request):
         username_data = request.data.get('username')
@@ -290,7 +295,7 @@ class ProfileView(serializers.Serializer):
             pk_data = {'korisnickoime_1' : user1,
                        'korisnickoime_2' : user2,
             }
-            pk_serializer= PratikorisnikaSerializer(data = pk_data)
+            pk_serializer = PratikorisnikaSerializer(data = pk_data)
             if pk_serializer.is_valid():
                 pk_serializer.save()
                 return Response({'success': True}, status=status.HTTP_201_CREATED)
@@ -378,6 +383,7 @@ class CommentView(serializers.Serializer):
                 return Response({'error': commentSerialiser.errors}, status= status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': "error in adding coment"}, status= status.HTTP_400_BAD_REQUEST)
+        
     @api_view(['POST', 'GET'])
     def addReply(request):  # data{type, idcom, content}
         req_data = request.data
@@ -444,6 +450,52 @@ class Cookbook(serializers.Serializer):
                 if(i>=num):
                     break
         return JsonResponse({'kuharice':data_kuharicae}, status=status.HTTP_200_OK)
+
+class Recipe(serializers.Serializer):
+    
+    @api_view(['POST', 'GET'])
+    def get_recipes_from_cookbook(request):# <= idkuharica => idrecipe, zadnja slika
+        kuh=request.data.get('cookbookID')
+        print(kuh)
+        data_recepti=[
+            {
+            'IDrecept': getattr(sadrzi_data,"idrecept").idrecept,
+            'Imerecept': getattr(sadrzi_data,"idrecept").imerecept,
+            'Velicinaporcija': getattr(sadrzi_data,"idrecept").velicinaporcija,
+            'Vrijemepripreme': getattr(sadrzi_data,"idrecept").vrijemepripreme,
+            'Datumizrade': getattr(sadrzi_data,"idrecept").datumizrade,
+            }for sadrzi_data in Sadrzi.objects.filter(idkuharica=kuh)
+        ]
+        for indx,individual_recept_data in enumerate(data_recepti):
+            specific_recept_id = individual_recept_data['IDrecept']
+            individual_korak_data=Korak.objects.filter(idrecept=specific_recept_id).order_by("-idslika")[0]
+            trazena_slika= getattr(individual_korak_data,"idslika").slika
+            data_recepti[indx]['Slika'] = ImgOperations.byteToString(trazena_slika)
+        return JsonResponse({"Returned_Data":data_recepti})
+
+class HistoryView:
+
+    @api_view(['POST', 'GET'])
+    def getHistory(request):
+        user_data = request.data.get('UserName')
+        history_data = Konzumirao.objects.filter(korisnickoime = user_data)
+
+        return JsonResponse(history_data)
+
+    def addToHistory(request):
+
+        k_data = {'korisnickoime' : request.data.get('username'),
+                  'idrecept' : request.data.get('recept'),
+                  'datum' : date.today(),
+                  }
+        
+        k_serializer= KonzumiraoSerializer(data = k_data)
+        if k_serializer.is_valid():
+            k_serializer.save()
+            return Response({'success': True}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error': pk_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
+
 
 class ImgOperations:
     def byteToString(byteImg):

@@ -13,7 +13,7 @@ function HomeNotRegistered(){
     useEffect(()=>async function() {
        var data = await getCookBoks(6);
         setCookBoksData(data);
-    },[]);
+    },[cookBoksData]);
     
     
     return(
