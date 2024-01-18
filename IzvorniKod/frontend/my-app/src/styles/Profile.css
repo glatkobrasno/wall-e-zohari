@@ -134,9 +134,35 @@
 }
 .cbt{
     display: flex;
-    height: 300px;
+    height: 55px;
     width: 100%;
     justify-content: space-evenly;
+}
+.cookbookView{
+    display: flex;
+}
+.recipeView{
+    display: flex;
+}
+.cookbook_link_p{
+    background-color: rgb(35, 51, 70);
+    color: rgba(255, 196, 168, 1);
+    border-radius: 10px;
+    border: solid rgba(255, 196, 168, 1) 2px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 25%;
+    text-align: center;
+}
+.recipe_link_p{
+    background-color: rgb(35, 51, 70);
+    color: rgba(255, 196, 168, 1);
+    border-radius: 10px;
+    border: solid rgba(255, 196, 168, 1) 2px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 25%;
+    text-align: center;
 }
 .profile{
     
@@ -171,8 +197,6 @@
 }
 .ImageBox{
     
-    
-    
 }
 .FollowButton{
     height: 50px;
@@ -189,14 +213,14 @@
     width: 35%;
 }
 
-#P{
+#UP{
     background-color: rgb(35, 51, 70);
     color: rgba(255, 196, 168, 1);
     border-radius: 10px;
     border: solid rgba(255, 196, 168, 1) 2px;
 }
 
-#UP{
+#P{
     background-color: rgb(70, 102, 140);
     color: rgba(255, 196, 168, 1);
     border-radius: 10px;

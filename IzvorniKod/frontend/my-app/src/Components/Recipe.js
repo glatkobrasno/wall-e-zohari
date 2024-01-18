@@ -137,14 +137,15 @@ function Recipe(){
                             Vrijeme pripreme: {RecipeData.vrijemepripreme}<br></br>
                             Datum izrade recepta: {RecipeData.datumizrade}<br></br>
                             Izradio/la: {RecipeData.korisnickoime}<br></br>
-                            <div className = "Individual_Recipe_box_image_container">
-                                <img className='RecipeCreatorDisplay'
-                                src={"data:image/png;base64,"+RecipeData.slikaautor}
-                                alt="Recipe Display"
-                                >
-                                </img>
-                            </div>
-
+			    <Link to={"/Profile/"+RecipeData.korisnickoime}>
+				<div className = "Individual_Recipe_box_image_container">
+                                    <img className='RecipeCreatorDisplay'
+					 src={"data:image/png;base64,"+RecipeData.slikaautor}
+					 alt="Recipe Display"
+                                    >
+                                    </img>
+				</div>
+			    </Link>
                         </div>
                     </div>
                     <div className = "RecipeLower">
