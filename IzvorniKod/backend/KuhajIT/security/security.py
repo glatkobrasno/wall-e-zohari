@@ -24,7 +24,7 @@ def hash_password(password):
     salt = bcrypt.gensalt() #  nasumični salt
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
 
-    return hashed_password, salt
+    return hashed_password.decode('utf-8'), salt.decode('utf-8')
 
 def hash_password_with_salt(password, binary_salt):
     salt = binary_salt#.decode('utf-8')
