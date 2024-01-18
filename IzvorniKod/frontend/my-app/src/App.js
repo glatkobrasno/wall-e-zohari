@@ -14,9 +14,13 @@ import Profile from './Components/Profile';
 import AddDiet from './Components/addDiet';
 import CommentFields from './Components/CommentFields';
 import Cookbook from './Components/Cookbook';
+
 import AddCookbook from './Components/addCookbook';
 import AddRecipe from './Components/addRecipe';
 import Recipe from './Components/Recipe';
+
+import ChooseDiet from './Components/ChooseDiet'
+
 
 function App() {
   return (
@@ -29,10 +33,14 @@ function App() {
           <Route path='/Profile/:username' element={<div><Header/><Profile/><Footer/></div>}></Route>
           <Route exact path='/AddDiet' element ={<div><Header/><AddDiet/><Footer/></div>}></Route>
           <Route exact path='/cookbook/:type/:id' element={<div><Header/><Cookbook/><CommentFields/><Footer/></div>}></Route>
+
           <Route exact path='/AddCookbook' element ={<div><Header/><AddCookbook/><Footer/></div>}></Route>
           <Route exact path='/AddRecipe' element ={<div><Header/><AddRecipe/><Footer/></div>}></Route>
           <Route exact path='/Cookbook/:type/:id' element={<div><Header/><Cookbook/><CommentFields/><Footer/></div>}></Route>
           <Route exact path='/Recipe/:type/:id' element={<div><Header/><Recipe/><CommentFields/><Footer/></div>}></Route>
+
+          <Route exact path='/ChooseDiet' element={<div><Header/><ChooseDiet/><Footer/></div>}></Route>
+
       </Routes>
     </Router> 
   );

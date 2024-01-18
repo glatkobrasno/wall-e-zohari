@@ -17,6 +17,7 @@ function Menue(){
                     <Link to="/Login"><li>LogIn</li></Link>
                     <Link to="/SignUp"><li>SignUp</li></Link>
                     <Link to="/"><li>Home</li></Link>
+                    <Link to="/ChooseDiet"><li>Izaberi dijetu</li></Link>
                 </ul>
             </div>
 	);

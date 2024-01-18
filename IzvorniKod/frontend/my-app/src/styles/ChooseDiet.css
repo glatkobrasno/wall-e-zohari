@@ -1,0 +1,28 @@
+
+
+.DietBox{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(35, 51, 70);
+    border-radius: 20px;
+    box-shadow: 8px 12px 15px 5px rgba(0, 0, 0, 0.3);
+    border:4px solid rgb(60, 86, 119);
+    padding: 10px;
+    margin: 10px;
+    color: rgba(255, 196, 168, 1);
+}
+.title{
+    font-weight: bold;
+
+}
+.dietbutton{
+    background-color:rgba(255, 196, 168, 1) ;
+    border-radius: 10px;
+    border: none;
+}
+.dietbutton:hover{
+    color: rgba(255, 196, 168, 1);
+    background-color: rgb(35, 51, 70);
+    cursor: pointer;
+    border: solid rgba(255, 196, 168, 1) 2px;
+}

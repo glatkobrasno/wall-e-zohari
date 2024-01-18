@@ -238,6 +238,29 @@ class Dietview(serializers.Serializer):
                 return Response({'error': djeta_serializer.errors}, status= status.HTTP_400_BAD_REQUEST)
         return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
 
+    @api_view(['POST', 'GET'])
+    def get_all_diets(request):
+        diets = [[getattr(x,"imedijeta"),getattr(x,"opis")] for x in Dijeta.objects.all()]
+        data= { 'diets': diets}
+        return JsonResponse(data, status=status.HTTP_200_OK)
+
+    @api_view(['POST', 'GET'])
+    def alter_diet(request):
+        user=request.data.get("UserName")
+        diet=request.data.get("SelectedDiet")
+        #print(user,diet)
+        #to_update=Korisnik.objects.get(korisnickoime=user)
+        #print(to_update.imedijeta)
+        #diet2=Dijeta.objects.get(imedijeta=diet)
+        #print(diet2.imedijeta)
+        #to_update.imedijeta=diet2
+        #to_update.save()
+        Korisnik.objects.filter(korisnickoime=user).update(imedijeta=diet)
+
+        return Response(user , status=status.HTTP_200_OK)
+
+
+
 
 class ProfileView(serializers.Serializer):
     @api_view(['POST', 'GET'])
