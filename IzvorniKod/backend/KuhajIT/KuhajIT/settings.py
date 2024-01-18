@@ -20,14 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
-# TODO Stavi kao secret u .env
-SECRET_KEY = 'django-insecure-15h+o2mv%-jqa%*zre=y$=p7taj*2-h%^ajk%4=2tdcur(3@9!'
+
+SECRET_KEY = os.getenv("DJANGO_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DOMENA, ADRESA = os.getenv("DOMENA"), os.getenv("ADRESA")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [DOMENA,ADRESA]
 
 
 # Application definition
@@ -84,7 +86,6 @@ WSGI_APPLICATION = 'KuhajIT.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-load_dotenv()
 PG_PASSWORD = os.getenv("PG_PASSWORD")  # Citanje passworda iz datoteke ".env" pored ove datoteke, nju ne trackamo!!!
 DATABASES = {
     'default': {
