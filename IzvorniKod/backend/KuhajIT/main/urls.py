@@ -24,4 +24,7 @@ urlpatterns = [
     path('get_cookbookdata/', Cookbook.get_cookbookdata, name='get_cookbookdata'),
     path('get_cookbooks/', Cookbook.get_cookbooks, name='get_cookbooks'),
     path('get_recipes_from_cookbook/', Recipe.get_recipes_from_cookbook, name='get_recipes_from_cookbook'),
+    path('add_cookbook/', CookbookView.addCookbook, name='add_cookbook'),
+    path('add_recipe/', RecipeView.addRecipe, name='add_recipe'),
+
 ]

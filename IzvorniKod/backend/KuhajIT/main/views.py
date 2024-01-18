@@ -504,3 +504,178 @@ class ImgOperations:
     
 
     
+class CookbookView(serializers.Serializer):
+    @api_view(['GET','POST'])
+    def addCookbook(request):
+        if request.method == 'POST':
+            # Get data from the request
+            max_kuharica_id = Kuharica.objects.aggregate(Max('idkuharica', default = '0'))['idkuharica__max']
+
+            cookbook_data = {
+                'idkuharica': max_kuharica_id + 1,
+                'naslov': request.data.get('CookbookName'),
+                'tema': request.data.get('CookbookTheme'),
+                'datumizrade': request.data.get('CreationDate'),
+                'korisnickoime': request.data.get('Username'),  # Assuming user information is provided in the request
+                # Add other cookbook data fields as needed
+            }
+
+            # Serialize the data
+            cookbook_serializer = KuharicaSerializer(data=cookbook_data)
+
+            # Validate and save the cookbook data
+            if cookbook_serializer.is_valid():
+                cookbook_serializer.save()
+                return Response({'success': True}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'error': cookbook_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RecipeView:
+    @api_view(['POST'])
+    #@transaction.atomic
+    def addRecipe(request):
+        if request.method == 'POST':
+            # Get the current maximum IDrecept
+            max_recipe_id = Recept.objects.aggregate(Max('idrecept', default='0'))['idrecept__max']
+
+            # Convert 'datumizrade' to the correct date format
+            submission_date_str = request.data.get('submissionDate')
+            submission_date = datetime.strptime(submission_date_str, '%d/%m/%Y').strftime('%Y-%m-%d')
+
+
+            recipe_data = {
+                'idrecept': max_recipe_id + 1,
+                'imerecept': request.data.get('recipeName'),
+                'velicinaporcija': int(request.data.get('portionSize')),
+                'vrijemepripreme': request.data.get('cookingTime'),
+                'datumizrade': submission_date, 
+                'korisnickoime': request.data.get('username'),  # Assuming user information is provided in the request
+                # Add other cookbook data fields as needed
+                }
+            recipe_serializer = ReceptSerializer(data = recipe_data)
+            #print("spremanje recepata")
+            #print(recipe_serializer.is_valid())
+            #print(recipe_data)
+            if recipe_serializer.is_valid():
+                recipe_serializer.save()
+                #return Response({'success': True}, status=status.HTTP_201_CREATED)
+            else:
+                print("Serializer Errors:", recipe_serializer.errors)
+                return Response({'error': recipe_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+            #print("recept gotov, sad sastojci")
+            
+            ingredients_str = request.data.get('ingredients')
+            ingredients = json.loads(ingredients_str) if ingredients_str else []
+
+            #print(type(ingredients))
+            # Process ingredients
+            for ingredient_data in ingredients:
+                #print(type(ingredient_data))
+                ingredient_name = ingredient_data.get('name')
+                ingredient_quantity = ingredient_data.get('quantity')
+                ingredient_id = Proizvod.objects.filter(imeproizvod = ingredient_name)[0].idproizvod
+                #print(ingredient_id)
+                ing_data = {
+                    'idrecept': max_recipe_id + 1,
+                    'idproizvod': ingredient_id,
+                    'kolicina': ingredient_quantity,
+                    # Add other cookbook data fields as needed
+                    }
+                ing_serializer = PotrebnisastojciSerializer(data = ing_data)
+                #print("spremanje recepata")
+                #print(recipe_serializer.is_valid())
+                #print(recipe_data)
+                if ing_serializer.is_valid():
+                    ing_serializer.save()
+                #return Response({'success': True}, status=status.HTTP_201_CREATED)
+                else:
+                    print("Serializer Errors:", ing_serializer.errors)
+                    return Response({'error': ing_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            
+                
+            #print("---------------------------------------------")
+            
+            
+            
+            steps_str = request.data.get('cookingSteps')
+            steps = json.loads(steps_str) if steps_str else []
+
+            # Process cooking steps
+            for step_data in steps:
+                #print(step_data)
+                
+                # Save koraci
+                max_image_id = Slike.objects.aggregate(Max('idslika', default='0'))['idslika__max']
+                #print(max_image_id)
+                
+                
+                # Save image to Slike table
+
+                
+                img_data = {
+                    'idslika': max_image_id + 1,
+                    'slika': step_data.get('image'),
+                    
+                    # Add other cookbook data fields as needed
+                    }
+                img_serializer = SlikeSerializer(data = img_data)
+                #print("spremanje recepata")
+                #print(recipe_serializer.is_valid())
+                #print(recipe_data)
+                if img_serializer.is_valid():
+                    img_serializer.save()
+                #return Response({'success': True}, status=status.HTTP_201_CREATED)
+                else:
+                    print("Serializer Errors:", img_serializer.errors)
+                    return Response({'error': img_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            
+                #print("image")
+                
+                
+                korak_data = {
+                    'idrecept': max_recipe_id + 1,
+                    'idslika': max_image_id + 1,
+                    'opissl': step_data.get('imageDescription'),
+                    'opiskorak': step_data.get('description'),
+                    # Add other cookbook data fields as needed
+                    }
+                korak_serializer = KorakSerializer(data = korak_data)
+                #print("spremanje recepata")
+                #print(recipe_serializer.is_valid())
+                #print(recipe_data)
+                #print(korak_serializer.is_valid())
+                if korak_serializer.is_valid():
+                    korak_serializer.save()
+                #return Response({'success': True}, status=status.HTTP_201_CREATED)
+                else:
+                    print("Serializer Errors:", korak_serializer.errors)
+                    return Response({'error': korak_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                #print("KOrak")
+            
+            
+            idcookbook = request.data.get('idcookbook')
+            print(idcookbook)
+            
+            rec_data = {
+                'idrecept': max_recipe_id + 1,
+                'idkuharica': idcookbook,
+                
+                # Add other cookbook data fields as needed
+                } 
+            sadrzi_serializer = SadrziSerializer(data = rec_data)
+            
+            if sadrzi_serializer.is_valid():
+                sadrzi_serializer.save()
+            else:
+                print("Serializer Errors:", sadrzi_serializer.errors)
+                return Response({'error': sadrzi_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({'success': True}, status=status.HTTP_201_CREATED)
+
+        else:
+            return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
+
