@@ -179,6 +179,7 @@ width: 100%;
     border-radius: 5px;
 }
 .post_rep_btn{
+    user-select: none;
     position: relative;
     width:10%;
     height: 100%; 

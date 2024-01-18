@@ -37,6 +37,20 @@ function Menue(){
             </div>
 	);
     }
+    else if ( userData.lvl === 3 ) {
+        return(
+                
+                <div className="menue">
+                    <ul className="select">
+                        <Link to="/Login"><li>LogIn</li></Link>
+                        <Link to="/SignUp"><li>SignUp</li></Link>
+                        <Link to="/"><li>Home</li></Link>
+                        <Link to="/AddCookBook"><li>Dodaj Kuharicu</li></Link>
+                        <li>nesto</li>
+                    </ul>
+                </div>
+        );
+    }
 }
 
 export default Menue;

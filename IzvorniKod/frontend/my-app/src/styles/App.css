@@ -1,3 +1,38 @@
 body{
     background-color: rgba(255, 196, 168, 0.5);
+    background-image: linear-gradient(-35deg, rgba(255, 152, 104, 0.815) 10%, rgba(255, 188, 157, 0.5) 50%, rgba(255, 139, 86, 0.384) 100%), url('../images/backgroudn_cook.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+
 }
+
+
+body {
+    --sb-track-color: #6f9bcc;
+    --sb-thumb-color: #4170ab;
+    --sb-size: 5px;
+  
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+  
+  body::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 5px;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 5px;
+  }
+  
+  /* For Firefox */
+  @-moz-document url-prefix() {
+    body {
+      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+  }
