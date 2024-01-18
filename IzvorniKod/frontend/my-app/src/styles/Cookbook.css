@@ -1,4 +1,6 @@
 .Individual_Cookbook_box{
+    display: flex;
+    flex-wrap: wrap;
     background-color: rgb(35, 51, 70, 0.8);
     width: 100%;
     height: auto;
@@ -6,6 +8,7 @@
 }
 
 .Individual_Cookbook_box_title{
+    width: 100%;
     text-align:center;
     font-weight:bold;
     font-size:2rem;
@@ -13,11 +16,12 @@
 }
 
 .Individual_Cookbook_box_params{
-    float:left;
     margin-left: -20px;
+    margin-top: 1rem;
     width:22%;
+    min-width: 14rem;
     height:18rem;
-    padding: 20px;
+    padding: 2rem;
     border-top-right-radius: 4rem;
     border-bottom-right-radius: 4rem;
     border: 5px solid rgb(0, 0, 0, 0.3);
@@ -28,24 +32,38 @@
 }
 
 .Individual_Cookbook_box_recipelist{
+    margin-top: 1rem;
     width: 60%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    gap:1rem;
+}
+@media (max-aspect-ratio: 1) {
+    .Individual_Cookbook_box_recipelist{
+        
+        width: 100%;
+        
+    }
+    .Individual_Cookbook_box_params{
+        width: 100%;
+    }
 }
 
 .Individual_Cookbook_box_image_container{
-    margin-top:10px;
+    margin-top:1rem;
     display:flex;
 }
 
 .CookbookCreatorDisplay{
     border: 5px solid rgb(223, 172, 148);
     border-radius:35%;
-    height:10rem;
+    height:8rem;
     aspect-ratio:1;
 }
 
 .recipe_link_box{
+    text-decoration: none;
     padding: 1rem;
     display: flex;
     flex-wrap: wrap;
@@ -102,19 +120,21 @@
 }
 
 .addrecipe_box{
+    padding: 0;
+    text-decoration: none;
     display:flex;
     align-self:center;
     justify-self:center;
     width:5rem;
     height:5rem;
-    border-radius:2rem;
-    aspect-ratio: 1;
+    border-radius:1.5rem;
     background-color:rgba(110, 200, 100, 0.8);
+    border: 4px solid rgba(81, 153, 73, 0.8);
 }
 
 .Add_Cookbook_Button_Area{
     display:flex;
-    margin:10px;
+    margin:1rem;
     text-decoration: none;
     justify-content:center;
     align-items:center;
@@ -125,7 +145,7 @@
     display:flex;
     font-size:3rem;
     justify-content:center;
-    text-align:center;
+    align-items: center;
     text-decoration: none;
     width:5rem;
     height:5rem;
