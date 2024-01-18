@@ -16,6 +16,14 @@ function useFormField(initialValue) {
 }
 
 function SignUp(){
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    if(userData&&(userData.lvl === 1 || userData.lvl === 2 ||userData.lvl === 3||userData.lvl === 4)){
+        return(
+            <div>
+                <h1>Zabranjen Pristup</h1>
+            </div>
+        );
+    }
     return(
         <div className  = "signUp_box">
             <div className='signUp_form'>

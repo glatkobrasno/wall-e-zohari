@@ -11,6 +11,14 @@ import '../styles/Login.css';
 const backURL='http://127.0.0.1:8000'//backend URL
 
 function Login(){
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    if(userData&&(userData.lvl === 1 || userData.lvl === 2 ||userData.lvl === 3||userData.lvl === 4)){
+        return(
+            <div>
+                <h1>Zabranjen Pristup</h1>
+            </div>
+        );
+    }
     return(
         <div className  = "login_box">
             <div className='login_form'>

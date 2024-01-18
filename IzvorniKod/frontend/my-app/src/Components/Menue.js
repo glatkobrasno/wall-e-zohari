@@ -17,7 +17,6 @@ function Menue(){
                     <Link to="/Login"><li>LogIn</li></Link>
                     <Link to="/SignUp"><li>SignUp</li></Link>
                     <Link to="/"><li>Home</li></Link>
-                    <li>nesto</li>
                 </ul>
             </div>
 	);
@@ -27,12 +26,9 @@ function Menue(){
             
             <div className="menue">
                 <ul className="select">
-                    <Link to="/Login"><li>LogIn</li></Link>
-                    <Link to="/SignUp"><li>SignUp</li></Link>
                     <Link to="/"><li>Home</li></Link>
 		            <Link to="/AddProduct"><li>Dodaj prozvod</li></Link>
                     <Link to="/AddDiet"><li>izradi dijetu</li></Link>
-                    <li>nesto</li>
                 </ul>
             </div>
 	);
@@ -42,11 +38,21 @@ function Menue(){
                 
                 <div className="menue">
                     <ul className="select">
-                        <Link to="/Login"><li>LogIn</li></Link>
-                        <Link to="/SignUp"><li>SignUp</li></Link>
                         <Link to="/"><li>Home</li></Link>
                         <Link to="/AddCookBook"><li>Dodaj Kuharicu</li></Link>
                         <li>nesto</li>
+                    </ul>
+                </div>
+        );
+    }
+
+    else if ( userData.lvl === 4 ) {
+        return(
+                
+                <div className="menue">
+                    <ul className="select">
+                        <Link to="/"><li>Home</li></Link>
+                        <Link to="/Administrative"><li>Administracija</li></Link>
                     </ul>
                 </div>
         );
