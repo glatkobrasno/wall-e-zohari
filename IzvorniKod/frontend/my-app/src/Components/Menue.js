@@ -9,7 +9,7 @@ function Menue(){
     let userData = JSON.parse(sessionStorage.getItem("userData"));
     console.log( userData );
     
-    if ( userData === null || userData.lvl === 1 ) {
+    if ( userData === null ) {
 	return(
             
             <div className="menue">
@@ -17,11 +17,24 @@ function Menue(){
                     <Link to="/Login"><li>LogIn</li></Link>
                     <Link to="/SignUp"><li>SignUp</li></Link>
                     <Link to="/"><li>Home</li></Link>
-                    <Link to="/ChooseDiet"><li>Izaberi dijetu</li></Link>
+                    
                 </ul>
             </div>
 	);
     }
+    else if (  userData.lvl === 1 ) {
+        return(
+                
+                <div className="menue">
+                    <ul className="select">
+                        <Link to="/Login"><li>LogIn</li></Link>
+                        <Link to="/SignUp"><li>SignUp</li></Link>
+                        <Link to="/"><li>Home</li></Link>
+                        <Link to="/ChooseDiet"><li>Izaberi dijetu</li></Link>
+                    </ul>
+                </div>
+        );
+        }
     else if ( userData.lvl === 2 ) {
 	return(
             
@@ -30,6 +43,7 @@ function Menue(){
                     <Link to="/"><li>Home</li></Link>
 		            <Link to="/AddProduct"><li>Dodaj prozvod</li></Link>
                     <Link to="/AddDiet"><li>izradi dijetu</li></Link>
+                    <Link to="/ChooseDiet"><li>Izaberi dijetu</li></Link>
                 </ul>
             </div>
 	);
@@ -41,6 +55,7 @@ function Menue(){
                     <ul className="select">
                         <Link to="/"><li>Home</li></Link>
                         <Link to="/AddCookBook"><li>Dodaj Kuharicu</li></Link>
+                        <Link to="/ChooseDiet"><li>Izaberi dijetu</li></Link>
                         <li>nesto</li>
                     </ul>
                 </div>
