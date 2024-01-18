@@ -100,3 +100,34 @@
     width:100%;
     aspect-ratio:1;
 }
+
+.addrecipe_box{
+    display:flex;
+    align-self:center;
+    justify-self:center;
+    width:5rem;
+    height:5rem;
+    border-radius:2rem;
+    aspect-ratio: 1;
+    background-color:rgba(110, 200, 100, 0.8);
+}
+
+.Add_Cookbook_Button_Area{
+    display:flex;
+    margin:10px;
+    text-decoration: none;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+}
+
+.addrecipe_textbox{
+    display:flex;
+    font-size:3rem;
+    justify-content:center;
+    text-align:center;
+    text-decoration: none;
+    width:5rem;
+    height:5rem;
+    color:antiquewhite;
+}

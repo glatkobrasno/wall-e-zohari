@@ -13,6 +13,7 @@ urlpatterns = [
     path('check_login/', LogInView.validateLogIn, name='validate_login'),
     path('get_user_data/', LogInView.sendUserData, name='send_user_data'),
     path('add_product/', ProductsView.addProduct, name='add_product'),
+    path('get_products_from_recipe/', ProductsView.get_products_from_recipe, name='get_products_from_recipe'),
     path('get_profile_data/', ProfileView.getProfile, name='add_product'),
     path('is_following/', ProfileView.isFollowing, name='is_following'),
     path('follow/', ProfileView.followUser, name='follow'),
@@ -23,8 +24,9 @@ urlpatterns = [
     path('add_reply/', CommentView.addReply, name='add_reply'),
     path('get_cookbookdata/', Cookbook.get_cookbookdata, name='get_cookbookdata'),
     path('get_cookbooks/', Cookbook.get_cookbooks, name='get_cookbooks'),
+    path('get_recipedata/', Recipe.get_recipedata, name='get_recipedata'),
     path('get_recipes_from_cookbook/', Recipe.get_recipes_from_cookbook, name='get_recipes_from_cookbook'),
     path('add_cookbook/', CookbookView.addCookbook, name='add_cookbook'),
     path('add_recipe/', RecipeView.addRecipe, name='add_recipe'),
-
+    path('get_steps_from_recipe/', Step.get_steps_from_recipe, name='get_steps_from_recipe'),
 ]

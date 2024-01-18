@@ -192,6 +192,18 @@ class ProductsView(serializers.Serializer):
 
         return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
 
+    @api_view(['POST', 'GET'])
+    def get_products_from_recipe(request):# <= idrecept => list of dicts with IDrecept, ImeProizvod, Kolicina
+        rcpe=request.data.get('recipeID')
+        data_proizvodi=[
+            {
+            'IDrecept': getattr(PotrebniSastojci_data,"idrecept").idrecept,
+            'ImeProizvod': getattr(PotrebniSastojci_data,"idproizvod").imeproizvod,
+            'Kolicina': getattr(PotrebniSastojci_data,"kolicina")
+            }for PotrebniSastojci_data in Potrebnisastojci.objects.filter(idrecept=rcpe).order_by('idproizvod')
+        ]
+        return JsonResponse({"Returned_Data":data_proizvodi})
+
 class Dietview(serializers.Serializer):
     @api_view(['POST', 'GET'])
     def addDiet(request):
@@ -454,9 +466,35 @@ class Cookbook(serializers.Serializer):
 class Recipe(serializers.Serializer):
     
     @api_view(['POST', 'GET'])
+    def get_recipedata(request):# => recipeID  <= idrecept,imerecept,velicinaporcija,vrijemepripreme,datumizrade,korisnickoime,slikaautor
+        req_data = request.data
+        rpid = req_data.get("recipeID")
+
+        x = Recept.objects.filter(idrecept=rpid)[0]
+        data1 = [getattr(x,"idrecept"),
+                getattr(x,"imerecept"),
+                getattr(x,"velicinaporcija"),
+                getattr(x,"vrijemepripreme"),
+                getattr(x,"datumizrade"),
+                getattr(x,"korisnickoime_id"),
+                ]
+        x2 = Privilegiranikorisnik.objects.filter(korisnickoime=data1[5])[0]
+        data2 = getattr(x2,"idslika_id")
+        x3 = Slike.objects.filter(idslika=data2)[0]
+        data3 = getattr(x3,"slika")
+        data = {"idrecept":data1[0], 
+                "imerecept":data1[1],
+                "velicinaporcija":data1[2],
+                "vrijemepripreme":data1[3],
+                "datumizrade":data1[4],
+                "korisnickoime":data1[5],
+                "slikaautor":ImgOperations.byteToString(data3)}
+        return JsonResponse(data)
+
+    @api_view(['POST', 'GET'])
     def get_recipes_from_cookbook(request):# <= idkuharica => idrecipe, zadnja slika
         kuh=request.data.get('cookbookID')
-        print(kuh)
+        #print(kuh)
         data_recepti=[
             {
             'IDrecept': getattr(sadrzi_data,"idrecept").idrecept,
@@ -472,6 +510,22 @@ class Recipe(serializers.Serializer):
             trazena_slika= getattr(individual_korak_data,"idslika").slika
             data_recepti[indx]['Slika'] = ImgOperations.byteToString(trazena_slika)
         return JsonResponse({"Returned_Data":data_recepti})
+
+class Step(serializers.Serializer):
+
+    @api_view(['POST', 'GET'])
+    def get_steps_from_recipe(request):# <= idrecept => list of dicts with IDrecept, IDslika, Slika, Opissl, Opiskorak
+        rcpe=request.data.get('recipeID')
+        data_koraci=[
+            {
+            'IDrecept': getattr(Korak_data,"idrecept").idrecept,
+            'IDslika': getattr(Korak_data,"idslika_id"),
+            'Slika': ImgOperations.byteToString(getattr(Korak_data,"idslika").slika),
+            'Opissl': getattr(Korak_data,"opissl"),
+            'Opiskorak': getattr(Korak_data,"opiskorak")
+            }for Korak_data in Korak.objects.filter(idrecept=rcpe).order_by('idslika')
+        ]
+        return JsonResponse({"Returned_Data":data_koraci})
 
 class HistoryView:
 

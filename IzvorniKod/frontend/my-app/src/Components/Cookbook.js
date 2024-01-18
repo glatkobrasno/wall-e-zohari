@@ -14,7 +14,7 @@ function RecipeBox(IDrecept,Imerecept,Velicinaporcija,Vrijemepripreme,Datumizrad
     var imagesrc = "data:image/png;base64,"+Slika
     
     return(
-        <Link to={"recept/recept"+IDrecept} className="recipe_link_box" key={"recipe"+IDrecept}>
+        <Link to={"/Recipe/recept/"+IDrecept} className="recipe_link_box" key={"recipe"+IDrecept}>
             <div className="recipe_box_name" key={"rbname"+IDrecept}>{Imerecept}</div>
             <div className="recipe_box_portionsize" key={"rbportionsize"+IDrecept}>{"Broj porcija: " + Velicinaporcija}</div>
             <div className="recipe_box_preptime" key={"rbpreptime"+IDrecept}>{"Vrijeme pripreme: " + Vrijemepripreme}</div>
@@ -28,6 +28,16 @@ function RecipeBox(IDrecept,Imerecept,Velicinaporcija,Vrijemepripreme,Datumizrad
             </div>
         </Link>
     );
+}
+
+function GenerateAddCookbookButton(id){
+    return(
+        <Link to={"/addrecipe/"+id} className="addrecipe_box" key={"addrecipe"+id}>
+            <div className="addrecipe_textbox" key={"addrecipetext"+id}>
+                +
+            </div>
+        </Link>
+    )
 }
 
 async function requestCookbookData(cookbookID){ // idkuharica
@@ -55,7 +65,6 @@ async function requestRecipesData(cookbookID){
 
 function GenerateRecipes(id, type,RecipesData){ // TODO ne radi
     var generated=[];
-    console.log(RecipesData.Returned_Data);
     if(RecipesData !== null){
         var recipeslist= RecipesData.Returned_Data; //list of dicts with 'IDrecept','Imerecept','Velicinaporcija','Vrijemepripreme','Datumizrade','Slika'
         for(var i = 0; i < recipeslist.length; ++i){
@@ -76,6 +85,8 @@ function Cookbook(){
     const [RecipesData, setRecipesData] = useState(null); //list of dicts with 'IDrecept','Imerecept','Velicinaporcija','Vrijemepripreme','Datumizrade','Slika'
     const {type, id} = useParams();
     const [CookbookImage, setCookbookImage] = useState(null);
+
+    let userData = JSON.parse(sessionStorage.getItem("userData"))
 
     useEffect(() =>{ // Gets new  data when type or id change
         const fetch = async () => {
@@ -114,6 +125,11 @@ function Cookbook(){
                     
                     <div className = "Individual_Cookbook_box_recipelist">
                         {RecipesData && GenerateRecipes(id,type,RecipesData)}
+                    </div>
+                    <div className= "Add_Cookbook_Button_Area">
+                        { userData.lvl === 3 && userData.username === CookbookData.korisnickoime_id &&(
+                            GenerateAddCookbookButton(id)
+                        )}
                     </div>
                 </>
             )}
