@@ -10,7 +10,8 @@ import defaultImageSrc from "../images/defaultProfile.png"
 import { getByTestId } from '@testing-library/react';
 import { Link } from 'react-router-dom';
 //global val
-const backURL='http://127.0.0.1:8000'//backend URL
+import conf_back_url from "../configuration.js" 
+const backURL=conf_back_url;//backend URL
 
 async function getProfileData(data){
     try{

@@ -4,7 +4,8 @@ import Axios from 'axios';
 import {useParams} from "react-router-dom";
 import "../styles/AddRecipe.css";
 
-const backURL = 'http://127.0.0.1:8000'; // Backend URL
+import conf_back_url from "../configuration.js" 
+const backURL=conf_back_url;//backend URL
 
 function useFormField(initialValue) {
     const [value, setValue] = React.useState(initialValue);

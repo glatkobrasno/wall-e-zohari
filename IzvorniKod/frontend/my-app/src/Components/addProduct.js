@@ -3,7 +3,8 @@ import { useState } from 'react';
 import Axios from 'axios';
 import "../styles/AddProduct.css";
 
-const backURL='http://127.0.0.1:8000';//backend URL
+import conf_back_url from "../configuration.js" 
+const backURL=conf_back_url;//backend URL
 
 function useFormField(initialValue) {
     const [value, setValue] = React.useState(initialValue);

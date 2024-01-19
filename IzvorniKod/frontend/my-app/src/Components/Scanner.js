@@ -4,7 +4,8 @@ import '../styles/Scanner.css';
 import Axios from "axios";
 import { Link } from "react-router-dom";
 
-const backURL = 'http://127.0.0.1:8000';
+import conf_back_url from "../configuration.js" 
+const backURL=conf_back_url;//backend URL
 
 function Scanner(){
     //const [file, setFile]=useState(''); // for using file

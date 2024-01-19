@@ -8,7 +8,8 @@ import '../styles/Login.css';
 
 
 //global val
-const backURL='http://127.0.0.1:8000'//backend URL
+import conf_back_url from "../configuration.js" 
+const backURL=conf_back_url;//backend URL
 
 function Login(){
     const userData = JSON.parse(sessionStorage.getItem('userData'));

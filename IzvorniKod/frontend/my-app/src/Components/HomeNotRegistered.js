@@ -5,7 +5,8 @@ import '../styles/HomeNotRegistered.css';
 import { Link } from "react-router-dom";
 import Axios from "axios";
 
-const backURL='http://127.0.0.1:8000';
+import conf_back_url from "../configuration.js" 
+const backURL=conf_back_url;//backend URL
 
 function HomeNotRegistered(){
     const [cookBoksData, setCookBoksData] = useState(null)
