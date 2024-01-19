@@ -8,14 +8,13 @@ from rest_framework import status
 from django.db.models import Max
 from .serializers import *
 from django.contrib.auth.hashers import check_password
-import base64
 import json
 #added------------------------------------------
 from .models import *
 
 #utility imports
 from datetime import datetime, date
-
+from obrada_slika.image_operations import ImgOperations
 from qr_codes import qr_codes
 from security import security
 
@@ -536,7 +535,6 @@ class Recipe(serializers.Serializer):
             individual_korak_data=Korak.objects.filter(idrecept=specific_recept_id).order_by("-idslika")[0]
             trazena_slika= getattr(individual_korak_data,"idslika").slika
             data_recepti[indx]['Slika'] = ImgOperations.byteToString(trazena_slika)
-            print(data_recepti)
         return JsonResponse({"Returned_Data":data_recepti})
     @api_view(['POST', 'GET'])
     def get_recipes_with(request):
@@ -604,19 +602,6 @@ class HistoryView:
             return Response({'error': k_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
 
 
-class ImgOperations:
-    def byteToString(byteImg):
-        stringImg = byteImg.decode('ascii')
-        return stringImg
-    def b64ToImage(b64Img):
-        decoded_data=base64.b64decode((b64Img))
-        img_file = open('temporary/temporary.png', 'wb')
-        img_file.write(decoded_data)
-        img_file.close()
-
-    
-
-    
 class CookbookView(serializers.Serializer):
     @api_view(['GET','POST'])
     def addCookbook(request):
@@ -655,7 +640,6 @@ class RecipeView(serializers.Serializer):
 
             # Convert 'datumizrade' to the correct date format
             submission_date_str = request.data.get('submissionDate')
-            print(submission_date_str)
             submission_date = datetime.strptime(submission_date_str, '%d/%m/%Y').strftime('%Y-%m-%d')
 
 
@@ -683,6 +667,7 @@ class RecipeView(serializers.Serializer):
             
             ingredients_str = request.data.get('ingredients')
             ingredients = json.loads(ingredients_str) if ingredients_str else []
+            print(ingredients)
 
             #print(type(ingredients))
             # Process ingredients
@@ -696,7 +681,6 @@ class RecipeView(serializers.Serializer):
                     'idrecept': max_recipe_id + 1,
                     'idproizvod': ingredient_id,
                     'kolicina': ingredient_quantity,
-                    # Add other cookbook data fields as needed
                     }
                 ing_serializer = PotrebnisastojciSerializer(data = ing_data)
                 #print("spremanje recepata")
@@ -704,7 +688,7 @@ class RecipeView(serializers.Serializer):
                 #print(recipe_data)
                 if ing_serializer.is_valid():
                     ing_serializer.save()
-                #return Response({'success': True}, status=status.HTTP_201_CREATED)
+                    #return Response({'success': True}, status=status.HTTP_201_CREATED)
                 else:
                     print("Serializer Errors:", ing_serializer.errors)
                     return Response({'error': ing_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
@@ -715,7 +699,9 @@ class RecipeView(serializers.Serializer):
             
             
             steps_str = request.data.get('cookingSteps')
+            #print(steps_str)
             steps = json.loads(steps_str) if steps_str else []
+            #print(steps)
 
             # Process cooking steps
             for step_data in steps:
@@ -733,8 +719,6 @@ class RecipeView(serializers.Serializer):
                 img_data = {
                     'idslika': max_image_id + 1,
                     'slika': step_data['image'],
-                    
-                    # Add other cookbook data fields as needed
                     }
                 img_serializer = SlikeSerializer(data = img_data)
                 #print("spremanje recepata")
@@ -746,8 +730,6 @@ class RecipeView(serializers.Serializer):
                 else:
                     print("Serializer Errors:", img_serializer.errors)
                     return Response({'error': img_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-            
-                #print("image")
                 
                 
                 korak_data = {
@@ -756,33 +738,34 @@ class RecipeView(serializers.Serializer):
                     'opissl': step_data['imageDescription'],
                     'opiskorak': step_data['description'],
                     # Add other cookbook data fields as needed
-                    }
-                print("---------")
-                print(korak_data)
-                print("---------")
-                korak_serializer = KorakSerializer(data = korak_data)
-                #print("spremanje recepata")
-                #print(recipe_serializer.is_valid())
-                #print(recipe_data)
-                #print(korak_serializer.is_valid())
-                if korak_serializer.is_valid():
-                    korak_serializer.save()
-                #return Response({'success': True}, status=status.HTTP_201_CREATED)
-                else:
-                    print("Serializer Errors:", korak_serializer.errors)
-                    return Response({'error': korak_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                }
+                try:
+                    korak_save=Korak(
+                        idrecept=Recept.objects.get(idrecept=korak_data['idrecept']),
+                        idslika=Slike.objects.get(idslika=korak_data['idslika']),
+                        opissl=korak_data['opissl'],
+                        opiskorak=korak_data['opiskorak']
+                    )
+                    #print(korak_save.objects.all())
+                    korak_save.save()
+                    
+                    #return Response({'success': True}, status=status.HTTP_201_CREATED)
+                except Recept.DoesNotExist:
+                 return Response({'error': "Recept does not exist"}, status=status.HTTP_404_NOT_FOUND)
+                except Slike.DoesNotExist:
+                    return Response({'error': "Slike does not exist"}, status=status.HTTP_404_NOT_FOUND)
+                except Exception as e:
+                    return Response({'error': f"Error in saving Korak: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
                 #print("KOrak")
             
             
             idcookbook = request.data.get('idcookbook')
             print(idcookbook)
-            
             rec_data = {
                 'idrecept': max_recipe_id + 1,
                 'idkuharica': idcookbook,
-                
-                # Add other cookbook data fields as needed
                 } 
+            print(rec_data)
             sadrzi_serializer = SadrziSerializer(data = rec_data)
             
             if sadrzi_serializer.is_valid():
@@ -795,4 +778,3 @@ class RecipeView(serializers.Serializer):
 
         else:
             return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
-
