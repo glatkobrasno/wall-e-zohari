@@ -11,4 +11,3 @@ python-dotenv
 django-cors-headers
 djangorestframework
 bcrypt
-base64
