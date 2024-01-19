@@ -682,16 +682,16 @@ class RecipeView(serializers.Serializer):
                     'idproizvod': ingredient_id,
                     'kolicina': ingredient_quantity,
                     }
-                ing_serializer = PotrebnisastojciSerializer(data = ing_data)
-                #print("spremanje recepata")
-                #print(recipe_serializer.is_valid())
-                #print(recipe_data)
-                if ing_serializer.is_valid():
-                    ing_serializer.save()
-                    #return Response({'success': True}, status=status.HTTP_201_CREATED)
-                else:
-                    print("Serializer Errors:", ing_serializer.errors)
-                    return Response({'error': ing_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                try:
+                    ptb_sav=Potrebnisastojci(
+                        idrecept=Recept.objects.get(idrecept=ing_data['idrecept']),
+                        idproizvod=Proizvod.objects.get(idproizvod=ing_data['idproizvod']),
+                        kolicina = ing_data['kolicina'],
+                        )
+                    ptb_sav.save()
+                    
+                except:
+                    return Response({'error': "errror in Ingredient add"}, status=status.HTTP_400_BAD_REQUEST)
             
                 
             #print("---------------------------------------------")

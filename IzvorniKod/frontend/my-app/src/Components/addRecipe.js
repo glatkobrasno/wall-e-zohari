@@ -64,6 +64,7 @@ function RecipeForm() {
 
     const handleAddCookingStep = () => {
         setCookingSteps([...cookingSteps, { description: '', imageDescription: '', image: null }]);
+        console.log(cookingSteps)
     };
 
     const handleRemoveCookingStep = (index) => {

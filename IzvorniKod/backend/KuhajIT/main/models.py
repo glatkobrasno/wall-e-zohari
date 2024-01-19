@@ -84,8 +84,8 @@ class Konzumirao(models.Model):
 
 
 class Korak(models.Model):
-    idrecept = models.OneToOneField('Recept', models.DO_NOTHING, db_column='IDrecept', primary_key=True)  # Field name made lowercase. The composite primary key (IDrecept, IDslika) found, that is not supported. The first column is selected.
-    idslika = models.ForeignKey('Slike', models.DO_NOTHING, db_column='IDslika')  # Field name made lowercase.
+    idrecept = models.OneToOneField('Recept', models.DO_NOTHING, db_column='IDrecept')  # Field name made lowercase. The composite primary key (IDrecept, IDslika) found, that is not supported. The first column is selected.
+    idslika = models.OneToOneField('Slike', models.DO_NOTHING, db_column='IDslika', primary_key=True)  # Field name made lowercase.
     opissl = models.CharField(db_column='OpisSl', max_length=2048, blank=True, null=True)  # Field name made lowercase.
     opiskorak = models.CharField(db_column='OpisKorak', max_length=2048, blank=True, null=True)  # Field name made lowercase.
 
