@@ -98,6 +98,7 @@ const Profile = () => {
 
     function generateCookbooks() {
 	var gen = [];
+
 	for (let i = 0; i < profData.kuharica.length; i += 1) {
 	    gen.push(
 		<Link to={"/cookbook/kuharica/"+profData.kuharica[i][0]} className="cookbook_link_p" key={'key'+i}>

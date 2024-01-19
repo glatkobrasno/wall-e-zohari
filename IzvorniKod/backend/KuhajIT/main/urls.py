@@ -32,5 +32,6 @@ urlpatterns = [
     path('get_recipe_with/', Recipe.get_recipes_with, name='get_recipes_with'),
     path('get_all_diets/',Dietview.get_all_diets , name='get_all_diets'),
     path('alter_diet/',Dietview.alter_diet, name='alter_diet'),
+    path('mark_recipe/', Recipe.markRecipe, name='mark_recipe'),
 
 ]
