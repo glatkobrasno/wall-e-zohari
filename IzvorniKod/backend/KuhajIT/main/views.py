@@ -13,8 +13,8 @@ import json
 from .models import *
 
 #utility imports
-from datetime import datetime, date
 from obrada_slika.image_operations import ImgOperations
+from datetime import *
 from qr_codes import qr_codes
 from security import security
 
@@ -608,6 +608,7 @@ class HistoryView:
 
         return JsonResponse(history_data)
 
+    @api_view(['POST', 'GET'])
     def addToHistory(request):
 
         k_data = {'korisnickoime' : request.data.get('username'),
@@ -621,6 +622,20 @@ class HistoryView:
             return Response({'success': True}, status=status.HTTP_201_CREATED)
         else:
             return Response({'error': k_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
+
+    @api_view(['POST', 'GET'])
+    def getGraphData():
+        user_data = request.data.get('UserName')
+        history_data = Konzumirao.objects.filter(korisnickoime = user_data, datum__gt = date.today() - timedelta(deys = 30))
+
+        nut_per_day = [{"energija" : 0, "masnoce" : 0, "bjelancevine" : 0, "ugljikohidrati" : 0, "seceri" : 0, "sol" : 0, }] * 30
+        
+        for his in history_data:
+            rec_data = Potrebnisastojci.objects.filter(idrecept = his["idrecept"])
+            index = timedelta(deys = 30) - (date.today() - history_data["datum"])
+            index = index.days
+            for prod in rec_data:
+                
 
 
 class CookbookView(serializers.Serializer):

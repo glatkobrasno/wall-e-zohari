@@ -146,10 +146,10 @@ const Profile = () => {
 			<button className='CookBookB' onClick={ButtonCB} id = {display? 'UP':'P'} >{'Kuharice'}</button>
 			<button className='RecepieB' onClick={ButtonR} id = {display? 'P':'UP'} >{'Recepti'}</button>
 		    </div>
-		    <div className='cookbookView' style={{ display: display ? "none" : "flex" }}>
+		    <div className='cookbookView' style={{ display: display ? "none" : "flex", flexWrap: "wrap"}}>
 			{generateCookbooks()}
 		    </div>
-		    <div className='recipeView' style={{ display: display ? "flex" : "none" }}>
+		    <div className='recipeView' style={{ display: display ? "flex" : "none"}}>
 			{generateRecipes()}
 		    </div>
 	        </>
