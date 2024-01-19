@@ -33,5 +33,6 @@ urlpatterns = [
     path('get_all_diets/',Dietview.get_all_diets , name='get_all_diets'),
     path('alter_diet/',Dietview.alter_diet, name='alter_diet'),
     path('mark_recipe/', Recipe.markRecipe, name='mark_recipe'),
-
+    path('get_graph_data/',HistoryView.getGraphData, name='get_graph_data'),
+    
 ]

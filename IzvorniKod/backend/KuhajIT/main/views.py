@@ -624,19 +624,54 @@ class HistoryView:
             return Response({'error': k_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
 
     @api_view(['POST', 'GET'])
-    def getGraphData():
-        user_data = request.data.get('UserName')
-        history_data = Konzumirao.objects.filter(korisnickoime = user_data, datum__gt = date.today() - timedelta(deys = 30))
+    def getGraphData(request):
+        user_data = request.data.get('username')
+        history_data = Konzumirao.objects.filter(korisnickoime = user_data, datum__gt = date.today() - timedelta(days = 30))
 
-        nut_per_day = [{"energija" : 0, "masnoce" : 0, "bjelancevine" : 0, "ugljikohidrati" : 0, "seceri" : 0, "sol" : 0, }] * 30
-        
+        nut_per_day = []
+        for i in range(30):
+            nut_per_day.append({"energija" : 0, "masnoce" : 0, "bjelancevine" : 0, "ugljikohidrati" : 0, "seceri" : 0, "sol" : 0, })
+
+        dnevni_avg = {"energija" : 0, "masnoce" : 0, "bjelancevine" : 0, "ugljikohidrati" : 0, "seceri" : 0, "sol" : 0, }
+        upisanidani = 0;
+        oldindex = -1
         for his in history_data:
-            rec_data = Potrebnisastojci.objects.filter(idrecept = his["idrecept"])
-            index = timedelta(deys = 30) - (date.today() - history_data["datum"])
-            index = index.days
+            rec_data = Potrebnisastojci.objects.filter(idrecept = getattr(his, "idrecept"))
+            index = (timedelta(days = 30) - (date.today() - getattr(his, "datum") ) ).days
+            
+            if index != oldindex :
+                upisanidani += 1
+                
+            oldindex = index
+            maxval = 0
             for prod in rec_data:
                 
+                prod_data = Proizvod.objects.filter(idproizvod = getattr(prod, "idproizvod_id"))
+                nut_per_day[index]["energija"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].energijapr
+                nut_per_day[index]["masnoce"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].masnocepr
+                nut_per_day[index]["bjelancevine"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].bjelancevinepr
+                nut_per_day[index]["ugljikohidrati"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].ugljikohidratipr
+                nut_per_day[index]["sol"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].solpr
+                nut_per_day[index]["seceri"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].seceripr
+                dnevni_avg["energija"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].energijapr
+                dnevni_avg["masnoce"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].masnocepr
+                dnevni_avg["bjelancevine"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].bjelancevinepr
+                dnevni_avg["ugljikohidrati"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].ugljikohidratipr
+                dnevni_avg["sol"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].solpr
+                dnevni_avg["seceri"] += prod.kolicina * (prod_data[0].masapr / 100) * prod_data[0].seceripr
 
+                if max( list(nut_per_day[index].values() )) > maxval:
+                    maxval = max( list(nut_per_day[index].values() ) )
+                
+        dnevni_avg["energija"] /= upisanidani
+        dnevni_avg["masnoce"] /= upisanidani
+        dnevni_avg["bjelancevine"] /= upisanidani
+        dnevni_avg["ugljikohidrati"] /= upisanidani
+        dnevni_avg["sol"] /= upisanidani
+        dnevni_avg["seceri"] /= upisanidani
+        
+        
+        return Response([nut_per_day, dnevni_avg, maxval])
 
 class CookbookView(serializers.Serializer):
     @api_view(['GET','POST'])
