@@ -22,17 +22,20 @@ async function getProfileData(data){
     }
 }
 
+var userData = null;
+
 const Profile = () => {
 
     const { username } = useParams();
     const [profimg, setProfImg] = useState(defaultImageSrc);
     const [display,setDisplay] = useState(0);
     const [profData,setProfData] = useState(null);
+    const [hideFollow,setHideFollow] = useState(true);
     const [isfollowing, setIsFollowing] = useState(true);
 
     useEffect(() => {
 	fetchData();
-    }, [username]);
+    }, []);
 
     
     const fetchData = async () => {
@@ -43,7 +46,7 @@ const Profile = () => {
 	let lvl = response.data.lvl;
 	let slika = response.data.slika;
 	setProfData(response.data);
-	let userData = JSON.parse(sessionStorage.getItem("userData"));
+	userData = JSON.parse(sessionStorage.getItem("userData"));
 	if (userData) {
 	    data={
 		'UserName1' : userData.username,
@@ -54,6 +57,7 @@ const Profile = () => {
             setIsFollowing(isf.data.follows);
 	    console.log(isfollowing);
 	}
+	setHideFollow( !userData || userData.username == username);
     
 	if(lvl === 2 || lvl === 3){
             setProfImg("data:image/png;base64," + slika);
@@ -61,7 +65,7 @@ const Profile = () => {
 	
     };
     async function Button() {
-        let userData = JSON.parse(sessionStorage.getItem("userData"));
+        var userData = JSON.parse(sessionStorage.getItem("userData"));
         console.log(userData);
         if (!isfollowing){
             var data={
@@ -89,15 +93,14 @@ const Profile = () => {
     }
     async function ButtonR() {
         setDisplay(1);
-	console.log(profData);
     }
 
     function generateCookbooks() {
 	var gen = [];
 	for (let i = 0; i < profData.kuharica.length; i += 1) {
 	    gen.push(
-		<Link to={"/cookbook/kuharica/"+profData.kuharica[i][0]} className="cookbook_link_box" key={'key'+i}>
-		    <div className="cookbookEntry">
+		<Link to={"/cookbook/kuharica/"+profData.kuharica[i][0]} className="cookbook_link_p" key={'key'+i}>
+		    <div className="cookbookEntryP">
 			{profData.kuharica[i][1]}
 		    </div>    
 		</Link>
@@ -110,8 +113,8 @@ const Profile = () => {
 	var gen = [];
 	for (let i = 0; i < profData.recept.length; i += 1) {
 	    gen.push(
-		<Link to={"/recept/recept"+profData.recept[i][0]} className="recipe_link_box" key={'key'+i}>
-		    <div className="recipeEntry">
+		<Link to={"/recipe/recept/"+profData.recept[i][0]} className="recipe_link_p" key={'key'+i}>
+		    <div className="recipeEntryP">
 			{profData.recept[i][1]}
 		    </div>    
 		</Link>
@@ -134,17 +137,17 @@ const Profile = () => {
 			    </div>
 			    
 			    <div className='biobox'> {profData.bio}</div>
-			    <button className='FollowButton' id={isfollowing? 'UF':'F'} onClick={Button} >{isfollowing? 'Odpratite korisnika':'Zapratite korisnika'}</button>
+			    <button className='FollowButton' id={isfollowing? 'UF':'F'} onClick={Button} hidden = {hideFollow?true:false}>{isfollowing? 'Odpratite korisnika':'Zapratite korisnika'}</button>
 			</div>
 		    </div>
 		    <div className='cbt'>
 			<button className='CookBookB' onClick={ButtonCB} id = {display? 'UP':'P'} >{'Kuharice'}</button>
 			<button className='RecepieB' onClick={ButtonR} id = {display? 'P':'UP'} >{'Recepti'}</button>
 		    </div>
-		    <div className='cookbookView' hidden = {display?true:false}>
+		    <div className='cookbookView' style={{ display: display ? "none" : "flex" }}>
 			{generateCookbooks()}
 		    </div>
-		    <div className='recipeView' hidden = {display?false:true}>
+		    <div className='recipeView' style={{ display: display ? "flex" : "none" }}>
 			{generateRecipes()}
 		    </div>
 	        </>

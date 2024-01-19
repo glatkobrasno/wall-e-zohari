@@ -113,13 +113,15 @@ function Cookbook(){
                             Tema kuharice: {CookbookData.tema}<br></br>
                             Izradio korisnik: {CookbookData.korisnickoime_id}<br></br>
                             Datum izrade kuharice: {CookbookData.datumizrade}<br></br>
-                            <div className = "Individual_Cookbook_box_image_container">
-                                <img className='CookbookCreatorDisplay'
-                                src={CookbookImage}
-                                alt="Cookbook Display"
-                                >
-                                </img>
-                            </div>
+			    <Link to={"/Profile/"+CookbookData.korisnickoime_id}>
+				<div className = "Individual_Cookbook_box_image_container">
+                                    <img className='CookbookCreatorDisplay'
+					 src={CookbookImage}
+					 alt="Cookbook Display"
+                                    >
+                                    </img>
+				</div>
+			    </Link>
                         </div>
 
                     
@@ -127,7 +129,7 @@ function Cookbook(){
                         {RecipesData && GenerateRecipes(id,type,RecipesData)}
                     </div>
                     <div className= "Add_Cookbook_Button_Area">
-                        { userData.lvl === 3 && userData.username === CookbookData.korisnickoime_id &&(
+                        { userData && userData.username === CookbookData.korisnickoime_id && (
                             GenerateAddCookbookButton(id)
                         )}
                     </div>
