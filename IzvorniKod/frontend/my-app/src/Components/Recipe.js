@@ -125,19 +125,19 @@ function Recipe(){
         }
         fetch();
     },[type,id]);
-
+    
     return(
         <div className = "Individual_Recipe_box">
             {RecipeData && (
                 <>
                     <div className = "RecipeHeader">
                         <div className = "Individual_Recipe_box_title">{RecipeData.imerecept}</div>
-
                         <div className = "Individual_Recipe_box_params">
                             Broj porcija: {RecipeData.velicinaporcija}<br></br>
                             Vrijeme pripreme: {RecipeData.vrijemepripreme}<br></br>
                             Datum izrade recepta: {RecipeData.datumizrade}<br></br>
                             Izradio/la: {RecipeData.korisnickoime}<br></br>
+                        
 			    <Link to={"/Profile/"+RecipeData.korisnickoime}>
 				<div className = "Individual_Recipe_box_image_container">
                                     <img className='RecipeCreatorDisplay'
@@ -148,6 +148,20 @@ function Recipe(){
 				</div>
 			    </Link>
                         </div>
+                    </div>
+                    <div className="buttonbox">
+                    <button className="MarkButton" onClick={ async () => {
+                                
+                                var userData = JSON.parse(sessionStorage.getItem("userData"));
+                                console.log(RecipeData.idrecept)
+                                var data={
+                                    'UserName': userData.username,
+                                    'RecipeID' : RecipeData.idrecept
+                                }
+                                
+                                await Axios.post(backURL+'/mark_recipe/',data)
+                                
+                        }}>Označi kao isprobano</button>
                     </div>
                     <div className = "RecipeLower">
                         <div className = "Individual_Recipe_box_productlist">

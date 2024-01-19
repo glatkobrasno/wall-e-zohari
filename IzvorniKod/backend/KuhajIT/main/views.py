@@ -329,16 +329,25 @@ class ProfileView(serializers.Serializer):
         user_object = Pratikorisnika.objects.filter(korisnickoime_1 = user1, korisnickoime_2 = user2)
         if user_object:
             return JsonResponse({'follows': True})
+        #else:
+        #    pk_data = {'korisnickoime_1' : user1,
+        #               'korisnickoime_2' : user2,
+        #    }
+        #    pk_serializer = PratikorisnikaSerializer(data = pk_data)
+        #    if pk_serializer.is_valid():
+        #        pk_serializer.save()
+        #        return Response({'success': True}, status=status.HTTP_201_CREATED)
+        #    else:
+        #       return Response({'error': pk_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
         else:
-            pk_data = {'korisnickoime_1' : user1,
-                       'korisnickoime_2' : user2,
-            }
-            pk_serializer = PratikorisnikaSerializer(data = pk_data)
-            if pk_serializer.is_valid():
-                pk_serializer.save()
-                return Response({'success': True}, status=status.HTTP_201_CREATED)
-            else:
-                return Response({'error': pk_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
+
+            temp1=Korisnik.objects.filter(korisnickoime=user1).first()
+            temp2=Korisnik.objects.filter(korisnickoime=user2).first()
+            to_insert=Pratikorisnika(korisnickoime_1 = temp1, korisnickoime_2 = temp2)
+            to_insert.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+
 
     @api_view(['POST', 'GET'])
     def unFollowUser(request):
@@ -559,8 +568,20 @@ class Recipe(serializers.Serializer):
             return JsonResponse({'recepti':recipe_with_data},status=status.HTTP_200_OK)
         except:
             return Response(data="Problem u receptima S...", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-        
+
+    @api_view(['POST', 'GET'])
+    def markRecipe(request):
+        user=request.data.get('UserName')
+        temp=Korisnik.objects.filter(korisnickoime=user).first()
+        recipe=request.data.get('RecipeID')
+        temp2=Recept.objects.filter(idrecept=recipe).first()
+        print(temp2,recipe)
+        #try:
+        to_put=Konzumirao(korisnickoime=temp, idrecept=temp2, datum=datetime.today())
+        to_put.save()
+        return  Response(status=status.HTTP_200_OK)
+        #except:
+            #return  Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class Step(serializers.Serializer):
 
