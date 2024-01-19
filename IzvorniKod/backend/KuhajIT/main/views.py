@@ -638,12 +638,14 @@ class HistoryView:
         maxval=0
         for his in history_data:
             rec_data = Potrebnisastojci.objects.filter(idrecept = getattr(his, "idrecept"))
-            index = (timedelta(days = 30) - (date.today() - getattr(his, "datum") ) ).days
+            index = (timedelta(days = 29) - (date.today() - getattr(his, "datum") ) ).days
             
             if index != oldindex :
                 upisanidani += 1
                 
             oldindex = index
+            print("--------")
+            print(index)
             for prod in rec_data:
                 
                 prod_data = Proizvod.objects.filter(idproizvod = getattr(prod, "idproizvod_id"))
