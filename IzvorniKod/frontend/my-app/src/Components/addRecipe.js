@@ -148,7 +148,7 @@ function RecipeForm() {
             <input type='number' id='portionSize' {...portionSize} required></input>
 
             <label htmlFor='cookingTime' className='labelTx2'>Cooking Time:</label>
-            <input type='time' id='cookingTime' {...cookingTime} required></input>
+            <input type='time' id='cookingTime' step="1" {...cookingTime} required></input>
 
             <div className='ingredients'>
                 <h2>Ingredients:</h2>

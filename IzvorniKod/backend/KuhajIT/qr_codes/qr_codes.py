@@ -18,7 +18,10 @@ def read_code(image_path: str) -> str:
     img = cv2.imread(image_path)
     detector = cv2.QRCodeDetector()
     data, _, _ = detector.detectAndDecode(img) # metoda prima 3 argumenta, ali nas zanima samo data, to jest kod.
-    return data
+    if(len(data)>0):
+        return data
+    else:
+        return None
 
 
 # ako je pozvana ova datoteka direktno

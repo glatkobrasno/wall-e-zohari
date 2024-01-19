@@ -72,8 +72,14 @@ function Scanner(){
 
     async function handleQRsubmit(e){
         e.preventDefault();
-        var respnse = await Axios.post(backURL+'/get_recipe_with/', {'slika':binImg});
-        setRecipesData(respnse.data.recepti)
+        try{
+            var respnse = await Axios.post(backURL+'/get_recipe_with/', {'slika':binImg});
+            setRecipesData(respnse.data.recepti);
+        }
+        catch(error){
+            console.log(error);
+            alert("Zadani QR nije nađen!");
+        }
     }
 
     function generateRecipesWith(){

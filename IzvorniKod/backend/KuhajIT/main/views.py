@@ -14,7 +14,8 @@ import json
 from .models import *
 
 #utility imports
-from datetime import datetime
+from datetime import datetime, date
+
 from qr_codes import qr_codes
 from security import security
 
@@ -520,7 +521,7 @@ class Recipe(serializers.Serializer):
     @api_view(['POST', 'GET'])
     def get_recipes_from_cookbook(request):# <= idkuharica => idrecipe, zadnja slika
         kuh=request.data.get('cookbookID')
-        #print(kuh)
+        print(kuh)
         data_recepti=[
             {
             'IDrecept': getattr(sadrzi_data,"idrecept").idrecept,
@@ -535,13 +536,17 @@ class Recipe(serializers.Serializer):
             individual_korak_data=Korak.objects.filter(idrecept=specific_recept_id).order_by("-idslika")[0]
             trazena_slika= getattr(individual_korak_data,"idslika").slika
             data_recepti[indx]['Slika'] = ImgOperations.byteToString(trazena_slika)
+            print(data_recepti)
         return JsonResponse({"Returned_Data":data_recepti})
     @api_view(['POST', 'GET'])
     def get_recipes_with(request):
         req_data=request.data #img base64
         b64Img = req_data.get('slika')
         ImgOperations.b64ToImage(b64Img)
-        red_code=json.loads(qr_codes.read_code("temporary/temporary.png")) #"{\"id_of_product\": id}"
+        resaut_qr=qr_codes.read_code("temporary/temporary.png")
+        if(resaut_qr==None):
+            return JsonResponse({'recepti':None},status=status.HTTP_404_NOT_FOUND)
+        red_code=json.loads(resaut_qr) #"{\"id_of_product\": id}"
         try:
             recipe_with_data=[
                 {'idrecept': getattr(sastojci,"idrecept").idrecept,
@@ -550,7 +555,7 @@ class Recipe(serializers.Serializer):
                 'entuziast': getattr(sastojci,"idrecept").korisnickoime_id
                 }for sastojci in Potrebnisastojci.objects.filter(idproizvod=red_code['id_of_product'])
             ]
-            for i,korak in enumerate(recipe_with_data):
+            for i,_ in enumerate(recipe_with_data):
                 slika = Korak.objects.filter(idrecept = recipe_with_data[i]['idrecept']).order_by("-idslika")[0]
                 recipe_with_data[i]['slika'] = ImgOperations.byteToString(getattr(slika,"idslika").slika) 
             return JsonResponse({'recepti':recipe_with_data},status=status.HTTP_200_OK)
@@ -596,7 +601,7 @@ class HistoryView:
             k_serializer.save()
             return Response({'success': True}, status=status.HTTP_201_CREATED)
         else:
-            return Response({'error': pk_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
+            return Response({'error': k_serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
 
 
 class ImgOperations:
@@ -641,9 +646,8 @@ class CookbookView(serializers.Serializer):
             return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RecipeView:
-    @api_view(['POST'])
-    #@transaction.atomic
+class RecipeView(serializers.Serializer):
+    @api_view(['POST', 'GET'])
     def addRecipe(request):
         if request.method == 'POST':
             # Get the current maximum IDrecept
@@ -684,9 +688,9 @@ class RecipeView:
             # Process ingredients
             for ingredient_data in ingredients:
                 #print(type(ingredient_data))
-                ingredient_name = ingredient_data.get('name')
-                ingredient_quantity = ingredient_data.get('quantity')
-                ingredient_id = Proizvod.objects.filter(imeproizvod = ingredient_name)[0].idproizvod
+                ingredient_name = ingredient_data['name']
+                ingredient_quantity = ingredient_data['quantity']
+                ingredient_id = [getattr(proiz,"idproizvod")for proiz in Proizvod.objects.filter(imeproizvod = ingredient_name)][0]
                 #print(ingredient_id)
                 ing_data = {
                     'idrecept': max_recipe_id + 1,
@@ -719,6 +723,7 @@ class RecipeView:
                 
                 # Save koraci
                 max_image_id = Slike.objects.aggregate(Max('idslika', default='0'))['idslika__max']
+                print(max_image_id)
                 #print(max_image_id)
                 
                 
@@ -727,7 +732,7 @@ class RecipeView:
                 
                 img_data = {
                     'idslika': max_image_id + 1,
-                    'slika': step_data.get('image'),
+                    'slika': step_data['image'],
                     
                     # Add other cookbook data fields as needed
                     }
@@ -746,12 +751,15 @@ class RecipeView:
                 
                 
                 korak_data = {
-                    'idrecept': max_recipe_id + 1,
-                    'idslika': max_image_id + 1,
-                    'opissl': step_data.get('imageDescription'),
-                    'opiskorak': step_data.get('description'),
+                    'idrecept': max_recipe_id+1,
+                    'idslika': max_image_id+1,
+                    'opissl': step_data['imageDescription'],
+                    'opiskorak': step_data['description'],
                     # Add other cookbook data fields as needed
                     }
+                print("---------")
+                print(korak_data)
+                print("---------")
                 korak_serializer = KorakSerializer(data = korak_data)
                 #print("spremanje recepata")
                 #print(recipe_serializer.is_valid())

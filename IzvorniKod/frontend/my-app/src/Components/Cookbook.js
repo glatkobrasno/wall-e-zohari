@@ -65,6 +65,7 @@ async function requestRecipesData(cookbookID){
 }
 
 function GenerateRecipes(id, type,RecipesData){ // TODO ne radi
+    console.log(RecipesData)
     var generated=[];
     if(RecipesData !== null){
         var recipeslist= RecipesData.Returned_Data; //list of dicts with 'IDrecept','Imerecept','Velicinaporcija','Vrijemepripreme','Datumizrade','Slika'

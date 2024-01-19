@@ -30,6 +30,7 @@
     background-color: rgb(35, 51, 70);
     border-radius: 50%;
     overflow: clip;
+    display: -webkit-box
 }
 #upload_qr{
     position: relative;
@@ -109,11 +110,13 @@
 
 .rec_by_box{
     align-self: center;
+    font-size: 1.5rem;
+    font-weight: 700;
     grid-area: aut;
     text-align: right;
     font-style: italic;
     color: rgba(0,0,0,0.4);
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+    text-shadow: 2px 2px 2px rgb(204, 147, 121,0.3);
 
 }
 .rec_time_box{
