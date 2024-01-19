@@ -1,0 +1,149 @@
+.Individual_Recipe_box{
+    background-color: rgb(35, 51, 70, 0.8);
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.RecipeHeader{
+    width:100%;
+    display:grid;
+    align-items: center;
+    grid-template-areas:
+                'ph ph nasl nasl nasl' 
+                'ph ph nasl nasl nasl'
+                'ph ph nasl nasl nasl';
+    gap: 0.5rem
+}
+.MarkButton{
+    font-weight: bold;
+    height: 60px;
+    width: 180px;
+    color:rgba(255, 196, 168, 1) ;
+    background-color: rgba(51, 51, 121, 0.5);
+    border-radius: 10px;
+    border:2px solid  rgba(51, 51, 121, 1);
+    
+}
+.MarkButton:hover{
+   
+    background-color:rgba(255, 196, 168, 1) ;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    border:2px solid black;
+    
+}
+
+
+
+.buttonbox{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.Individual_Recipe_box_title{
+    grid-area: nasl;
+    display:flex;
+    width:100%;
+    height:100%;
+    transform: translateX(20px);
+    background-color: rgba(51, 51, 121, 0.25);
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:3rem;
+    border: 0.5rem solid;
+    border-top-left-radius:5rem;
+    border-bottom-left-radius:5rem;
+    border-right:0px;
+    border-color:rgba(21, 21, 91, 0.25);
+    color: rgba(255, 196, 168, 1);
+
+}
+
+.Individual_Recipe_box_params{
+    grid-area: ph;
+    font-size:1rem;
+    color: rgba(255, 196, 168, 1);
+}
+
+.Individual_Recipe_box_productlist{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}
+
+.Individual_Recipe_box_image_container{
+    margin-top:10px;
+    display:flex;
+}
+
+.RecipeCreatorDisplay{
+    border: 5px solid rgb(223, 172, 148);
+    border-radius:35%;
+    height:10rem;
+    aspect-ratio:1;
+}
+
+.RecipeLower{
+    margin-top:3rem;
+    display:flex;
+    width:100%;
+    height:50rem;
+}
+
+.Individual_Recipe_box_productlist{
+    font-size:1.2rem;
+    text-align:center;
+    color: rgba(255, 196, 168, 1);
+}
+
+.productlist_title{
+    font-size:2rem;
+    font-weight:bold;
+}
+
+.Recipe_Steps_box{
+    width:100%;
+    border:1rem solid;
+    border-radius:1rem;
+    border-color:rgba(255, 196, 168, 1);
+    padding: 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:column;
+    overflow-y:scroll;
+    overflow-x:clip;
+}
+
+.step_box{
+    width:100%;
+    padding:2rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1rem;
+    border-bottom: 0.5rem solid;
+    border-color: rgba(255, 196, 168, 0.8);
+}
+
+.step_box_explain{
+    font-size:1.2rem;
+    text-align:center;
+    color: rgba(255, 196, 168, 1);
+}
+
+.step_box_display{
+    display:flex;
+    justify-content:center;
+}
+
+.step_box_displayed{
+    width:50%;
+    aspect-ratio:1;
+}
+
+.step_box_displaytext{
+    font-size:0.8rem;
+    text-align:center;
+    color: rgba(255, 196, 168, 1);
+}

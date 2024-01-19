@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,195" last-zoom="1" max-obj-count="28"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="28"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -23,7 +23,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="ImeDijeta" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<column name="Opis">
+	<column name="Opis" not-null="true">
 		<type name="varchar" length="2048"/>
 	</column>
 	<column name="MinEnergija">
@@ -101,8 +101,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDslika" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="Slika">
-		<type name="bytea" length="2048"/>
+	<column name="Slika" not-null="true">
+		<type name="bytea" length="524288"/>
 	</column>
 	<constraint name="Slike_pk" type="pk-constr" table="public.&quot;Slike&quot;">
 		<columns names="IDslika" ref-type="src-columns"/>
@@ -116,23 +116,29 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="KorisnickoIme" not-null="true">
 		<type name="varchar" length="50"/>
 	</column>
-	<column name="Lozinka">
-		<type name="varchar" length="200"/>
+	<column name="Lozinka" not-null="true">
+		<type name="varchar" length="2000"/>
 	</column>
-	<column name="Ime">
+	<column name="Salt" not-null="true">
+		<type name="bytea" length="524288"/>
+	</column>
+	<column name="Ime" not-null="true">
 		<type name="varchar" length="50"/>
 	</column>
-	<column name="Prezime">
+	<column name="Prezime" not-null="true">
 		<type name="varchar" length="50"/>
 	</column>
 	<column name="ImeDijeta">
 		<type name="varchar" length="50"/>
 	</column>
-	<column name="RazinaPrivilegije">
+	<column name="RazinaPrivilegije" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
 	<constraint name="Korisnik_pk" type="pk-constr" table="public.&quot;Korisnik&quot;">
 		<columns names="KorisnickoIme" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="DobroDefiniranaRazinaPrivilegije" type="ck-constr" alias="CorrRazPril" table="public.&quot;Korisnik&quot;">
+			<expression><![CDATA["RazinaPrivilegije" BETWEEN -4 AND 4]]></expression>
 	</constraint>
 </table>
 
@@ -143,17 +149,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="KorisnickoIme" not-null="true">
 		<type name="varchar" length="50"/>
 	</column>
-	<column name="Email">
+	<column name="Email" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<column name="Biografija">
+	<column name="Biografija" not-null="true">
 		<type name="varchar" length="2048"/>
 	</column>
-	<column name="IDslika">
+	<column name="IDslika" not-null="true">
 		<type name="integer" length="2048"/>
 	</column>
 	<constraint name="KorisnickoImeN_pk" type="pk-constr" table="public.&quot;PrivilegiraniKorisnik&quot;">
 		<columns names="KorisnickoIme" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="ValidEmailAdress" type="ck-constr" alias="ValidEmail" table="public.&quot;PrivilegiraniKorisnik&quot;">
+			<expression><![CDATA["Email" ~* '^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$']]></expression>
 	</constraint>
 </table>
 
@@ -179,7 +188,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDproizvod" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="ImeProizvod">
+	<column name="ImeProizvod" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
 	<column name="EnergijaPr">
@@ -197,7 +206,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="SolPr">
 		<type name="numeric" length="0"/>
 	</column>
-	<column name="MasaPr">
+	<column name="MasaPr" not-null="true">
 		<type name="numeric" length="0"/>
 	</column>
 	<column name="ZMKiselinePr">
@@ -206,7 +215,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="SeceriPr">
 		<type name="numeric" length="0"/>
 	</column>
-	<column name="IDslika">
+	<column name="IDslika" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
 	<constraint name="Proizvod_pk" type="pk-constr" table="public.&quot;Proizvod&quot;">
@@ -221,7 +230,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDOzn" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="OpisOzn">
+	<column name="OpisOzn" not-null="true">
 		<type name="varchar" length="2048"/>
 	</column>
 	<constraint name="DodatneOznake_pk" type="pk-constr" table="public.&quot;DodatneOznake&quot;">
@@ -259,20 +268,23 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="Recept" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+<table name="Recept" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="840" y="220"/>
 	<column name="IDrecept" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="VelicinaPorcija">
+	<column name="ImeRecept" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="VelicinaPorcija" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="VrijemePripreme">
+	<column name="VrijemePripreme" not-null="true">
 		<type name="time" length="0"/>
 	</column>
-	<column name="DatumIzrade">
+	<column name="DatumIzrade" not-null="true">
 		<type name="date" length="0"/>
 	</column>
 	<column name="KorisnickoIme">
@@ -293,7 +305,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDproizvod" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="Kolicina">
+	<column name="Kolicina" not-null="true">
 		<type name="numeric" length="0"/>
 	</column>
 	<constraint name="PotrebniSastojci_pk" type="pk-constr" table="public.&quot;PotrebniSastojci&quot;">
@@ -308,13 +320,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDKuharica" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="Naslov">
+	<column name="Tema" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<column name="DatumIzrade">
+	<column name="Naslov" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="DatumIzrade" not-null="true">
 		<type name="date" length="0"/>
 	</column>
-	<column name="KorisnickoIme">
+	<column name="KorisnickoIme" not-null="true">
 		<type name="varchar" length="50"/>
 	</column>
 	<constraint name="Kuharica_pk" type="pk-constr" table="public.&quot;Kuharica&quot;">
@@ -332,10 +347,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDslika" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="OpisSl">
+	<column name="OpisSl" not-null="true">
 		<type name="varchar" length="2048"/>
 	</column>
-	<column name="OpisKorak">
+	<column name="OpisKorak" not-null="true">
 		<type name="varchar" length="2048"/>
 	</column>
 	<constraint name="Korak_pk" type="pk-constr" table="public.&quot;Korak&quot;">
@@ -368,7 +383,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="IDrecept" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="Datum">
+	<column name="Datum" not-null="true">
 		<type name="date" length="0"/>
 	</column>
 	<constraint name="Konzumirao_pk" type="pk-constr" table="public.&quot;Konzumirao&quot;">
@@ -376,51 +391,57 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="KomentarRecept" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+<table name="KomentarRecept" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="520" y="0"/>
-	<column name="KorisnickoIme" not-null="true">
+	<column name="IDKomentarRecept" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="KorisnickoIme">
 		<type name="varchar" length="50"/>
 	</column>
-	<column name="IDrecept" not-null="true">
+	<column name="IDrecept">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="SadrzajKomentaraR">
-		<type name="varchar" length="2048"/>
+		<type name="varchar" length="8192"/>
 	</column>
 	<column name="OdgovorNaKomentarR">
-		<type name="varchar" length="2048"/>
+		<type name="varchar" length="8192"/>
 	</column>
 	<column name="OcjenaR">
 		<type name="integer" length="0"/>
 	</column>
 	<constraint name="KomentarRecept_pk" type="pk-constr" table="public.&quot;KomentarRecept&quot;">
-		<columns names="KorisnickoIme,IDrecept" ref-type="src-columns"/>
+		<columns names="IDKomentarRecept" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="KomentarKuharica" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+<table name="KomentarKuharica" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="460" y="220"/>
-	<column name="KorisnickoIme" not-null="true">
-		<type name="varchar" length="50"/>
-	</column>
-	<column name="IDKuharica" not-null="true">
+	<column name="IDKomentarKuharica" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="SadrzajKomentaraR">
-		<type name="varchar" length="2048"/>
+	<column name="KorisnickoIme">
+		<type name="varchar" length="50"/>
 	</column>
-	<column name="OdgovorNaKomentarR">
-		<type name="varchar" length="2048"/>
+	<column name="IDKuharica">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="SadrzajKomentaraK">
+		<type name="varchar" length="8192"/>
+	</column>
+	<column name="OdgovorNaKomentarK">
+		<type name="varchar" length="8192"/>
 	</column>
 	<column name="OcjenaK">
 		<type name="integer" length="0"/>
 	</column>
-	<constraint name="KomentarRecept_pk_cp" type="pk-constr" table="public.&quot;KomentarKuharica&quot;">
-		<columns names="KorisnickoIme,IDKuharica" ref-type="src-columns"/>
+	<constraint name="KomentarKuharica_pk" type="pk-constr" table="public.&quot;KomentarKuharica&quot;">
+		<columns names="IDKomentarKuharica" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -556,7 +577,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="IDrecept" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="KorisnickoImeKomentarRecept_fk_cp" type="fk-constr" comparison-type="MATCH SIMPLE"
+<constraint name="KorisnickoImeKomentarKuharica_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;Korisnik&quot;" table="public.&quot;KomentarKuharica&quot;">
 	<columns names="KorisnickoIme" ref-type="src-columns"/>
 	<columns names="KorisnickoIme" ref-type="dst-columns"/>
@@ -589,7 +610,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_PrivilegiraniKorisnik_Slike" type="relfk" layers="0"
 	 src-table="public.&quot;PrivilegiraniKorisnik&quot;"
 	 dst-table="public.&quot;Slike&quot;" reference-fk="IDslika_fk"
-	 src-required="false" dst-required="false">
+	 src-required="false" dst-required="true">
 	<label ref-type="name-label">
 		<position x="0" y="0"/>
 	</label>
@@ -616,7 +637,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_Proizvod_Slike" type="relfk" layers="0"
 	 src-table="public.&quot;Proizvod&quot;"
 	 dst-table="public.&quot;Slike&quot;" reference-fk="IDSlika_fk"
-	 src-required="false" dst-required="false">
+	 src-required="false" dst-required="true">
 	<label ref-type="name-label">
 		<position x="-111.193" y="208.809"/>
 	</label>
@@ -676,7 +697,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_Kuharica_Korisnik" type="relfk" layers="0"
 	 src-table="public.&quot;Kuharica&quot;"
 	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoImeAutor_fk"
-	 src-required="false" dst-required="false">
+	 src-required="false" dst-required="true">
 	<label ref-type="name-label">
 		<position x="272.985" y="111.322"/>
 	</label>
@@ -722,22 +743,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.&quot;Recept&quot;" reference-fk="IDreceptKomentarRecept"
 	 src-required="false" dst-required="true"/>
 
-<relationship name="rel_KomentarKuharica_Korisnik" type="relfk" layers="0"
-	 src-table="public.&quot;KomentarKuharica&quot;"
-	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoImeKomentarRecept_fk_cp"
-	 src-required="false" dst-required="true">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
-
-<relationship name="rel_KomentarKuharica_Kuharica" type="relfk" layers="0"
+<relationship name="&quot;rel_KomentarKuharica_Kuharica&quot;" type="relfk" layers="0"
 	 src-table="public.&quot;KomentarKuharica&quot;"
 	 dst-table="public.&quot;Kuharica&quot;" reference-fk="IDKuharicaKomentarKuharica_fk"
-	 src-required="false" dst-required="true">
-	<label ref-type="name-label">
-		<position x="85.8901" y="4.53259"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="true"/>
+
+<relationship name="&quot;rel_KomentarKuharica_Korisnik&quot;" type="relfk" layers="0"
+	 src-table="public.&quot;KomentarKuharica&quot;"
+	 dst-table="public.&quot;Korisnik&quot;" reference-fk="KorisnickoImeKomentarKuharica_fk"
+	 src-required="false" dst-required="true"/>
 
 </dbmodel>

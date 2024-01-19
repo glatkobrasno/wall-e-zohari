@@ -1,0 +1,293 @@
+#roll, #fname, #upl, #surname, #username, #password, #passwordC, #mail, #bio, #submitButton, .imgprev{
+    margin-top: 10px;
+    font-size: 0.9rem;
+    padding: 5px;
+    background-color: rgb(0, 0, 0,0.2);
+    border:1px solid rgba(255, 196, 168, 1);
+    color: rgba(255, 196, 168, 1);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin: 10px;
+}
+#fname:focus,
+#surname:focus,
+#username:focus,
+#password:focus,
+#passwordC:focus,
+#mail:focus,
+#bio:focus,
+#upl:focus,
+#submitButton:focus,
+#roll:focus{
+    border-color: rgb(255, 213, 194);
+    background-color: rgba(0, 0, 0, 0.5);
+    outline: none;
+    box-shadow: 3px 5px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+#fname:disabled,
+#surname:disabled,
+#username:disabled,
+#password:disabled,
+#passwordC:disabled,
+#mail:disabled,
+#bio:disabled,
+#upl:disabled,
+#submitButton:disabled,
+#roll:disabled,
+#imgDes{
+    border-color: rgb(78, 74, 72);
+    background-color: rgba(0, 0, 0, 0.1);
+    outline: none;
+    font-style: oblique;
+}
+#imgDes{
+    opacity: 0.5 !important;
+}
+
+.imgprev{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    aspect-ratio: 1/1;
+    width: 60%;
+    margin-left: 10%;
+    object-fit: cover;
+    object-position: center;
+    overflow: clip;
+    grid-area: img;
+    border-radius: 50%;
+    z-index: 4;
+    background-image: url(../images/defUpload.png);
+    background-size: contain;
+    background-position: center;
+}
+
+
+#hTitle{
+    grid-area: ht;
+}
+#roll{
+    grid-area: roll;
+    height: fit-content;
+    width: fit-content;
+    align-self: center;
+}
+#fname{
+    grid-area: name;
+}
+#surname{
+    grid-area: uname;
+}
+#username{
+    grid-area: user;
+}
+#password{
+    grid-area: pass;
+}
+#passwordC{
+    grid-area: passC;
+}
+#mail{
+    grid-area: mail;
+}
+#bio{
+    grid-area: bio;
+}
+#upload{
+    grid-area: img;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+    overflow: hidden;
+    opacity: 0 !important;
+    aspect-ratio: 1/1;
+    width: 80%;
+    margin-left: 10%;
+    border-radius: 50%;
+    z-index: 5;
+    cursor: pointer;
+}
+#submitButton{
+    grid-area: btn;
+}
+#submitButton:not([disabled]):hover {
+    background-color: rgb(60, 86, 119);
+}
+
+.labelTx {
+    position: relative !important;
+    top:-12px !important;
+    left: 10px;
+    border: 0 !important;
+    background-color: transparent !important;
+    font-size: 0.7rem !important;
+    color: rgb(255, 213, 194, 0.3) !important;
+    width: fit-content !important;
+    height: fit-content !important;
+    margin: 0 !important;
+}
+.profilebox{
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+.cbt{
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    height: 5rem;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    height: auto;
+    margin-bottom: 1rem;
+}
+.cookbookView, .recipeView{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 0.5rem;
+}
+.cookbook_link_p{
+    background-color: rgb(35, 51, 70);
+    color: rgba(255, 196, 168, 1);
+    border-radius: 10px;
+    border: solid rgba(255, 196, 168, 1) 2px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: 25%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.recipe_link_p{
+    background-color: rgba(39, 63, 94, 0.932);
+    color: rgba(255, 196, 168, 1);
+    border-radius: 10px;
+    border: solid rgba(255, 196, 168, 1) 2px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    width: calc(33% - 0.166rem);
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+.profile{
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: rgb(35, 51, 70,0.7);
+    min-height: calc(100vh - 5rem);
+    height: auto;
+}
+.Uname_bio_box{
+    width: 70%;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+    
+    
+}
+.UnameField{
+    font-weight: bolder;
+    font-size: larger;
+    padding: 10px;
+    color: rgba(255, 196, 168, 1);
+    padding: 10px;
+    background-color: rgb(35, 51, 70);
+    border-radius: 20px;
+    box-shadow: 8px 12px 15px 5px rgba(0, 0, 0, 0.3);
+    border:4px solid rgb(60, 86, 119);
+}
+.biobox{
+    width: 70%;
+    padding: 1rem;
+    background-color: rgb(35, 51, 70,0.4);
+    color: rgb(255, 213, 194);
+    border-radius: 1rem;
+    height: calc(100% - 6rem);
+    overflow-y: auto;
+
+}
+.ProfileImg{
+    width: 100%;
+    padding: 0;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 5px solid rgb(60, 86, 119);
+}
+.ImageBox{
+    width: 15%;
+    
+    
+}
+.FollowButton{
+    height: 50px;
+    width: 150px;
+}
+
+.CookBookB, .RecepieB{
+    height: 50px;
+    width: 35%;
+}
+
+#UP{
+    background-color: rgb(35, 51, 70);
+    color: rgba(255, 196, 168, 1);
+    border-radius: 10px;
+    border: solid rgba(255, 196, 168, 1) 2px;
+}
+
+#P{
+    background-color: rgb(70, 102, 140);
+    color: rgba(255, 196, 168, 1);
+    border-radius: 10px;
+    border: solid rgba(255, 196, 168, 1) 2px; 
+}
+
+#F{
+    background-color: rgb(35, 51, 70);
+    color: rgba(255, 196, 168, 1);
+    border-radius: 10px;
+    border: solid rgba(255, 196, 168, 1) 2px;
+    
+}
+#F:hover{
+    cursor: pointer;
+    border: solid rgba(255, 196, 168, 1) 4px;
+    font-weight: bolder;
+}
+
+#UF:hover{
+    cursor: pointer;
+    border: solid rgb(0, 0, 0) 4px;
+    font-weight: bolder;
+}
+
+
+@media (max-aspect-ratio: 1) {
+    .cookbook_link_p, .recipe_link_p{
+        width: 100%;
+    }
+    .CookBookB, .RecepieB{
+        width: 100%;
+        margin-top: 2rem;
+    }
+    .Uname_bio_box{
+        width: 100%;
+    }
+    .ImageBox{
+        width: 50%;
+    }
+}

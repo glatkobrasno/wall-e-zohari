@@ -17,5 +17,8 @@
 /Izvornikod/backend/venv/
 /Izvornikod/backend/linux-venv/
 
+# Python cache odnosno kompajlirani python
+*__pycache__*
+
 # Secreti
 *.env

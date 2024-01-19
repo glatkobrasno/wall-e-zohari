@@ -1,0 +1,128 @@
+.scanner_all_box{
+    padding: 2rem;
+    background-color: rgb(35, 51, 70, 0.7);
+    text-align: center;
+    color: rgba(255, 196, 168, 1);
+    min-height: calc(100vh - 5rem);
+}
+.title_qr{
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}
+
+.scanner_form{
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.preview_box_qr{
+    width: 10%;
+    aspect-ratio: 1;
+    background-image: url("../images/defUpload.png");
+    background-size: contain;
+    background-color: rgb(35, 51, 70);
+    border-radius: 50%;
+    overflow: clip;
+    display: -webkit-box
+}
+#upload_qr{
+    position: relative;
+    top:-3rem;
+    width: 130%;
+    height: 100%; 
+    z-index: 3;
+    color: rgb(35, 51, 70);
+}
+
+.imgprev_qr{
+    position: relative;
+    z-index: 2;
+    padding: 0;
+    margin: 0;
+    width: calc(100% + 2rem);
+    aspect-ratio: 1;
+    top:calc(-100% - 2rem);
+    
+}
+
+.qrrec_sub_btn{
+    width: 30%;
+    height: 2rem;
+    background-color: rgb(35, 51, 70);
+    border: 4px solid rgb(204, 147, 121);
+    border-radius: 1rem;
+    color: rgba(255, 196, 168, 1);
+}
+
+.generated_recepise_with_box{
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem;
+    width:100%;
+    padding: 1rem;
+}
+.qrrec_sub_btn:hover{
+    background-color: rgb(76, 110, 151);
+}
+
+.recipes_link_box{
+    display: grid;
+    grid-template-areas: 'ttl ttl ttl vr vr'
+                         '. . . vr vr'
+                         'aut aut aut aut aut';
+    min-height: 5rem;
+    border: 2px solid rgb(28, 57, 92);
+    width: calc(50% - 1rem);
+    border-radius: 2rem;
+    box-shadow: 8px 12px 15px 5px rgba(0, 0, 0, 0.3);
+    background-image: linear-gradient(to right bottom, #20385c, #23416b, #254b7b, #27558b, #275f9b);
+    color: rgba(255, 196, 168, 1);
+    text-decoration: none;
+    padding: 1rem;
+}
+
+@media (max-aspect-ratio: 1.2) {
+.recipes_link_box{
+    width: 100%;
+}
+.preview_box_qr{
+    width: 35%;
+}
+}
+
+.rec_title_box{
+    padding: 0.5rem;
+    text-align: left;
+    font-size: 2rem;
+    grid-area: ttl;
+    font-family: 'Gill Sans',sans-serif;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.432);
+}
+
+.rec_by_box{
+    align-self: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    grid-area: aut;
+    text-align: right;
+    font-style: italic;
+    color: rgba(0,0,0,0.4);
+    text-shadow: 2px 2px 2px rgb(204, 147, 121,0.3);
+
+}
+.rec_time_box{
+    align-self: center;
+    justify-self: center;
+    grid-area: vr;
+}
+
+

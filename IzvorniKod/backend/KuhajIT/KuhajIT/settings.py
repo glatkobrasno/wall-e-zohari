@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
+from dotenv import load_dotenv  # za izvadit password van
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,26 +20,34 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-15h+o2mv%-jqa%*zre=y$=p7taj*2-h%^ajk%4=2tdcur(3@9!'
+
+SECRET_KEY = os.getenv("DJANGO_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DOMENA, ADRESA = os.getenv("DOMENA"), os.getenv("ADRESA")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [DOMENA,ADRESA]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
-    'main.apps.MainConfig',
+    #'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #added:---------------------------------------------------------
+    'rest_framework',
+    'main',
+    'corsheaders',
+    #--------------------------------------------------------------
 ]
 
 MIDDLEWARE = [
@@ -50,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #added:----------------------------------------------------------
+    'corsheaders.middleware.CorsMiddleware',
+    #---------------------------------------------------------------
 ]
 
 ROOT_URLCONF = 'KuhajIT.urls'
@@ -75,15 +86,15 @@ WSGI_APPLICATION = 'KuhajIT.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+PG_PASSWORD = os.getenv("PG_PASSWORD")  # Citanje passworda iz datoteke ".env" pored ove datoteke, nju ne trackamo!!!
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'KuhajIT',
         'USER': 'postgres',
-        'PASSWORD': '',         # Enter personal postgres password and leave the rest as it is
+        'PASSWORD': PG_PASSWORD,         #TODO Enter personal postgres password and leave the rest as it is
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5432', # OVO BI TREBALO BITI DOBRO DEFAULT AKO NE MJENJATE NIST NA POSTGRESU
     }
 }
 
@@ -122,9 +133,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#added : ----------------------------------------------------------------------------
+# django rest default setings
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Adjust permissions as needed
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
+
+# allowed addreses for requests
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost:', #: !!!!!! maknuti u konacnoj verziji !!!!!!
+]
+# ------------------------------------------------------------------------------------

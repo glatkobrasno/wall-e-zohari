@@ -1,0 +1,29 @@
+
+.header
+{
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    height: 5rem;
+    width: 100%;
+    background-color: rgb(35, 51, 70); 
+    color: white; 
+    padding: 0px; 
+    background-image: url(../images/KuhajIT_image.png);   
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
+}
+
+.menue_button{
+    height: 100%;
+    aspect-ratio: 1;
+    background-image: url(../images/menueIcon_open.png);
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.menue_button:hover{
+    background-color: rgb(60, 86, 119);
+}
