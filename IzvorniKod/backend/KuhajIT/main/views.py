@@ -635,6 +635,7 @@ class HistoryView:
         dnevni_avg = {"energija" : 0, "masnoce" : 0, "bjelancevine" : 0, "ugljikohidrati" : 0, "seceri" : 0, "sol" : 0, }
         upisanidani = 0;
         oldindex = -1
+        maxval=0
         for his in history_data:
             rec_data = Potrebnisastojci.objects.filter(idrecept = getattr(his, "idrecept"))
             index = (timedelta(days = 30) - (date.today() - getattr(his, "datum") ) ).days
@@ -643,7 +644,6 @@ class HistoryView:
                 upisanidani += 1
                 
             oldindex = index
-            maxval = 0
             for prod in rec_data:
                 
                 prod_data = Proizvod.objects.filter(idproizvod = getattr(prod, "idproizvod_id"))
@@ -662,13 +662,6 @@ class HistoryView:
 
                 if max( list(nut_per_day[index].values() )) > maxval:
                     maxval = max( list(nut_per_day[index].values() ) )
-                
-        dnevni_avg["energija"] /= upisanidani
-        dnevni_avg["masnoce"] /= upisanidani
-        dnevni_avg["bjelancevine"] /= upisanidani
-        dnevni_avg["ugljikohidrati"] /= upisanidani
-        dnevni_avg["sol"] /= upisanidani
-        dnevni_avg["seceri"] /= upisanidani
         
         
         return Response([nut_per_day, dnevni_avg, maxval])
