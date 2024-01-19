@@ -21,6 +21,7 @@
 					\item Nutricionisti
 				\end{packed_enum}
 				\item Administratori
+				\item Razvojni tim
 				
 			\end{packed_enum}
 			
@@ -48,10 +49,11 @@
 				
 				\begin{packed_enum}
 					
-					\item Sve što i neregistrirani korisnik
+					\item Sve što i neregistrirani korisnik, osim slanja zahtjeva zahtjeva za registraciju
 					\item Odabrati dijetu koju prate
 					\item Pretraživati recepte skeniranjem QR koda proizvoda
 					\item Označiti konzumirane recepte
+					\item Komentirati kuharice
 					
 				\end{packed_enum}
 				
@@ -60,7 +62,7 @@
 				\begin{packed_enum}
 					
 					\item Sve što i klijent
-					\item Kreirati kuharice, to jest tematski povezane skupove recepata
+					\item Kreirati recepte i kuharice, to jest tematski povezane skupove recepata
 					
 				\end{packed_enum}
 
@@ -250,7 +252,7 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item korisnik pritišće ime kulinarskog entuzijasta unutar kuharice
+							\item korisnik odabire ime kulinarskog entuzijasta unutar kuharice
 							\item Otvara se sučelje s podatcima o kulinarskom entuzijastu
 						\end{packed_enum}
 						
@@ -271,7 +273,7 @@
 						\item[] \begin{packed_enum}
 	
 							\item korisnik u tražilicu upisuje jednu ili više ključnih riječi 
-							\item Korisnik pritišće gumb za pretraživanje
+							\item Korisnik odabire gumb za pretraživanje
 							\item Otvara se sučelje s listom profila i kuharica koje sadrže ključne riječi
 						\end{packed_enum}
 						
@@ -310,7 +312,7 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item korisnik unutar kuharice pritišće gumb "Komentiraj"
+							\item korisnik unutar kuharice odabire gumb "Komentiraj"
 							\item Otvara se sučelje gdje korisnik upisuje tekst
 							\item Pritiskom na gumb "Spremi", komentar se sprema u bazu podataka i vidljiv je unutar kuharice
 						\end{packed_enum}
@@ -376,7 +378,7 @@
 	
 							\item korisnik odabire gumb "Odabir dijete"
 							\item Otvara se sučelje gdje korisnik odabire jednu od navedenih dijeta
-							\item Pritiskom na gumb "Spremi", odabrana dijeta se sprema i vidljiva je u receptima koje korisnik pregledava ili filtrira recepte koji zadovoljavaju dijetu - potrebno je odlućuti kaj će dijeta radit
+							\item Pritiskom na gumb "Spremi", odabrana dijeta se sprema i vidljiva je u receptima koje korisnik pregledava ili filtrira recepte koji zadovoljavaju dijetu
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
@@ -910,7 +912,7 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item korisnik unutar kuharice pritišće gumb "Komentiraj"
+							\item korisnik unutar kuharice odabire gumb "Komentiraj"
 							\item Otvara se sučelje gdje korisnik upisuje tekst
 							\item Pritiskom na gumb "Spremi", komentar se sprema u bazu podataka i vidljiv je unutar kuharice
 						\end{packed_enum}
@@ -1071,7 +1073,7 @@
 				\item Potrebno je omogućiti rad više korisnika u isto vrijeme.
 				\item Sustav mora biti implementiran web aplikacijom
 				\item Osjetljivi podatci poput lozinki moraju biti pohranjeni na adekvatan način, to jest kriptirani
-				\item Korisničko sučelje mora biti otporno na pogreške tijekom korisnika
+				\item Korisničko sučelje mora biti otporno na pogreške tijekom korištenja
 				\item Sustav mora biti javno dostupan putem web domene 
 				\item Promet koji razmjenjuju klijent i poslužitelj mora biti zaštićen protokolom HTTPS
 				\item Aplikacija mora biti razvijena koristeći objektno-orijentiranu paradigmu
