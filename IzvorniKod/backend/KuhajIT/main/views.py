@@ -702,7 +702,7 @@ class RecipeView(serializers.Serializer):
     def addRecipe(request):
         if request.method == 'POST':
             # Get the current maximum IDrecept
-            max_recipe_id = Recept.objects.aggregate(Max('idrecept', default='0'))['idrecept__max']
+            max_recipe_id = Recept.objects.aggregate(Max('idrecept', default='0'))['idrecept__max']+1
 
             # Convert 'datumizrade' to the correct date format
             submission_date_str = request.data.get('submissionDate')

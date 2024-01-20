@@ -107,9 +107,9 @@ function Scanner(){
             if(time[2]!==0){
                 tx_time = tx_time + time[2]+"min "
             }
-            
+            console.log(rec.idrecept)
             return(
-            <Link to="/recipe/recept/1" className="recipes_link_box" 
+            <Link to={"/recipe/recept/"+rec.idrecept} className="recipes_link_box" 
                 key={"rc_link"+rec.idrecept}
                 style={{
                     backgroundImage: `url(${img}), linear-gradient(to right bottom, #20385c, #23416b, #254b7b, #27558b, #275f9b)`,
